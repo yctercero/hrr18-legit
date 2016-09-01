@@ -17,33 +17,24 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
-  
-Academic outcomes tracking & data management App. Name TBD
+  Academic outcomes tracking & data management App. Name TBD
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
-  Giving educators an intutive, easy to use means of tracking student outcomes.
+   Giving educators an intutive, easy to use means of tracking student outcomes.
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+
 ## Problem ##
-  > Describe the problem your product solves.
 In today’s education space most educators utilize spreadsheet software to manage student outcomes,  spreadsheet applications require a specific skillset in order to visualize data and are also inherently time consuming. We feel teachers should be focused on teaching not data entry. 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
 Our product simplifies the process of student outcomes tracking, providing the user with an intuitive, intelligent and customizable interface that takes away the pain associated with using spreadsheet software. 
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
 Empowering educators by  bringing  smart data within reach.
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
  Sign up and setup is simple, once a  user account is created the application will automatically populate class info based on your specific jurisdiction, no more hours of typing into a spreadsheet! 
  
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
 I saved 4 hours this week using your application, no more late nights at the office for me, i now have more time to spend with my family at night.
 
 ## Closing and Call to Action ##
 Go to http://URLTBD it’s super easy and free!
-  > Wrap it up and give pointers where the reader should go next.
