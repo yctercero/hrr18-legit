@@ -31,7 +31,7 @@ Our product simplifies the process of student outcomes tracking, providing the u
 Empowering educators by  bringing  smart data within reach.
 
 ## How to Get Started ##
- Sign up and setup is simple, once a  user account is created the application will automatically populate class info based on your specific jurisdiction, no more hours of typing into a spreadsheet! 
+ "Sign up and setup is simple, once a  user account is created the application will automatically populate class info based on your specific jurisdiction, no more hours of typing into a spreadsheet!"  - Happy Teacher
  
 ## Customer Quote ##
 I saved 4 hours this week using your application, no more late nights at the office for me, i now have more time to spend with my family at night.
