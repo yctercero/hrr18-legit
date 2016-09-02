@@ -1,7 +1,6 @@
 ## npm modules ##
-
 node_modules
 
 ## build directory ##
-
 client/dist/*
+

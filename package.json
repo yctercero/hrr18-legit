@@ -2,6 +2,7 @@
   "name": "hrr18-legit",
   "version": "1.0.0",
   "description": "Hack Reactor 18",
+  "main": "index.js",
   "scripts": {
     "dev": "webpack -d --watch",
     "build": "webpack -p"
