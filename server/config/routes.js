@@ -1,7 +1,7 @@
-var Users = require('../controllers/userController.js');
-var Classes = require('../controllers/classController.js');
-var Assignments = require('../controllers/assignmentController.js');
-var Students = require('../controllers/studentController.js');
+var Users = require('../models/user.js');
+var Classes = require('../models/section.js');
+var Assignments = require('../models/assignment.js');
+var Students = require('../models/student.js');
 
 module.exports = function (app, express) {
 
