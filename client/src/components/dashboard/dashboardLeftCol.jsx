@@ -4,6 +4,7 @@ import React from 'react';
 const DashboardLeftCol = () => {
     return (
         <div className="dashboardLeftCol">
+            <h3>Classes</h3>
             <ul>
                 I am the left col
             </ul>

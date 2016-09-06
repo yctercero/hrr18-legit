@@ -6,7 +6,8 @@ const DashboardSummary = () => {
         <div className="clearfix">
             <div className="dashboardSummaryProf">
                 <img src="./roo.JPG" alt=""/>
-                <h3>Username</h3>
+                <h3>@Username</h3>
+                <a className="button">Edit Profile</a>
             </div>
             <div className="dashboardSummaryStats clearfix">
                 <div>
