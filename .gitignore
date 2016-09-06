@@ -4,3 +4,5 @@ node_modules
 ## build directory ##
 client/dist/*
 
+## remote database connection ##
+config.env
