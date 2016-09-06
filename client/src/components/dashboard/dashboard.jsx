@@ -1,9 +1,9 @@
 import React from 'react';
 
 // Components
-import DashboardSummary from './dashboardSummary';
-import DashboardLeftCol from './dashboardLeftCol';
-import DashboardRightCol from './dashboardRightCol';
+import DashboardSummary from './dashboardSummary.jsx';
+import DashboardLeftCol from './dashboardLeftCol.jsx';
+import DashboardRightCol from './dashboardRightCol.jsx';
 
 const Dashboard = () => {
     return (
