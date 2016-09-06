@@ -75,6 +75,21 @@ a{
 .dashboardSummaryProf{
     width: 30%;
     background-color: orange;
+    padding: 30px;
+}
+
+.dashboardSummaryProf h3{
+    font-size: 24px;
+    text-align: center;
+    margin: 5px 0;
+}
+
+.dashboardSummaryProf img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
 }
 
 .dashboardSummaryStats{
