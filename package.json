@@ -8,7 +8,7 @@
     "dev": "webpack -d --watch",
     "build": "webpack -p",
     "start": "node server/server.js",
-    "postinstall": "webpack -p"
+    "postinstall": "webpack -p --config ./webpack.config.js --progress"
   },
   "dependencies": {
     "body-parser": "^1.13.3",
