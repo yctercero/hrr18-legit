@@ -7,9 +7,9 @@ import DashboardRightCol from './dashboardRightCol.jsx';
 
 const Dashboard = () => {
     return (
-        <div>
+        <div className="dashboardWrapper">
             <DashboardSummary />
-            <div>
+            <div className="dashboardCols">
                 <DashboardLeftCol />
                 <DashboardRightCol />
             </div>
