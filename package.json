@@ -8,6 +8,7 @@
     "build": "webpack -p"
   },
   "dependencies": {
+    "body-parser": "^1.13.3",
     "express": "^4.14.0",
     "jquery": "^3.1.0",
     "react": "^15.3.1",
