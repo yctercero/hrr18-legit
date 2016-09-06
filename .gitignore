@@ -1,7 +1,5 @@
-.DS_Store
-client/.DS_Store
-client/src/.DS_Store
-client/src/components/.DS_Store
+## Mac OS ##
+**/*.DS_Store
 
 ## npm ##
 node_modules
