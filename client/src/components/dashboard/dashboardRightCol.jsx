@@ -3,7 +3,7 @@ import React from 'react';
 
 const DashboardRightCol = () => {
     return (
-        <div>
+        <div className="dashboardRightCol">
             I'm the right column.
         </div>
     );

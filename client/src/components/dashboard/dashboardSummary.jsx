@@ -4,7 +4,8 @@ import React from 'react';
 const DashboardSummary = () => {
     return (
         <div>
-            I'm the dashboard summary.
+            <div className="dashboardSummaryProf"></div>
+            <div className="dashboardSummaryStats"></div>
         </div>
     );
 };

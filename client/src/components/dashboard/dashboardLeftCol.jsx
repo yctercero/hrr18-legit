@@ -3,9 +3,12 @@ import React from 'react';
 
 const DashboardLeftCol = () => {
     return (
-        <ul>
-            I am the left col
-        </ul>
+        <div className="dashboardLeftCol">
+            <ul>
+                I am the left col
+            </ul>
+        </div>
+        
     );
 };
 
