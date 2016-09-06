@@ -8,14 +8,6 @@ var app = express();
 require('./config/middleware.js')(app, express);
 //require('./config/routes.js')(app, express);
 
-app.get('/', function (req, res) {
-  User.findOrCreate({where: {first: "John", last: "Fritz"}})
-      .then(function () {
-        console.log("success!");
-      });
-  res.statusSend(200);
-});
-
 app.set('port', (process.env.PORT || 1337));
 
 db.sync().then(function () {
