@@ -2,15 +2,19 @@
   "name": "hrr18-legit",
   "version": "1.0.0",
   "description": "Hack Reactor 18",
-  "main": "index.js",
+  "main": "server/server.js",
   "scripts": {
     "dev": "webpack -d --watch",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "start": "node server/server.js"
   },
   "dependencies": {
     "body-parser": "^1.13.3",
+    "bookshelf": "^0.10.0",
     "express": "^4.14.0",
     "jquery": "^3.1.0",
+    "knex": "^0.11.10",
+    "pg": "^6.1.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1"
   },
