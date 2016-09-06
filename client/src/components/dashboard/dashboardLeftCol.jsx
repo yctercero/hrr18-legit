@@ -4,7 +4,7 @@ import React from 'react';
 const DashboardLeftCol = () => {
     return (
         <ul>
-            <DashboardLeftColItem />
+            I am the left col
         </ul>
     );
 };
