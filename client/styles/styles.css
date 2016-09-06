@@ -29,6 +29,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+    font-family: 'Open Sans', sans-serif;
 }
 ol, ul {
 	list-style: none;
@@ -95,4 +96,15 @@ a{
 .dashboardSummaryStats{
     width: 70%;
     background-color: lightcyan;
+}
+
+.dashboardSummaryStats > div{
+    float: left;
+    width: 32%;
+    text-align: center;
+}
+
+.dashboardSummaryStats > div p{
+    font-size: 72px;
+    font-weight: lighter;
 }
