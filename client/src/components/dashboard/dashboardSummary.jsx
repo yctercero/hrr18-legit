@@ -3,9 +3,9 @@ import React from 'react';
 
 const DashboardSummary = () => {
     return (
-        <div className="clearfix">
+        <div className="clearfix dashboardSummary">
             <div className="dashboardSummaryProf">
-                <img src="./roo.JPG" alt=""/>
+                <img src="roo.JPG" alt=""/>
                 <h3>@Username</h3>
                 <a className="button">Edit Profile</a>
             </div>

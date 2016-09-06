@@ -59,10 +59,10 @@ a{
     width: 200px;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid black;
     text-align: center;
     text-transform: uppercase;
     margin: 0 auto;
+    background-color: #9BC73C;
 }
 
 /* ------------- DASHBOARD ----------*/
@@ -74,11 +74,11 @@ a{
 }
 
 .dashboardLeftCol{
-    background: pink;
+    background:#FCFFF5;
 }
 
 .dashboardRightCol{
-    background: lightseagreen;
+    background: #eee;
 }
 
 .dashboardCols h3{
@@ -88,6 +88,11 @@ a{
     text-transform: uppercase;
 }
 
+.dashboardSummary{
+    background-color: #193441;
+    color: white;
+}
+
 .dashboardSummaryProf, .dashboardSummaryStats{
     float: left;
     min-height: 200px;
@@ -95,7 +100,6 @@ a{
 
 .dashboardSummaryProf{
     width: 30%;
-    background-color: orange;
     padding: 30px;
 }
 
@@ -115,7 +119,6 @@ a{
 
 .dashboardSummaryStats{
     width: 70%;
-    background-color: lightcyan;
 }
 
 .dashboardSummaryStats > div{
@@ -128,6 +131,7 @@ a{
 .dashboardSummaryStats > div p{
     font-size: 92px;
     font-weight: lighter;
+    color: #9BC73C;
 }
 
 .dashboardSummaryStats > div h5{
@@ -136,6 +140,14 @@ a{
     padding: 5px 60px;
 }
 
-.dashboardLeftColItem > idv{
+.dashboardLeftColItem{
+    border-radius: 5px;
+    padding: 10px;
+    height: 75px;
+    margin: 5px 0 25px;
+    background-color: #D1DBBD;
+}
+
+.dashboardLeftColItem > div{
     float: left;
 }

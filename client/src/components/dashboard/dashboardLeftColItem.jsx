@@ -8,7 +8,10 @@ const DashboardLeftColItem = () => {
                 <h6>Title</h6>
                 <p>Intro to BioChem</p>
             </div>
-            <div></div>
+            <div>
+                <h6>Section</h6>
+                <p>01</p>
+            </div>
         </div>
     );
 };
