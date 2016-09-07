@@ -23,12 +23,12 @@ const UnauthHeader = () => {
                             </a>
                         </li>
                         <li>
-                            <a className="button">
+                            <a href="/signup" className="button">
                                 Sign Up
                             </a>
                         </li>
                         <li>
-                            <a className="button">
+                            <a href="/signin" className="button">
                                 Log In
                             </a>
                         </li>
