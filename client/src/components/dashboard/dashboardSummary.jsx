@@ -19,8 +19,8 @@ const DashboardSummary = () => {
                     <h5>Average Class Size</h5>
                 </div>
                 <div>
-                    <p>34</p>
-                    <h5>Some other Stat</h5>
+                    <p>134</p>
+                    <h5># of School Days Left</h5>
                 </div>
             </div>
         </div>
