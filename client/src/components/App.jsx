@@ -2,7 +2,7 @@
 import React from 'react';
 
 import Dashboard from './dashboard/dashboard.jsx';
-import Header from './header.jsx';
+import Header from './headers/authorized_header.jsx';
 
 const App = () => {
     return (

@@ -1,6 +1,7 @@
+// Header shown at log in and sign up screen
 import React from 'react';
 
-const Header = () => {
+const UnauthHeader = () => {
     return (
         <header>
             <div className="wrapper clearfix">
@@ -11,20 +12,24 @@ const Header = () => {
                     <ul>
                         <li>
                             <a>
-                                <i className="fa fa-tachometer" aria-hidden="true"></i> 
-                                Dashboard
+                                <i className="fa fa-info" aria-hidden="true"></i> 
+                                About
                             </a>
                         </li>
                         <li>
                             <a>
-                                <i className="fa fa-envelope" aria-hidden="true"></i> 
-                                Messages
+                                <i className="fa fa-users" aria-hidden="true"></i> 
+                                Team
                             </a>
                         </li>
                         <li>
-                            <a>
-                                <i className="fa fa-angle-down" aria-hidden="true"></i> 
-                                yctercero
+                            <a className="button">
+                                Sign Up
+                            </a>
+                        </li>
+                        <li>
+                            <a className="button">
+                                Log In
                             </a>
                         </li>
                     </ul>
@@ -35,4 +40,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default UnauthHeader;
