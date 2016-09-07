@@ -6,7 +6,7 @@ module.exports = function (app, express) {
 
   // post requests to signin / singup
   app.post('/signin', Auth.signin);
-  app.post('/singnup', Auth.signup);
+  app.post('/signup', Auth.signup);
 
   // authorize access to the whole app?
   // app.get('/*', Auth.authenticate);
