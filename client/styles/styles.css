@@ -151,6 +151,10 @@ main {
     min-height: 500px;
 }
 
+.dashboardCols > div > div{
+    min-height: 500px;
+}
+
 .dashboardLeftCol ul{
     padding: 30px;
 }

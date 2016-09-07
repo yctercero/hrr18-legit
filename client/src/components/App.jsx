@@ -2,7 +2,10 @@
 import React from 'react';
 
 // Components
-import Dashboard from './dashboard/dashboard.jsx';
+import Dashboard from './dashboard/mainDashboard/dashboardCentral_component.jsx';
+import DashboardClass from './dashboard/classDashboard/dashboardClass_component.jsx';
+import DashboardStudent from './dashboard/studentDashboard/dashboardStudent_component.jsx';
+import DashboardAssignment from './dashboard/assignmentDashboard/dashboardAssignment_component.jsx';
 import Header from './headers/authorized_header.jsx';
 import UnauthHeader from './headers/unauthorized_header.jsx';
 import Welcome from './auth/welcome/welcome_component.jsx';

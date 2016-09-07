@@ -2,12 +2,11 @@
 import React from 'react';
 
 // Components
-import DashboardLeftColItem from './dashboardLeftColItem.jsx';
+import DashboardLeftColItem from './M_dashboardLeftColItem.jsx';
 
 const DashboardLeftCol = () => {
     return (
         <div className="dashboardLeftCol">
-            <h3>Classes</h3>
             <ul>
                 <DashboardLeftColItem />
                 <DashboardLeftColItem />
