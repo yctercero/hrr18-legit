@@ -1,8 +1,6 @@
 var express = require('express');
 var db = require('./config/database_config.js');
 
-var User = require('./models/user.js');
-
 var app = express();
 
 require('./config/middleware.js')(app, express);
