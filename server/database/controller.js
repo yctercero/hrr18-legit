@@ -79,7 +79,9 @@ Section.belongsToMany(Student, {
 //
 //    While sections (classes) have many assignments, assignments each have
 //    only one section. The following adds 'sectionId' to each Assignment
-//    record, and provides the method 'getAssignments' to Section instances
+//    record, and provides the following method to Section instances:
+//
+//    - getAssignments() -> return an array of associated Assignments
 //
 
 Section.hasMany(Assignment);
@@ -93,8 +95,10 @@ Section.hasMany(Assignment);
 //    'assignmentId', and 'score', and provides the following methods to
 //    Student instances:
 //
-//    - 'addAssignment'
-//    - 'getAssignments'
+//    - addAssignment() -> insert a record into the table of Student_Outcomes*
+//    - getAssignments() -> return an array of associated Assignments.
+//
+//    * usage: Student.addAssignment(Assignment, {score: 0});
 //
 
 var Student_Outcomes = db.define('Student_Outcomes', {
