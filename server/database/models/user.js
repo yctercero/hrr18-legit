@@ -1,16 +1,21 @@
 var Sequelize = require('sequelize');
 var Promise = require('bluebird');
 var bcrypt = require('bcrypt-nodejs');
-var db = require('../config/database_config.js');
+var db = require('../database_config.js');
 
 var User = db.define('User', {
   email: Sequelize.STRING,
   password: Sequelize.STRING
-}, instanceMethods: {
-  comparePassword: function (attemptedPassword, callback) {
-    bcrypt.compare(attemptedPassword, this.password, function (err, isMatch) {
-      callback(isMatch);
-    });
+}, {
+  instanceMethods: {
+    comparePassword: function (attemptedPassword, callback) {
+      bcrypt.compare(attemptedPassword, this.password, function (err, isMatch) {
+        if (err) {
+          throw err;
+        }
+        callback(isMatch);
+      });
+    }
   }
 });
 

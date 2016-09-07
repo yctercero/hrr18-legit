@@ -1,4 +1,4 @@
-var Controller = require('./controller.js');
+var Controller = require('../database/controller.js');
 var Auth = require('./authentication.js');
 
 module.exports = function (app, express) {
@@ -7,8 +7,8 @@ module.exports = function (app, express) {
   app.post('/signin', Auth.signin);
   app.post('/singnup', Auth.signup);
 
-  // authorize access to the whole app
-  app.get('/*', Auth.authenticate);
+  // authorize access to the whole app?
+  // app.get('/*', Auth.authenticate);
 
   // get (retrieve) all :models
   app.get('/api/:model/', Controller.all);
@@ -25,6 +25,6 @@ module.exports = function (app, express) {
   // fixme -->  need to query students and assignments with a
   //            class id - why not have a single route to handle both?
 
-  //app.get('api/outcomes/:section', Controller.outcomes);
+  // app.get('api/outcome/:assignment/:student', Controller.outcome);
 
 };
