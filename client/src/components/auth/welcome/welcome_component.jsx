@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Components
-import UnauthHeader from './headers/unauthorized_header.jsx';
+import UnauthHeader from '../../headers/unauthorized_header.jsx';
 
 const Welcome = () => {
     return (
@@ -46,12 +46,8 @@ const Welcome = () => {
                             </li>
                         </ul>
                     </div>
+                </div>
             </main>
-        <div>
-
-        
-            <Login />
-            <SignUp />
         </div>
     );
 };

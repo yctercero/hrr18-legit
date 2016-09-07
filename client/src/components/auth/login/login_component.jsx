@@ -1,8 +1,8 @@
 import React from 'react';
 
 //Components
-import UnauthHeader from './headers/unauthorized_header.jsx';
-import LoginForm from './login/loginForm_component.jsx';
+import UnauthHeader from '../../headers/unauthorized_header.jsx';
+import LoginForm from './loginForm_component.jsx';
 
 const Login = () => {
     return (
