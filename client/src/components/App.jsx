@@ -7,10 +7,14 @@ import Header from './headers/authorized_header.jsx';
 
 import Welcome from './auth/welcome_component.jsx';
 
-const App = () => {
-    return (
-        {this.props.children}
-    );
+class App extends React.Component {
+    
+    render(){
+        return (
+            {this.props.children}
+        );
+    }
+    
 };
 
 export default App;
