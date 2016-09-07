@@ -1,3 +1,4 @@
+var path = require('path');
 var Controller = require('../database/controller.js');
 var Auth = require('./authentication.js');
 
@@ -26,5 +27,12 @@ module.exports = function (app, express) {
   //            class id - why not have a single route to handle both?
 
   // app.get('api/outcome/:assignment/:student', Controller.outcome);
+
+  // for React-Router
+  app.all('/*', function(req, res) {
+    res.sendFile('index.html', {
+      root: path.resolve(__dirname, '../../client')
+    });
+  });
 
 };
