@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
     font-family: 'Open Sans', sans-serif;
+    color: #333;
 }
 ol, ul {
 	list-style: none;
@@ -53,6 +54,59 @@ a{
     height: 0;
 }
 
+/* ------- HEADER ---------*/
+header{
+    background-color: rgba(248, 248, 248, 0.95);
+    height: 75px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top:0;
+    z-index: 999;
+    box-shadow: 1px 1px 7px 1px #999;
+}
+
+header h1, header nav{
+    float: left;
+    width: 50%;
+}
+
+header h1{
+    padding: 15px;
+}
+
+header h1 img{
+    width: 50px;
+    height: auto;
+}
+
+header .wrapper{
+    width: 90%;
+    margin: 0 auto;
+}
+
+header nav ul{
+    float: right;
+    padding: 20px 0;
+}
+
+nav ul li{
+    float: left;
+    width: 150px;
+    text-align: center;
+}
+
+nav ul li a{
+    display: block;
+    padding: 10px;
+    text-transform: lowercase;
+}
+
+nav ul li a i{
+    padding-right: 5px;
+}
+
+
 /*-------UNIVERSAL------------*/
 .button{
     display: block;
@@ -62,30 +116,51 @@ a{
     text-align: center;
     text-transform: uppercase;
     margin: 0 auto;
+    color: #9BC73C;
+    border: 1px solid #9BC73C;
+    font-weight: lighter;
+}
+
+.button:hover{
     background-color: #9BC73C;
+    color: white;
 }
 
 /* ------------- DASHBOARD ----------*/
+.dashboardWrapper{
+    padding-top: 75px;
+}
+
 .dashboardCols > div {
     float: left;
     width: 50%;
     min-height: 500px;
+}
+
+.dashboardLeftCol ul{
     padding: 30px;
 }
 
-.dashboardLeftCol{
-    background:#FCFFF5;
+.dashboardRightCol{
+    background: #f8f8f8;
+    color: white;
+    font-size: 32px;
+    text-align: center;
 }
 
-.dashboardRightCol{
-    background: #eee;
+.dashboardRightCol p{
+    padding: 60px;
+    color: #ddd;
 }
 
 .dashboardCols h3{
     font-size: 32px;
     text-align: center;
-    font-weight: 500;
+    font-weight: lighter;
     text-transform: uppercase;
+    background-color: #F26248;
+    color: white;
+    padding: 15px 0;
 }
 
 .dashboardSummary{
@@ -106,7 +181,7 @@ a{
 .dashboardSummaryProf h3{
     font-size: 24px;
     text-align: center;
-    margin: 5px 0;
+    margin: 10px 0;
 }
 
 .dashboardSummaryProf img{
@@ -125,7 +200,7 @@ a{
     float: left;
     width: 32%;
     text-align: center;
-    padding: 60px 30px;
+    padding: 70px 30px;
 }
 
 .dashboardSummaryStats > div p{
@@ -138,6 +213,9 @@ a{
     font-size: 18px;
     font-weight: 700;
     padding: 5px 60px;
+    word-spacing: 3px;
+    line-height: 120%;
+    text-transform: uppercase
 }
 
 .dashboardLeftColItem{
@@ -145,9 +223,40 @@ a{
     padding: 10px;
     height: 75px;
     margin: 5px 0 25px;
-    background-color: #D1DBBD;
+    background-color: #f8f8f8;
+    box-shadow: 1px 1px 1px 1px #ccc;
+}
+
+.dashboardLeftColItem:hover, .dashboardLeftColItem:hover h6{
+    background-color: #9BC73C;
+    color: white;
 }
 
 .dashboardLeftColItem > div{
     float: left;
+}
+
+.dashboardLeftColItem > div:first-of-type{
+    width: 75%;
+}
+
+.dashboardLeftColItem > div:nth-of-type(2){
+    width: 15%;
+}
+
+.dashboardLeftColItem > div:last-of-type{
+    width: 10%;
+    text-align: right;
+    vertical-align: middle;
+    padding-top: 10px;
+}
+
+.dashboardLeftColItem h6{
+    text-transform: uppercase;
+    color: #999;
+}
+
+.dashboardLeftColItem p{
+    font-size: 20px;
+    margin: 10px 0;
 }

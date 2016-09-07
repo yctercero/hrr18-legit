@@ -2,10 +2,12 @@
 import React from 'react';
 
 import Dashboard from './dashboard/dashboard.jsx';
+import Header from './header.jsx';
 
 const App = () => {
     return (
         <div>
+            <Header />
             <Dashboard />
         </div>
     );

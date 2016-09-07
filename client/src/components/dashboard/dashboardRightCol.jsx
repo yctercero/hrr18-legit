@@ -4,7 +4,7 @@ import React from 'react';
 const DashboardRightCol = () => {
     return (
         <div className="dashboardRightCol">
-            Click on a class to see info.
+            <p>Click on a class to see info...</p>
         </div>
     );
 };

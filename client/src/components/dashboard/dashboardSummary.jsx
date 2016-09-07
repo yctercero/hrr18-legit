@@ -5,8 +5,8 @@ const DashboardSummary = () => {
     return (
         <div className="clearfix dashboardSummary">
             <div className="dashboardSummaryProf">
-                <img src="roo.JPG" alt=""/>
-                <h3>@Username</h3>
+                <img src="http://www.globaldetroit.com/wp-content/uploads/2014/10/Gracie-Headshot-square.png" alt=""/>
+                <h3>@yctercero</h3>
                 <a className="button">Edit Profile</a>
             </div>
             <div className="dashboardSummaryStats clearfix">
@@ -19,8 +19,8 @@ const DashboardSummary = () => {
                     <h5>Average Class Size</h5>
                 </div>
                 <div>
-                    <p>34</p>
-                    <h5>Some other Stat</h5>
+                    <p>134</p>
+                    <h5># of School Days Left</h5>
                 </div>
             </div>
         </div>
