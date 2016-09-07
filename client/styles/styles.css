@@ -54,6 +54,27 @@ a{
     height: 0;
 }
 
+
+/*-------UNIVERSAL------------*/
+.button{
+    display: block;
+    width: 200px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 auto;
+    color: #9BC73C;
+    border: 1px solid #9BC73C;
+    font-weight: lighter;
+}
+
+.button:hover{
+    background-color: #9BC73C;
+    color: white;
+}
+
+
 /* ------- HEADER ---------*/
 header{
     background-color: rgba(248, 248, 248, 0.95);
@@ -106,29 +127,22 @@ nav ul li a i{
     padding-right: 5px;
 }
 
-
-/*-------UNIVERSAL------------*/
-.button{
-    display: block;
-    width: 200px;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-    text-transform: uppercase;
-    margin: 0 auto;
-    color: #9BC73C;
-    border: 1px solid #9BC73C;
-    font-weight: lighter;
+header .button{
+    width: 120px;
 }
 
-.button:hover{
-    background-color: #9BC73C;
-    color: white;
-}
+
 
 /* ------------- DASHBOARD ----------*/
-.dashboardWrapper{
-    padding-top: 75px;
+main {
+    margin-top: 75px;
+    background-image: url('http://yadayadacreative.com/CDA/logoLarge.png');
+    background-repeat: no-repeat;
+    background-position: center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .dashboardCols > div {
@@ -259,4 +273,69 @@ nav ul li a i{
 .dashboardLeftColItem p{
     font-size: 20px;
     margin: 10px 0;
+}
+
+
+/* ---------WELCOME-----------*/
+.intro, .team, .about{
+    min-height: 350px;
+    background-color: rgba(255, 255, 255, 0.95);
+    text-align: center;
+    padding: 100px;
+}
+
+.about{
+    background-color: rgba(248, 248, 248, 0.95);
+}
+
+.intro h1{
+    font-size: 92px;
+    color: #F26248;
+    text-transform: uppercase;
+    font-family: 'Baloo Tamma', cursive;
+}
+
+.intro h2{
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.team h3, .about h3{
+    font-size: 52px;
+    text-transform: uppercase;
+    color: #9BC73C;
+    margin-bottom: 60px;
+    font-weight: 700;
+}
+
+.team h5{
+    font-size: 20px;
+    margin: 10px 0 5px;
+    font-weight: 700;
+}
+
+.team h6{
+    font-weight: 500;
+}
+
+.team p{
+    font-weight: lighter;
+    margin: 15px 0;
+}
+
+.teamUl{
+    width: 80%;
+    margin: 35px auto;
+}
+
+.teamUl li{
+    float: left;
+    width: 25%;
+    padding: 20px;
+}
+
+.teamUl img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
 }
