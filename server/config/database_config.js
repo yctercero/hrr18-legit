@@ -2,9 +2,7 @@ var Sequelize = require('sequelize');
 
 if (process.env.NODE_ENV !== 'production') {
 
-  // local env variables are ignored by Git, so check if NODE_ENV is
-  // production - otherwise this throws a file-not-found error:
-
+  // config.js is ignored by Git
   var config = require('../../config.js');
 }
 
