@@ -1,3 +1,4 @@
+var path = require('path');
 var Controller = require('../database/controller.js');
 var Auth = require('./authentication.js');
 
@@ -30,7 +31,7 @@ module.exports = function (app, express) {
   // for React-Router
   app.all('/*', function(req, res) {
     res.sendFile('index.html', {
-      root: path.resolve(__dirname, '../client')
+      root: path.resolve(__dirname, '../../client')
     });
   });
 
