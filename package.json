@@ -28,6 +28,7 @@
     "sequelize": "^3.24.1",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.12.2"
+    "webpack-hot-middleware": "^2.12.2",
+    "jwt-simple":"^0.50"
   }
 }

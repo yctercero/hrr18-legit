@@ -6,7 +6,8 @@ var db = require('../database_config.js');
 var User = db.define('User', {
   email: Sequelize.STRING,
   password: Sequelize.STRING
-}, {
+},
+{
   instanceMethods: {
     comparePassword: function (attemptedPassword, callback) {
       bcrypt.compare(attemptedPassword, this.password, function (err, isMatch) {
