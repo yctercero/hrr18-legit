@@ -8,9 +8,6 @@ module.exports = function (app, express) {
   app.post('/signin', Auth.signin);
   app.post('/signup', Auth.signup);
 
-  // authorize access to the whole app?
-  // app.get('/*', Auth.authenticate);
-
   // get (retrieve) all :models
   app.get('/api/:model/', Controller.all);
 
@@ -25,8 +22,6 @@ module.exports = function (app, express) {
 
   // fixme -->  need to query students and assignments with a
   //            class id - why not have a single route to handle both?
-
-  // app.get('api/outcome/:assignment/:student', Controller.outcome);
 
   // for React-Router
   app.all('/*', function(req, res) {

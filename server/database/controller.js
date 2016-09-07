@@ -13,16 +13,85 @@ var models = {
   users: User
 };
 
+// ============================================================================
+//
 // 1. given a user id, return all sections (classes) for that user
 // 2. given a section (class) id, return all students and assignments
-// 3. given an assignment id and student id, return the maximum score for that
-//    assignment and the student's individual score.
+// 3. given a student id and an assignment id, return the maximum score for
+//    that assignment and the student's individual score.
+
+// to accomplish these and other tasks, we must harness the awesome power of...
+
+//
+//                /$$$$$  /$$$$$$  /$$$$$$ /$$   /$$  /$$$$$$
+//               |__  $$ /$$__  $$|_  $$_/| $$$ | $$ /$$__  $$
+//                  | $$| $$  \ $$  | $$  | $$$$| $$| $$  \__/
+//                  | $$| $$  | $$  | $$  | $$ $$ $$|  $$$$$$
+//             /$$  | $$| $$  | $$  | $$  | $$  $$$$ \____  $$
+//            | $$  | $$| $$  | $$  | $$  | $$\  $$$ /$$  \ $$
+//            |  $$$$$$/|  $$$$$$/ /$$$$$$| $$ \  $$|  $$$$$$/
+//             \______/  \______/ |______/|__/  \__/ \______/
+//
+// ============================================================================
+//
+// 1. given a user id, return a list of classes
+//
+// While users (teachers) have many sections (classes), sections each have only
+// one user. The following adds the foreign key 'userId' to Section instances,
+// and the following methods to User instances:
+//
+//    - getSections() -> returns an array of associated Sections
+//    - setSections(array) -> associate this user with an array of Sections
+
+User.hasMany(Section);
 
 // ============================================================================
 //
-// Join Student and Assignment records in the table 'Student_Outcomes', which
-// includes fields 'studentId', 'assignmentId', and 'score', and provides the
-// method 'addAssignment(assignment, {score: x})' to Student instances
+// 2. given a class id, return a list of students
+//
+// 2a. given a student id, return a list of classes
+//
+// Because students may belong to many classes, a join table 'Student_Roster'
+// will include fields 'sectionId' and 'studentId', and provides the following
+// to Student instances:
+//
+//    - getSections() -> returns an array of associated Sections
+//
+// and to Section instances:
+//
+//    - getStudents() -> returns an array of associated Students
+
+Student.belongsToMany(Section, {
+  through: 'Student_Roster'
+});
+
+Section.belongsToMany(Student, {
+  through: 'Student_Roster'
+});
+
+// ============================================================================
+//
+// 3. given a class id, return a list of assignments:
+//
+// While sections (classes) have many assignments, assignments each have only
+// one section. The following adds 'sectionId' to each Assignment record, and
+// provides the method 'getAssignments' to Section instances
+
+Section.hasMany(Assignment);
+
+// ============================================================================
+//
+// 4. given a student id and an assignment id, return the maximum score for
+//    that assignment, that the student's individual score:
+//
+// The join table 'Student_Outcomes' will include fields 'studentId',
+// 'assignmentId', and 'score', and provides the following methods:
+//
+// instances of Student:
+//
+//
+// 'addAssignment'
+// 'getAssignments' to Student instances
 
 var Student_Outcomes = db.define('Student_Outcomes', {
   score: Sequelize.INTEGER
@@ -37,34 +106,6 @@ Assignment.belongsToMany(Student, {
 });
 
 // ============================================================================
-//
-// While sections (classes) have many assignments, assignments have only one
-// section. The following adds 'sectionId' to each Assignment record, and
-// provides the method 'getAssignments' to Section instances
-
-Section.hasMany(Assignment);
-
-// ============================================================================
-//
-// Because the same students may belong to many classes, create another join
-// table 'Student_Roster' which includes fields 'sectionId' and 'studentId',
-// and provides the method "getStudents" to Section instances, and the method
-// 'getSections' to Student instances
-
-Student.belongsToMany(Section, {
-  through: 'Student_Roster'
-});
-
-Section.belongsToMany(Student, {
-  through: 'Student_Roster'
-});
-
-// ============================================================================
-//
-// While users (teachers) have many sections (classes), sections have only one
-// user. The following adds ''
-
-
 
 module.exports = {
 
