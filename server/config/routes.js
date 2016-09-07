@@ -27,4 +27,11 @@ module.exports = function (app, express) {
 
   // app.get('api/outcome/:assignment/:student', Controller.outcome);
 
+  // for React-Router
+  app.all('/*', function(req, res) {
+    res.sendFile('index.html', {
+      root: path.resolve(__dirname, '../client')
+    });
+  });
+
 };

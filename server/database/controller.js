@@ -1,4 +1,5 @@
 var Sequelize = require('sequelize');
+var db = require('./database_config.js');
 
 var Assignment = require('./models/assignment.js');
 var Section = require('./models/section.js');
@@ -11,6 +12,59 @@ var models = {
   students: Student,
   users: User
 };
+
+// 1. given a user id, return all sections (classes) for that user
+// 2. given a section (class) id, return all students and assignments
+// 3. given an assignment id and student id, return the maximum score for that
+//    assignment and the student's individual score.
+
+// ============================================================================
+//
+// Join Student and Assignment records in the table 'Student_Outcomes', which
+// includes fields 'studentId', 'assignmentId', and 'score', and provides the
+// method 'addAssignment(assignment, {score: x})' to Student instances
+
+var Student_Outcomes = db.define('Student_Outcomes', {
+  score: Sequelize.INTEGER
+});
+
+Student.belongsToMany(Assignment, {
+  through: Student_Outcomes
+});
+
+Assignment.belongsToMany(Student, {
+  through: Student_Outcomes
+});
+
+// ============================================================================
+//
+// While sections (classes) have many assignments, assignments have only one
+// section. The following adds 'sectionId' to each Assignment record, and
+// provides the method 'getAssignments' to Section instances
+
+Section.hasMany(Assignment);
+
+// ============================================================================
+//
+// Because the same students may belong to many classes, create another join
+// table 'Student_Roster' which includes fields 'sectionId' and 'studentId',
+// and provides the method "getStudents" to Section instances, and the method
+// 'getSections' to Student instances
+
+Student.belongsToMany(Section, {
+  through: 'Student_Roster'
+});
+
+Section.belongsToMany(Student, {
+  through: 'Student_Roster'
+});
+
+// ============================================================================
+//
+// While users (teachers) have many sections (classes), sections have only one
+// user. The following adds ''
+
+
 
 module.exports = {
 
