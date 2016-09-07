@@ -1,6 +1,14 @@
-var Controller = require('./controller.js')
+var Controller = require('./controller.js');
+var Auth = require('./authentication.js');
 
 module.exports = function (app, express) {
+
+  // post requests to signin / singup
+  app.post('/signin', Auth.signin);
+  app.post('/singnup', Auth.signup);
+
+  // authorize access to the whole app
+  app.get('/*', Auth.authenticate);
 
   // get (retrieve) all :models
   app.get('/api/:model/', Controller.all);
