@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize');
-var db = require('../config/database_config.js');
+var db = require('../database_config.js');
 
 var Student = db.define('Student', {
   first: Sequelize.STRING,

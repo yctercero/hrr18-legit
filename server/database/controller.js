@@ -1,8 +1,15 @@
+var Sequelize = require('sequelize');
+
+var Assignment = require('./models/assignment.js');
+var Section = require('./models/section.js');
+var Student = require('./models/student.js');
+var User = require('./models/user.js');
+
 var models = {
-  assignments: require('../models/assignment.js'),
-  classes: require('../models/section.js'),
-  students: require('../models/student.js'),
-  users: require('../models/user.js')
+  assignments: Assignment,
+  classes: Section,
+  students: Student,
+  users: User
 };
 
 module.exports = {
@@ -47,12 +54,5 @@ module.exports = {
       res.send(data);
     });
   }
-
-  // GET returns all students and assignments for :section
-
-  // outcomes: function (req, res) {
-  //   var students = [];
-  //   var assignments = [];
-  // }
 
 };
