@@ -20,6 +20,7 @@ import StudentForm from './components/forms/studentForm_component.jsx';
 
 export default (
     <Router path="/" component={App} >
+        <IndexRoute component={Welcome} />
         <Route path="welcome" component={Welcome} />
         <Route path="signin" component={Login} />
         <Route path="signup" component={Signup} />
@@ -36,3 +37,6 @@ export default (
 
 // NOTE: The way we've defined our routes, Login, Signup, Dashboard, etc. are all children of App. In order to get child components
 // to render within App, you need to add 'this.props.children' within the render method of App where you want these child components to show up
+
+
+// INDEXROUTE = what will be rendered when the user just goes to '/'
