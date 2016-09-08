@@ -1,5 +1,9 @@
 // Dashboard summary is the component above the two columns in the dashboard
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
+
+// Redux
+import { connect } from 'react-redux';
+import { signupUser } from '../actions/index.js'
 
 // Components
 import Dashboard from './dashboard/mainDashboard/dashboardCentral_component.jsx';
@@ -23,4 +27,15 @@ class App extends React.Component {
     
 };
 
-export default App;
+App.PropTypes = {
+    dispatch: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired
+}
+
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: isAuthenticated
+    }
+}
+
+export default connect(mapStateToProps)(App);
