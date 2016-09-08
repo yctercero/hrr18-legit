@@ -18,7 +18,7 @@ module.exports = function (app, express) {
   app.post('/api/:model', Controller.one);
 
   // put (update) one :model with :id
-  app.put('/api/:model/:id', Controller.mod);
+  //app.put('/api/:model/:id', Controller.mod);
 
   // fixme -->  need to query students and assignments with a
   //            class id - why not have a single route to handle both?
