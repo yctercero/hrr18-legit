@@ -27,18 +27,9 @@ class App extends React.Component {
     
 };
 
-App.PropTypes = {
-    dispatch: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired
-}
-
 function mapStateToProps(state) {
     return {
-<<<<<<< HEAD
-        //isAuthenticated: isAuthenticated
-=======
-        isAuthenticated: isAuthenticated
->>>>>>> 1a6afcbf1e597987ebf76590063ac46ce08668e5
+
     }
 }
 

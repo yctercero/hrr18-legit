@@ -22,6 +22,7 @@ module.exports = {
   },
 
   signin: function (req, res) {
+    console.log("HERE---------", req), "----------------";
     res.send({token: tokenForUser(req.user) });
 
     // var email = req.body.email;
