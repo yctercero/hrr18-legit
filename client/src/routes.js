@@ -1,7 +1,11 @@
+// React
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+// React Router
 import {Router, Route, IndexRoute } from 'react-router';
 
+// Components
 import App from './components/App.jsx';
 import Welcome from './components/auth/welcome/welcome_component.jsx';
 import Login from './components/auth/login/login_component.jsx';
@@ -29,3 +33,6 @@ export default (
         </Route>
     </Router>
 );
+
+// NOTE: The way we've defined our routes, Login, Signup, Dashboard, etc. are all children of App. In order to get child components
+// to render within App, you need to add 'this.props.children' within the render method of App where you want these child components to show up
