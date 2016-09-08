@@ -23,15 +23,15 @@ var models = {
 //
 // to accomplish these and other tasks, we must harness the awesome power of...
 //
-//                /$$$$$  /$$$$$$  /$$$$$$ /$$   /$$  /$$$$$$
-//               |__  $$ /$$__  $$|_  $$_/| $$$ | $$ /$$__  $$
-//                  | $$| $$  \ $$  | $$  | $$$$| $$| $$  \__/
-//                  | $$| $$  | $$  | $$  | $$ $$ $$|  $$$$$$
-//             /$$  | $$| $$  | $$  | $$  | $$  $$$$ \____  $$
-//            | $$  | $$| $$  | $$  | $$  | $$\  $$$ /$$  \ $$
-//            |  $$$$$$/|  $$$$$$/ /$$$$$$| $$ \  $$|  $$$$$$/
-//             \______/  \______/ |______/|__/  \__/ \______/
-//
+//        /$$$$$  /$$$$$$  /$$$$$$ /$$   /$$  /$$$$$$
+//       |__  $$ /$$__  $$|_  $$_/| $$$ | $$ /$$__  $$
+//          | $$| $$  \ $$  | $$  | $$$$| $$| $$  \__/
+//          | $$| $$  | $$  | $$  | $$ $$ $$|  $$$$$$
+//     /$$  | $$| $$  | $$  | $$  | $$  $$$$ \____  $$
+//    | $$  | $$| $$  | $$  | $$  | $$\  $$$ /$$  \ $$
+//    |  $$$$$$/|  $$$$$$/ /$$$$$$| $$ \  $$|  $$$$$$/
+//     \______/  \______/ |______/|__/  \__/ \______/
+
 // ============================================================================
 //
 // 1. given a user id, return a list of classes
@@ -116,23 +116,20 @@ module.exports = {
 //
 
   enrol: function (req, res) {
-    Student
-    .findOne({
+    Student.findOne({
       where: {
         id: req.body.StudentId
       }
     }).then(function (student) {
       if (student) {
-        Section
-        .findOne({
+        Section.findOne({
           where: {
             id: req.body.SectionId
           }
         })
         .then(function (section) {
           if (section) {
-            section
-            .addStudent(student)
+            section.addStudent(student)
             .then(function (conf) {
               res.json(conf);
             })
@@ -165,16 +162,14 @@ module.exports = {
 //
 
   outcome: function (req, res) {
-    Student
-    .findOne({
+    Student.findOne({
       where: {
         id: req.body.StudentId
       }
     })
     .then(function (student) {
       if (student) {
-        Assignment
-        .findOne({
+        Assignment.findOne({
           where: {
             id: req.body.AssignmentId
           }
@@ -217,8 +212,7 @@ module.exports = {
 
     var model = req.params.model;
 
-    models[model]
-    .findAll()
+    models[model].findAll()
     .then(function (found) {
       if (found) {
         res.json(found);
@@ -234,30 +228,30 @@ module.exports = {
 
 // ============================================================================
 //
-// GET ONE: return a record for :model with :id
+// GET ONE: return a record for :model with :id. Response includes details for
+//          each record, in addition to the following:
 //
-//  every response includes a details object
+//          for instances of User:
 //
-//  for instances of User, the JSON response includes:
+//          - sections: an array of sections associated with the User
 //
-//    - sections: an array of sections associated with the User
+//          for instances of Section (class):
 //
-//  for instances of Section (class):
+//          - students: an array of students associated with the Section
+//          - assignments: an array of assignments associated with the Section
+//          - average: a number represeting the average score of all students
 //
-//    - students: an array of students associated with the Section
-//    - assignments: an array of assignments associated with the Section
-//        - average: a number represeting the average score of all students
+//          for instances of Student:
 //
-//  for instances of Student:
+//          - sections: an array of sections associated with the Student
+//            (students may enrol in many classes)
+//          - assignments: an array of assignments associated with the Student
+//            (includes Students' individual scores with each Assignment)
 //
-//    - sections: an array of sections associated with the Student
-//    - assignments: an array of assignments associated with the Student
-//        - score: the Student's individual score for each Assignment
+//          for instances of Assignment:
 //
-//  for instances of Assignment:
-//
-//    - average: a number representing the average score of all Students
-//    - students: an array of individual student outcomes
+//          - average: a number representing the average score of all Students
+//            (assignments are specific to each class)
 //
 
   one: function (req, res) {
@@ -266,8 +260,7 @@ module.exports = {
     var id = req.params.id;
 
     if (id) {
-      models[model]
-      .findOne({
+      models[model].findOne({
         where: {
           id: id
         }
@@ -286,8 +279,7 @@ module.exports = {
 
           if (model === 'users') {
 
-            found
-            .getSections({
+            found.getSections({
               attributes: ['id', 'name', 'grade', 'subject'],
               joinTableAttributes: []
             })
@@ -306,9 +298,8 @@ module.exports = {
 
           } else if (model === 'classes') {
 
-            found
-            .getAssignments({
-              attributes: ['id', 'name','maxScore']
+            found.getAssignments({
+              attributes: ['id', 'name']
             })
             .then(function (assignments) {
               aggregate.assignments = assignments;
@@ -335,8 +326,7 @@ module.exports = {
 
           } else if (model === 'students') {
 
-            found
-            .getSections({
+            found.getSections({
               attributes: ['id', 'name','grade', 'subject'],
               joinTableAttributes: []
             })
@@ -365,16 +355,14 @@ module.exports = {
 
           } else if (model === 'assignments') {
 
-            found
-            .getStudents({
+            found.getStudents({
               attributes: ['id', 'first', 'last'],
               joinTableAttributes: ['score']
             })
             .then(function (students) {
-              aggregate.average = students.reduce(function (total, individual) {
-                return total += individual.Student_Outcomes.score;
-              }, 0) / students.length;
-              aggregate.students = students;
+              aggregate.average = ((students.reduce(function (avg, ind) {
+                return avg += ind.Student_Outcomes.score;
+              }, 0) / students.length) / found.maxScore) * 100;
               res.json(aggregate);
             })
             .catch(function (err) {
@@ -396,8 +384,7 @@ module.exports = {
 //
 
     } else {
-      models[model]
-      .create(req.body)
+      models[model].create(req.body)
       .then(function (conf) {
         res.json(conf);
       })
@@ -418,12 +405,12 @@ module.exports = {
     var model = req.params.model;
     var id = req.params.id;
 
-    models[model]
-    .update(req.body, {
+    models[model].update(req.body, {
       where: {
         id: id
       }
-    }).then(function (found) {
+    })
+    .then(function (found) {
       if (found) {
         res.json(found);
       } else {
