@@ -9,6 +9,7 @@ import DashboardAssignment from './dashboard/assignmentDashboard/dashboardAssign
 import Header from './headers/authorized_header.jsx';
 import UnauthHeader from './headers/unauthorized_header.jsx';
 import Welcome from './auth/welcome/welcome_component.jsx';
+import Forms from './forms/form_component.jsx';
 
 class App extends React.Component {
     
