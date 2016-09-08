@@ -1,4 +1,8 @@
+//AJAX
+import axios from 'axios';
+
 import * as types from '../constants/ActionTypes';
+
 //////////////////////////////////////
 /////////////// LOGIN ////////////////
 
@@ -30,34 +34,46 @@ function loginError(message) {
 }
 
 export function loginUser(creds) {
-  console.log("USER", user);
-  let config = {
-    method: 'POST',
-    headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-    body: `email=${creds.email}&password=${creds.password}`
-  }
+  console.log("CREDS", creds);
+  let config = axios.create({
+    method: 'post',
+    url: '/signin',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(`email=${creds.email}&password=${creds.password}`)
+  });
 
-  return dispatch => {
-    // Dispatch sends call to the API passing in creds
-    dispatch(requestLogin(creds))
+  const request = axios.post(config).then(function(response){
+      console.log(response);
+    }).catch(function(error){
+      console.log(error);
+    });
 
-    return fetch('/signin', config)
-      .then(response =>
-        response.json().then(user => ({ user, response }))
-            ).then(({ user, response }) =>  {
-        if (!response.ok) {
-          // If error loging in, call loginError
-          dispatch(loginError(user.message))
-          return Promise.reject(user)
-        } else {
-          // If login was successful, save user's token in local storage
-          localStorage.setItem('id_token', user.id_token)
-          console.log(user, user.id_token)
-          // call receiveLogin that lets app know user is authenticated and passes through token
-          dispatch(receiveLogin(user))
-        }
-      }).catch(err => console.log("Login Error: ", err))
-  }
+    return {
+      type: types.LOGIN_REQUEST,
+      payload: request
+    };
+
+  // return dispatch => {
+  //   // Dispatch sends call to the API passing in creds
+  //   dispatch(requestLogin(creds))
+
+  //   return fetch('/signin', config)
+  //     .then(response =>
+  //       response.json().then(user => ({ user, response }))
+  //           ).then(({ user, response }) =>  {
+  //       if (!response.ok) {
+  //         // If error loging in, call loginError
+  //         dispatch(loginError(user.message))
+  //         return Promise.reject(user)
+  //       } else {
+  //         // If login was successful, save user's token in local storage
+  //         localStorage.setItem('id_token', user.id_token)
+  //         console.log(user, user.id_token)
+  //         // call receiveLogin that lets app know user is authenticated and passes through token
+  //         dispatch(receiveLogin(user))
+  //       }
+  //     }).catch(err => console.log("Login Error: ", err))
+  // }
 }
 
 

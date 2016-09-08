@@ -29,6 +29,7 @@ class LoginForm extends React.Component {
     onFormSubmit(event){
         event.preventDefault();
         // need to send request to API
+        console.log(this.state);
         this.props.loginUser(this.state);
         this.setState({
             email: '',
@@ -38,7 +39,7 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.onFormSubmit}>
+            <form onSubmit={this.onFormSubmit.bind(this)}>
                 <input 
                     type="text" 
                     placeholder="Username..."

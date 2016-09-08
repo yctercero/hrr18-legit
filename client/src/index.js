@@ -13,6 +13,7 @@ import routes from './routes'
 // Redux
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import ReduxPromise from 'redux-promise';
 
 import reducers from './reducers/index.js';
 
@@ -20,7 +21,7 @@ import reducers from './reducers/index.js';
 let rootElement = document.getElementById('app');
 
 // there exists only one store in redux and it is what contains our apps state
-let createStoreWithMiddleware = applyMiddleware()(createStore);
+let createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
