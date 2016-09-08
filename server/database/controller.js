@@ -56,9 +56,9 @@ User.hasMany(Section);
 //    following useful methods:
 //
 //    - Section.getStudents() -> returns an array of associated Students
-//    - Section.addStudent() -> associate this Section with a Student
 //
 //    - Student.getSections() -> returns an array of associated Sections
+//    - Student.addSections() -> associates this student with array of Sections
 //
 
 Section.belongsToMany(Student, {
@@ -112,46 +112,30 @@ module.exports = {
 
 // ============================================================================
 //
-// POST ENROL: associate one student with one section
+// POST ENROL: associate students with sections
 //
 
   enrol: function (req, res) {
-    Student.findOne({
-      where: {
-        id: req.body.StudentId
-      }
-    }).then(function (student) {
-      if (student) {
-        Section.findOne({
-          where: {
-            id: req.body.SectionId
-          }
-        })
-        .then(function (section) {
-          if (section) {
-            section.addStudent(student)
-            .then(function (conf) {
-              res.json(conf);
-            })
-            .catch(function (err) {
-              throw err;
-            });
-          } else {
-            console.log('no matching class records found');
-            res.sendStatus(404);
-          }
-        })
-        .catch(function (err) {
-          throw err;
-        })
-      } else {
-        console.log('no matching student records found');
-        res.sendStatus(404);
-      }
-    })
-    .catch(function (err) {
-      throw err;
-    });
+
+    while (id = req.body.students.pop()) {
+      Student.findOne({
+        where: {
+          id: id
+        }
+      }).then(function (student) {
+        if (student) {
+          return student.addSections(req.body.classes);
+        } else {
+          console.log('no matching student record found');
+          return res.sendStatus(404);
+        }
+      })
+      .catch(function (err) {
+        throw err;
+      });
+    }
+    res.sendStatus(204);
+
   },
 
 // ============================================================================
@@ -231,28 +215,28 @@ module.exports = {
 // GET ONE: return a record for :model with :id. Response includes details for
 //          each record, in addition to the following:
 //
-//          for instances of User:
-//
-//          - sections: an array of sections associated with the User
-//
-//          for instances of Section (class):
-//
-//          - students: an array of students associated with the Section
-//          - assignments: an array of assignments associated with the Section
-//          - average: a number represeting the average score of all students
-//
-//          for instances of Student:
-//
-//          - sections: an array of sections associated with the Student
-//            (students may enrol in many classes)
-//          - assignments: an array of assignments associated with the Student
-//            (includes Students' individual scores with each Assignment)
-//
-//          for instances of Assignment:
-//
-//          - average: a number representing the average score of all Students
-//            (assignments are specific to each class)
-//          - students: an array of all students associated with the assignment
+// for instances of User:
+
+// - sections: an array of sections associated with the User
+
+// for instances of Section (class):
+
+// - students: an array of students associated with the Section
+// - assignments: an array of assignments associated with the Section
+// - average: a number represeting the average score of all students
+
+// for instances of Student:
+
+// - sections: an array of sections associated with the Student
+//   (students may enrol in many classes)
+// - assignments: an array of assignments associated with the Student
+//   (includes Students' individual scores with each Assignment)
+
+// for instances of Assignment:
+
+// - average: a number representing the average score of all Students
+//   (assignments are specific to each class)
+// - students: an array of all students associated with the assignment
 //
 
   one: function (req, res) {

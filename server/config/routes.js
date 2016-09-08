@@ -59,17 +59,17 @@ module.exports = function (app, express) {
 
 // ============================================================================
 //
-// POST to student roster with JSON -> {SectionId, StudentId}
+// POST to student roster with JSON -> {[students], [classes]}
 //
 
-  app.post('/api/enrol', Controller.enrol);
+  app.put('/api/enrol', Controller.enrol);
 
 // ============================================================================
 //
 // POST to student outcomes with JSON -> {StudentId, AssignmentId, score}
 //
 
-  app.post('/api/report', Controller.outcome);
+  app.post('/api/outcome', Controller.outcome);
 
 // ============================================================================
 //
