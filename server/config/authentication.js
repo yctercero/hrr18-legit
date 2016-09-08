@@ -3,9 +3,10 @@ var User = require('../database/models/user.js');
 var config = require('../../config.js');
 
 var tokenForUser = function(user) {
+  var secret = process.env.secret || config.secret;
   // each token we take email and add a string
   const timestamp = new Date().getTime();
-  return jwt.encode({sub: user.email, iat: timestamp}, config.secret);
+  return jwt.encode({sub: user.email, iat: timestamp}, secret);
   };
 
 
