@@ -34,7 +34,7 @@ App.PropTypes = {
 
 function mapStateToProps(state) {
     return {
-        isAuthenticated: isAuthenticated
+        //isAuthenticated: isAuthenticated
     }
 }
 

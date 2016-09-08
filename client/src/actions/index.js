@@ -30,7 +30,7 @@ function loginError(message) {
 }
 
 export function loginUser(creds) {
-
+  console.log("USER", user);
   let config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
@@ -52,6 +52,7 @@ export function loginUser(creds) {
         } else {
           // If login was successful, save user's token in local storage
           localStorage.setItem('id_token', user.id_token)
+          console.log(user, user.id_token)
           // call receiveLogin that lets app know user is authenticated and passes through token
           dispatch(receiveLogin(user))
         }
