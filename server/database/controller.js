@@ -38,7 +38,7 @@ var models = {
 //
 //    While users (teachers) have many sections (classes), sections each have
 //    only one user. The following adds the foreign key 'userId' to Section
-//    instances and the following methods:
+//    instances, and provides the following useful methods:
 //
 //    - User.getSections() -> returns an array of associated Sections
 //
@@ -52,8 +52,8 @@ User.hasMany(Section);
 // 2a. given a student id, return a list of classes
 //
 //    Because students may belong to many classes, the table 'Student_Roster'
-//    will include fields 'sectionId' and 'studentId', and provides the
-//    following methods:
+//    includes the fields 'sectionId' and 'studentId', and provides the
+//    following useful methods:
 //
 //    - Section.getStudents() -> returns an array of associated Students
 //    - Section.addStudent() -> associate this Section with a Student
@@ -75,7 +75,7 @@ Student.belongsToMany(Section, {
 //
 //    While sections (classes) have many assignments, assignments each have
 //    only one section. The following adds 'sectionId' to each Assignment
-//    record, and provides the following methods:
+//    record, and provides the following useful methods:
 //
 //    - Section.getAssignments() -> return an array of associated Assignments
 //
@@ -85,10 +85,10 @@ Section.hasMany(Assignment);
 // ============================================================================
 //
 // 4. given a student id and an assignment id, return the maximum score for
-//    that assignment and the student's individual score:
+//    that assignment, and the student's individual score:
 //
-//    The join table 'Student_Outcomes' will include fields 'studentId',
-//    'assignmentId', and 'score', and provides the following methods:
+//    The join table 'Student_Outcomes' includes the fields 'studentId',
+//    'assignmentId', and 'score', and provides the following useful methods:
 //
 //    - Student.getAssignments() -> return an array of associated Assignments
 //    - Student.addAssignment() -> insert a record into Student_Outcomes*
@@ -252,6 +252,7 @@ module.exports = {
 //
 //          - average: a number representing the average score of all Students
 //            (assignments are specific to each class)
+//          - students: an array of all students associated with the assignment
 //
 
   one: function (req, res) {
@@ -363,6 +364,7 @@ module.exports = {
               aggregate.average = ((students.reduce(function (avg, ind) {
                 return avg += ind.Student_Outcomes.score;
               }, 0) / students.length) / found.maxScore) * 100;
+              aggregate.students = students;
               res.json(aggregate);
             })
             .catch(function (err) {
