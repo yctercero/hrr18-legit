@@ -1,0 +1,10 @@
+export const ADD_USER = 'ADD_USER';
+export const ADD_CLASS = 'ADD_CLASS';
+export const ADD_STUDENT = 'ADD_STUDENT';
+export const ADD_ASSIGNMENT = 'ADD_ASSIGNMENT';
+export const EDIT_CLASS = 'EDIT_CLASS';
+export const EDIT_STUDENT = 'EDIT_STUDENT';
+export const EDIT_ASSIGNMENT = 'EDIT_ASSIGNMENT';
+export const DELETE_CLASS = 'DELETE_CLASS';
+export const DELETE_STUDENT = 'DELETE_STUDENT';
+export const DELETE_ASSIGNMENT = 'DELETE_ASSIGNMENT';
