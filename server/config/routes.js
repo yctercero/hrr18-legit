@@ -1,8 +1,15 @@
 var path = require('path');
 var Controller = require('../database/controller.js');
 var Auth = require('./authentication.js');
+// var passportService = require('./passport');
+// var passport = require('passport');
+// var requireAuth = passport.authenticate('jwt', { session: false});
 
 module.exports = function (app, express) {
+  //testing passport
+  // app.get('/test', requireAuth, function(req, res) {
+  //   res.send({hello: 'Aman'});
+  // });
 
   // post requests to signin / singup
   app.post('/signin', Auth.signin);
