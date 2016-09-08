@@ -2,9 +2,14 @@ var passport = require('passport');
 var User = require('../database/models/user');
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;
-var config = require('../../config.js');
+
 var LocalStrategy = require('passport-local');
 // Passport : is the User logged in or not?
+if (process.env.NODE_ENV !== 'production') {
+
+  // config.js is ignored by Git
+  var config = require('../../config.js');
+}
 
 // Create Local Strategy
 
