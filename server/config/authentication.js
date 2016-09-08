@@ -1,6 +1,11 @@
 var jwt = require('jwt-simple');
 var User = require('../database/models/user.js');
-var config = require('../../config.js');
+
+if (process.env.NODE_ENV !== 'production') {
+
+  // config.js is ignored by Git
+  var config = require('../../config.js');
+}
 
 var tokenForUser = function(user) {
   var secret = process.env.secret || config.secret;
