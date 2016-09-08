@@ -1,10 +1,11 @@
-var User = require('../database/models/user.js');
 var jwt = require('jwt-simple');
+var User = require('../database/models/user.js');
 var secret = 'test';
 
 var tokenforUser = function(user) {
   // each token we take email and add a string
-  return jwt.encode({sub: user.email}, secret);
+  const timestamp = new Date().getTime();
+  return jwt.encode({sub: user.email, iat: timestamp}, secret);
   };
 
 
@@ -42,7 +43,7 @@ module.exports = {
   signup: function(req, res, next) {
     var email = req.body.email;
     var password = req.body.password;
-    // console.log(email, password);
+
     User.create({
       where: {
         email: email,
