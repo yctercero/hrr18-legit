@@ -113,10 +113,105 @@ Assignment.belongsToMany(Student, {
   through: Student_Outcomes
 });
 
+module.exports = {
+
 // ============================================================================
 //
+// POST ENROL: associate one student with one section
+//
 
-module.exports = {
+  enrol: function (req, res) {
+    Student
+    .findOne({
+      where: {
+        id: req.body.StudentId
+      }
+    }).then(function (student) {
+      if (student) {
+        Section
+        .findOne({
+          where: {
+            id: req.body.SectionId
+          }
+        })
+        .then(function (section) {
+          if (section) {
+            section
+            .setStudents([student])
+            .then(function (conf) {
+              res.json(conf);
+            })
+            .catch(function (err) {
+              throw err;
+            });
+          } else {
+            console.log('no matching class records found');
+            res.sendStatus(404);
+          }
+        })
+        .catch(function (err) {
+          throw err;
+        })
+      } else {
+        console.log('no matching student records found');
+        res.sendStatus(404);
+      }
+    })
+    .catch(function (err) {
+      throw err;
+    });
+  },
+
+// ============================================================================
+//
+// POST OUTCOME: associate one student with one assignment, and report the
+//               student's individual score. Accepts a data object containing
+//               StudentId, AssignmentId, and score
+//
+
+  outcome: function (req, res) {
+    Student
+    .findOne({
+      where: {
+        id: req.body.StudentId
+      }
+    })
+    .then(function (student) {
+      if (student) {
+        Assignment
+        .findOne({
+          where: {
+            id: req.body.AssignmentId
+          }
+        })
+        .then(function (assignment) {
+          if (assignment) {
+            student.addAssignment(assignment, {
+              score: req.body.score
+            })
+            .then(function (conf) {
+              res.json(conf);
+            })
+            .catch(function (err) {
+              throw err;
+            })
+          } else {
+            console.log('no matching assignment records found');
+            res.sendStatus(404);
+          }
+        })
+        .catch(function (err) {
+          throw err;
+        });
+      } else {
+        console.log('no matching student records found');
+        res.sendStatus(404);
+      }
+    })
+    .catch(function (err) {
+      throw err;
+    });
+  },
 
 // ============================================================================
 //
@@ -124,113 +219,187 @@ module.exports = {
 //
 
   all: function (req, res) {
-    models[req.params.model]
+
+    var model = req.params.model;
+
+    models[model]
     .findAll()
     .then(function (found) {
-      res.send(found);
+      if (found) {
+        res.json(found);
+      } else {
+        console.log('no matching records found in ' + model);
+        res.sendStatus(404);
+      }
+    })
+    .catch(function (err) {
+      throw err;
     });
   },
 
 // ============================================================================
 //
-// GET ONE: return a record* of type :model with :id
+// GET ONE: return a record for :model with :id
 //
-//  * every response includes a details object and a type (table name)
+//  every response includes a details object
 //
-//  * for instances of Section (class), the JSON response includes:
+//  for instances of Section (class), the JSON response includes:
 //
 //    - assignments: an array of assignments associated with the Section,
 //    - students: an array of students associated with the Section
 //
-//  * for instances of Student,
+//  for instances of Student,
 //
 //    - sections: an array of sections associated with the Student,
 //    - assignments: an array of assignments associated with the Student
 //
-//  * for instances of User,
+//  for instances of User,
 //
 //    - sections: an array of sections associated with the User
-//
-// ============================================================================
-//
-// POST ONE: create a new record of type :model
 //
 
   one: function (req, res) {
 
-    var model = models[req.params.model];
+    var model = req.params.model;
     var id = req.params.id;
 
     if (id) {
-      model.findOne({
+      models[model]
+      .findOne({
         where: {
           id: id
         }
       })
       .then(function (found) {
-
         if (found) {
 
           var aggregate = {
-            details: found,
-            type: found.getTableName()
+            details: found
           };
 
-          if (aggregate.type === 'Section') {
+          if (model === 'classes') {
 
             // include all students and assignments for the given section
-            aggregate.assignments = found.getAssignments();
-            aggregate.students = found.getStudents();
 
-          } else if (aggregate.type === 'Student') {
+            found
+            .getAssignments({
+              attributes: ['id', 'name','maxScore']
+            })
+            .then(function (assignments) {
+              aggregate.assignments = assignments;
+              found.getStudents({
+                attributes: ['id', 'first','last'],
+                joinTableAttributes: []
+              })
+              .then(function (students) {
+                aggregate.students = students;
+                res.json(aggregate);
+              })
+              .catch(function (err) {
+                throw err;
+              });
+            })
+            .catch(function (err) {
+              throw err;
+            });
+
+          } else if (model === 'students') {
 
             // include all assignments and sections for the given student
-            aggregate.assignments = found.getAssignments();
-            aggregate.sections = found.getSections();
 
-          } else if (aggregate.type === 'User') {
+            found
+            .getAssignments({
+              attributes: ['id', 'name','maxScore'],
+              joinTableAttributes: ['score']
+            })
+            .then(function (assignments) {
+              aggregate.assignments = assignments;
+              found.getSections({
+                attributes: ['id', 'name','grade', 'subject']
+              })
+              .then(function (sections) {
+                aggregate.classes = sections;
+                res.json(aggregate);
+              })
+              .catch(function (err) {
+                throw err;
+              });
+            })
+            .catch(function (err) {
+              throw err;
+            });
+
+          } else if (model === 'users') {
 
             // include all sections for the given user
-            aggregate.sections = found.getSections();
+
+            found
+            .getSections({
+              attributes: ['id', 'name', 'grade', 'subject'],
+              joinTableAttributes: []
+            })
+            .then(function (sections) {
+              aggregate.classes = sections;
+              res.json(aggregate);
+            })
+            .catch(function (err) {
+              throw err;
+            });
+          } else {
+            res.json(aggregate);
           }
-          res.json(aggregate);
         } else {
-          console.log(model + ' with id: ' + id + ' not found');
-          res.statusSend(404);
+          console.log('no records matching id: ' + id + ' in ' + model);
+          res.sendStatus(404);
         }
       })
       .catch(function (err) {
-        console.log(err);
+        throw err;
       });
+
+// ============================================================================
+//
+// POST ONE: create a new record of type :model
+//
     } else {
-      model.create({
-        where: req.body
-      })
+      models[model]
+      .create(req.body)
       .then(function (conf) {
-        res.send(conf);
+        res.json(conf);
       })
       .catch(function (err) {
-        console.log(err);
+        throw err;
       });
     }
   },
 
 // ============================================================================
 //
-// PUT MOD: update one record of type :model with :id
-//
-// *not tested
+// PUT MOD: update one record of type :model with :id. Accepts a data object
+//          with new associations / definitions for the given :model with :id
 //
 
-// mod: function (req, res) {
-//   models[re.params.model]
-//   .update(req.body, {
-//     where: {
-//       id: req.params.id
-//     }
-//   }).then(function (found) {
-//     res.send(found);
-//   });
-// }
+  mod: function (req, res) {
+
+    var model = req.params.model;
+    var id = req.params.id;
+
+    models[model]
+    .update(req.body, {
+      where: {
+        id: id
+      }
+    }).then(function (found) {
+      if (found) {
+        res.json(found);
+      } else {
+        console.log('no records matching id: ' + id + ' in ' + model);
+        res.sendStatus(404);
+      }
+    })
+    .catch(function (err) {
+      throw err;
+    });
+  }
 
 };
