@@ -4,9 +4,9 @@ var Auth = require('./authentication.js');
 var passportService = require('./passport.js');
 var passport = require('passport');
 
-
 const requireAuth = passport.authenticate('jwt', { session: false});
 const requireSignin = passport.authenticate('local', {session: false});
+
 module.exports = function (app, express) {
 
 // ============================================================================

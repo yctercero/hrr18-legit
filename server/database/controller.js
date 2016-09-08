@@ -16,8 +16,8 @@ var models = {
 // ============================================================================
 //
 // 1. given a user id, return all sections (classes) for that user
-// 2. given a section (class) id, return all students
-// 3. given a section (class) id, return all assignments
+// 2. given a section id, return all students
+// 3. given a section id, return all assignments
 // 4. given a student id and an assignment id, return the maximum score for
 //    that assignment and the student's individual score.
 //
@@ -38,10 +38,9 @@ var models = {
 //
 //    While users (teachers) have many sections (classes), sections each have
 //    only one user. The following adds the foreign key 'userId' to Section
-//    instances and the following methods to User instances:
+//    instances and the following methods:
 //
-//    - getSections() -> returns an array of associated Sections
-//    - setSections() -> associate this User with an array of Sections
+//    - User.getSections() -> returns an array of associated Sections
 //
 
 User.hasMany(Section);
@@ -54,22 +53,19 @@ User.hasMany(Section);
 //
 //    Because students may belong to many classes, the table 'Student_Roster'
 //    will include fields 'sectionId' and 'studentId', and provides the
-//    following to Student instances:
+//    following methods:
 //
-//    - getSections() -> returns an array of associated Sections
-//    - setSections() -> associate this Student with an array of Sections
+//    - Section.getStudents() -> returns an array of associated Students
+//    - Section.addStudent() -> associate this Section with a Student
 //
-//    and to Section instances:
-//
-//    - getStudents() -> returns an array of associated Students
-//    - setStudents() -> associate this Section with an array of Students
+//    - Student.getSections() -> returns an array of associated Sections
 //
 
-Student.belongsToMany(Section, {
+Section.belongsToMany(Student, {
   through: 'Student_Roster'
 });
 
-Section.belongsToMany(Student, {
+Student.belongsToMany(Section, {
   through: 'Student_Roster'
 });
 
@@ -79,9 +75,9 @@ Section.belongsToMany(Student, {
 //
 //    While sections (classes) have many assignments, assignments each have
 //    only one section. The following adds 'sectionId' to each Assignment
-//    record, and provides the following method to Section instances:
+//    record, and provides the following methods:
 //
-//    - getAssignments() -> return an array of associated Assignments
+//    - Section.getAssignments() -> return an array of associated Assignments
 //
 
 Section.hasMany(Assignment);
@@ -89,14 +85,13 @@ Section.hasMany(Assignment);
 // ============================================================================
 //
 // 4. given a student id and an assignment id, return the maximum score for
-//    that assignment, that the student's individual score:
+//    that assignment and the student's individual score:
 //
 //    The join table 'Student_Outcomes' will include fields 'studentId',
-//    'assignmentId', and 'score', and provides the following methods to
-//    Student instances:
+//    'assignmentId', and 'score', and provides the following methods:
 //
-//    - addAssignment() -> insert a record into the table of Student_Outcomes*
-//    - getAssignments() -> return an array of associated Assignments.
+//    - Student.getAssignments() -> return an array of associated Assignments
+//    - Student.addAssignment() -> insert a record into Student_Outcomes*
 //
 //    * usage: Student.addAssignment(Assignment, {score: 0});
 //
@@ -137,7 +132,7 @@ module.exports = {
         .then(function (section) {
           if (section) {
             section
-            .setStudents([student])
+            .addStudent(student)
             .then(function (conf) {
               res.json(conf);
             })
@@ -243,19 +238,26 @@ module.exports = {
 //
 //  every response includes a details object
 //
-//  for instances of Section (class), the JSON response includes:
-//
-//    - assignments: an array of assignments associated with the Section,
-//    - students: an array of students associated with the Section
-//
-//  for instances of Student,
-//
-//    - sections: an array of sections associated with the Student,
-//    - assignments: an array of assignments associated with the Student
-//
-//  for instances of User,
+//  for instances of User, the JSON response includes:
 //
 //    - sections: an array of sections associated with the User
+//
+//  for instances of Section (class):
+//
+//    - students: an array of students associated with the Section
+//    - assignments: an array of assignments associated with the Section
+//        - average: a number represeting the average score of all students
+//
+//  for instances of Student:
+//
+//    - sections: an array of sections associated with the Student
+//    - assignments: an array of assignments associated with the Student
+//        - score: the Student's individual score for each Assignment
+//
+//  for instances of Assignment:
+//
+//    - average: a number representing the average score of all Students
+//    - students: an array of individual student outcomes
 //
 
   one: function (req, res) {
@@ -277,9 +279,32 @@ module.exports = {
             details: found
           };
 
-          if (model === 'classes') {
+// ============================================================================
+//
+// switch case: users
+//
 
-            // include all students and assignments for the given section
+          if (model === 'users') {
+
+            found
+            .getSections({
+              attributes: ['id', 'name', 'grade', 'subject'],
+              joinTableAttributes: []
+            })
+            .then(function (sections) {
+              aggregate.classes = sections;
+              res.json(aggregate);
+            })
+            .catch(function (err) {
+              throw err;
+            });
+
+// ============================================================================
+//
+// switch case: classes
+//
+
+          } else if (model === 'classes') {
 
             found
             .getAssignments({
@@ -303,22 +328,26 @@ module.exports = {
               throw err;
             });
 
+// ============================================================================
+//
+// switch case: students
+//
+
           } else if (model === 'students') {
 
-            // include all assignments and sections for the given student
-
             found
-            .getAssignments({
-              attributes: ['id', 'name','maxScore'],
-              joinTableAttributes: ['score']
+            .getSections({
+              attributes: ['id', 'name','grade', 'subject'],
+              joinTableAttributes: []
             })
-            .then(function (assignments) {
-              aggregate.assignments = assignments;
-              found.getSections({
-                attributes: ['id', 'name','grade', 'subject']
+            .then(function (sections) {
+              aggregate.classes = sections;
+              found.getAssignments({
+                attributes: ['id', 'name','maxScore'],
+                joinTableAttributes: ['score']
               })
-              .then(function (sections) {
-                aggregate.classes = sections;
+              .then(function (assignments) {
+                aggregate.assignments = assignments;
                 res.json(aggregate);
               })
               .catch(function (err) {
@@ -329,24 +358,28 @@ module.exports = {
               throw err;
             });
 
-          } else if (model === 'users') {
+// ============================================================================
+//
+// switch case: assignments
+//
 
-            // include all sections for the given user
+          } else if (model === 'assignments') {
 
             found
-            .getSections({
-              attributes: ['id', 'name', 'grade', 'subject'],
-              joinTableAttributes: []
+            .getStudents({
+              attributes: ['id', 'first', 'last'],
+              joinTableAttributes: ['score']
             })
-            .then(function (sections) {
-              aggregate.classes = sections;
+            .then(function (students) {
+              aggregate.average = students.reduce(function (total, individual) {
+                return total += individual.Student_Outcomes.score;
+              }, 0) / students.length;
+              aggregate.students = students;
               res.json(aggregate);
             })
             .catch(function (err) {
               throw err;
-            });
-          } else {
-            res.json(aggregate);
+            })
           }
         } else {
           console.log('no records matching id: ' + id + ' in ' + model);
@@ -361,6 +394,7 @@ module.exports = {
 //
 // POST ONE: create a new record of type :model
 //
+
     } else {
       models[model]
       .create(req.body)
