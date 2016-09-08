@@ -6,16 +6,18 @@ var passport = require('passport');
 
 
 const requireAuth = passport.authenticate('jwt', { session: false});
-
+const requireSignin = passport.authenticate('local', {session: false});
 module.exports = function (app, express) {
 
-  //testing passport
+  //testing passport - working!
   app.get('/test', requireAuth, function(req, res) {
     res.send({hello: 'this is working'});
   });
+  //testing passport signin - working!
+  app.post('/signin', requireSignin, Auth.signin);
 
   // post requests to signin / singup
-  app.post('/signin', Auth.signin);
+  // app.post('/signin', Auth.signin);
   app.post('/signup', Auth.signup);
 
   // get (retrieve) all :models
