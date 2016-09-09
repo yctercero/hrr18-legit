@@ -39,15 +39,8 @@ export function loginUser(creds) {
     email: creds.email,
     password: creds.password
   }
-  user = JSON.stringify(user);
-  let config = axios.create({
-    method: 'post',
-    url: 'api/signin',
-    headers: {'Content-Type': 'application/json'},
-    body: user
-  });
 
-  const request = axios.post(config).then(function(response){
+  const request = axios.post('/signin', {"email": user.email, "password": user.password}).then(function(response){
       console.log("response", response);
     }).catch(function(error){
       console.log(error);
