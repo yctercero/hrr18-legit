@@ -1,22 +1,87 @@
+//React
 import React from 'react';
 
+//Redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { addStudent } from '../../actions/addStudent.js';
 
-const StudentForm = () => {
-    return (
-        <div className="formWrapper">
-            <h3>Student</h3>
-            <form>
-                <label htmlFor="first">First Name</label>
-                <input name="first" type="text" placeholder="First Name..."/>
-                <label htmlFor="last">Last Name</label>
-                <input name="last" type="text" placeholder="Last Name..."/>
-                <label htmlFor="name">Preferred Name</label>
-                <input name="name" type="text" placeholder="Goes by..."/>
-                
-                <button>Save Student</button>
-            </form>
-        </div>
-    );
+
+class StudentForm extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            first: '',
+            last: ''
+        };
+    }
+
+    onFirstNameChange(event){
+        this.setState({ first: event.target.value })
+    }
+
+    onLastNameChange(event){
+        this.setState({ last: event.target.value })
+    }
+
+    onFormSubmit(event){
+        event.preventDefault();
+        // need to send request to API
+        console.log(this.state);
+        this.props.addClass(this.state);
+        this.setState({
+            name: '',
+            grade: '',
+            subject: ''
+        })
+    }
+
+    onFormSubmit(event){
+        event.preventDefault();
+        // need to send request to API
+        console.log(this.state);
+        this.props.addStudent(this.state);
+        this.setState({
+            first: '',
+            last: '',
+        })
+    }
+
+    render(){
+        return (
+            <div className="formWrapper">
+                <h3>Student</h3>
+                <form  onSubmit={this.onFormSubmit.bind(this)}>
+                    <label htmlFor="first">First Name</label>
+                    <input 
+                        name="first" 
+                        type="text" 
+                        placeholder="First Name..."
+                        value={this.state.first}
+                        onChange={this.onFirstNameChange.bind(this)}
+                    />
+                    <label htmlFor="last">Last Name</label>
+                    <input 
+                        name="last" 
+                        type="text" 
+                        placeholder="Last Name..."
+                        value={this.state.last}
+                        onChange={this.onLastNameChange.bind(this)}
+                    />
+                    <label htmlFor="name">Add to class:</label>
+                    <input name="name" type="text" placeholder="Goes by..."/>
+                    
+                    <button>Save Student</button>
+                </form>
+            </div>
+        );
+    }
 };
 
-export default StudentForm;
+// gives us access to this.props.addUser within component
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ addStudent }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(StudentForm);
