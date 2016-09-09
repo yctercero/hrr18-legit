@@ -2,18 +2,8 @@ var jwt = require('jwt-simple');
 var User = require('../database/models/user.js');
 
 if (process.env.NODE_ENV !== 'production') {
-
-  // config.js is ignored by Git
   var config = require('../../config.js');
 }
-
-var tokenForUser = function(user) {
-  var secret = process.env.secret || config.secret;
-  // each token we take email and add a string
-  const timestamp = new Date().getTime();
-  return jwt.encode({sub: user.email, iat: timestamp}, secret);
-  };
-
 
 module.exports = {
 
@@ -22,7 +12,6 @@ module.exports = {
   },
 
   signin: function (req, res) {
-    console.log("HERE---------", req), "----------------";
     res.send({token: tokenForUser(req.user) });
 
     // var email = req.body.email;
@@ -49,23 +38,31 @@ module.exports = {
     // });
   },
 
-  signup: function(req, res, next) {
-    var email = req.body.email;
-    var password = req.body.password;
-    console.log(email);
-    User.create({
-      // where: {
-      email: email,
-      password: password
-      // }
-    }).then(function (user) {
-
-      //signin user?
-      // sending back jwt to user
-      res.json({token: tokenForUser(user) });
-      // redirect to home?
-    }).catch(function (err) {
-      console.log(err);
+  signup: function (req, res, next) {
+    console.log('signup for ' + req.body.email);
+    User.findOne({
+      where: {
+        email: req.body.email
+      }
+    })
+    .then(function (user) {
+      if (user) {
+        console.log('user already exists');
+        res.redirect('/signin');
+      } else {
+        User.create(req.body)
+        .then(function (newUser) {
+          res.json({
+            token: jwt.encode(newUser, config.secret)
+          });
+        })
+        .catch(function (err) {
+          next(err);
+        });
+      }
+    })
+    .catch(function (err) {
+      next(err);
     });
   }
 
