@@ -1,10 +1,13 @@
+// See actions/index.js to see where/how/when the action types are being dispatched
+
 import {
   LOGIN_SUCCESS, LOGIN_REQUEST, LOGIN_FAILURE
 } from '../constants/ActionTypes.js'
 
-// The auth reducer. The starting state sets authentication
-// based on a token being in local storage. In a real app,
-// we would also want a util to check if the token is expired.
+// The starting state sets authentication based on a token being in local storage. 
+// This should mean the user does not have to sign back in every single time the page refreshes or if they come
+// back to the page after already loggin in.
+// Ideally, we would also want a util to check if the token is expired.
 export default function signinReducer(state = {
     isFetching: false,
     isAuthenticated: localStorage.getItem('token') ? true : false
