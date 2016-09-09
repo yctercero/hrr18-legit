@@ -46,10 +46,10 @@ export function addAssignment(assignInfo) {
   }
   return function(dispatch) {
     dispatch(requestAddAssignment(Info));
-      return axios.post('/api/add/classes', { "name": Info.name, "maxScore": Info.maxScore, "SectionId": Info.sectionId })
+      return axios.post('/api/add/assignments', { "name": Info.name, "maxScore": Info.maxScore, "SectionId": Info.sectionId })
         .then(function(response){
             dispatch(addedAssignment(response.data));
-            browserHistory.push('/home')
+            browserHistory.push('/home');
         })
         .catch(function(response){
             dispatch(assignmentAddError(response));
