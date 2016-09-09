@@ -9,11 +9,9 @@ var User = db.define('User', {
 },
 {
   instanceMethods: {
-    comparePassword: function (attemptedPassword, callback) {
-      bcrypt.compare(attemptedPassword, this.password, function (err, isMatch) {
-        if (err) { throw err; }
-        callback(null, isMatch);
-      });
+    comparePassword: function (attemptedPassword) {
+      var confirm = Promise.promisify(bcrypt.compare);
+      return confirm(attemptedPassword, this.password);
     }
   }
 });
