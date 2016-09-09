@@ -5,7 +5,7 @@ import {
 // The auth reducer. The starting state sets authentication
 // based on a token being in local storage. In a real app,
 // we would also want a util to check if the token is expired.
-export default function auth(state = {
+export default function signinReducer(state = {
     isFetching: false,
     isAuthenticated: localStorage.getItem('token') ? true : false
   }, action) {
@@ -22,7 +22,7 @@ export default function auth(state = {
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
-        token: action.token
+        token: action.payload.token
       })
     case LOGIN_SUCCESS:
       console.log("LOGIN SUCCEEDED");
