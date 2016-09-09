@@ -15,7 +15,7 @@ import UnauthHeader from './headers/unauthorized_header.jsx';
 import Welcome from './auth/welcome/welcome_component.jsx';
 import Forms from './forms/form_component.jsx';
 
-class App extends React.Component {
+export default class App extends React.Component {
     
     render(){
         return (
@@ -27,10 +27,14 @@ class App extends React.Component {
     
 };
 
-function mapStateToProps(state) {
-    return {
+// App.propTypes = {
+//   isAuthenticated: PropTypes.bool.isRequired
+// }
 
-    }
-}
+// function mapStateToProps(state) {
+//     return {
+//         isAuthenticated: state.isAuthenticated
+//     }
+// }
 
-export default connect(mapStateToProps)(App);
+// export default connect(mapStateToProps)(App);

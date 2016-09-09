@@ -1,6 +1,8 @@
 //AJAX
 import axios from 'axios';
 
+import { browserHistory } from 'react-router'
+
 import * as types from '../constants/ActionTypes';
 
 //////////////////////////////////////
@@ -11,16 +13,22 @@ function requestLogin(creds) {
     type: types.LOGIN_REQUEST,
     isFetching: true,
     isAuthenticated: false,
-    creds
+    payload: creds
   }
 }
 
-function receiveLogin(user) {
+function receiveLogin(token) {
   return {
     type: types.LOGIN_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    id_token: user.id_token
+    payload: token,
+    meta: {
+        done: true,
+        transition: (prevState, nextState, action) => ({
+          pathname: '/home'
+        })
+      }
   }
 }
 
@@ -29,49 +37,23 @@ function loginError(message) {
     type: types.LOGIN_FAILURE,
     isFetching: false,
     isAuthenticated: false,
-    message
+    payload: message
   }
 }
 
 export function loginUser(creds) {
-  console.log("CREDS", creds);
-  var user = {
-    email: creds.email,
-    password: creds.password
+
+  return function(dispatch) {
+      dispatch(requestLogin(creds));
+      return axios.post('/signin', { "email": creds.email, "password": creds.password})
+        .then(function(response){
+            dispatch(receiveLogin(response.data));
+            browserHistory.push('/home')
+        })
+        .catch(function(response){
+            dispatch(loginError(response));
+        });
   }
-
-  const request = axios.post('/signin', {"email": user.email, "password": user.password}).then(function(response){
-      console.log("response", response);
-    }).catch(function(error){
-      console.log(error);
-    });
-
-    return {
-      type: types.LOGIN_REQUEST,
-      payload: request
-    };
-
-  // return dispatch => {
-  //   // Dispatch sends call to the API passing in creds
-  //   dispatch(requestLogin(creds))
-
-  //   return fetch('/signin', config)
-  //     .then(response =>
-  //       response.json().then(user => ({ user, response }))
-  //           ).then(({ user, response }) =>  {
-  //       if (!response.ok) {
-  //         // If error loging in, call loginError
-  //         dispatch(loginError(user.message))
-  //         return Promise.reject(user)
-  //       } else {
-  //         // If login was successful, save user's token in local storage
-  //         localStorage.setItem('id_token', user.id_token)
-  //         console.log(user, user.id_token)
-  //         // call receiveLogin that lets app know user is authenticated and passes through token
-  //         dispatch(receiveLogin(user))
-  //       }
-  //     }).catch(err => console.log("Login Error: ", err))
-  // }
 }
 
 
@@ -85,7 +67,7 @@ function requestSignup(info) {
     isAuthenticated: false,
     info
   }
-}
+};
 
 function receiveSignup(user) {
   return {
@@ -103,35 +85,20 @@ function signupError(message) {
     isAuthenticated: false,
     message
   }
-}
+};
 
 export function signupUser(info) {
-
-  let config = {
-    method: 'POST',
-    headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-    body: `email=${info.email}&password=${info.password}`
-  }
-
-  return dispatch => {
-    dispatch(requestSignup(info))
-
-    return fetch('/signup', config)
-      .then(response =>
-        response.json().then(user => ({ user, response }))
-            ).then(({ user, response }) =>  {
-        if (!response.ok) {
-          // If error loging in, call loginError
-          dispatch(signupError(user.message))
-          return Promise.reject(user)
-        } else {
-          // If login was successful, save user's token in local storage
-          localStorage.setItem('id_token', user.id_token)
-          // call receiveLogin that lets app know user is authenticated and passes through token
-          dispatch(receiveSignup(user))
-        }
-      }).catch(err => console.log("Login Error: ", err))
-  }
+  console.log("HERE");
+  axios.post('/signup', {
+      email: 'Fred@fred.com',
+      password: 'Flintstone'
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
 
