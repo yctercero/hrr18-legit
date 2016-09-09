@@ -1,5 +1,9 @@
 // Dashboard summary is the component above the two columns in the dashboard
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
+
+// Redux
+import { connect } from 'react-redux';
+import { signupUser } from '../actions/index.js'
 
 // Components
 import Dashboard from './dashboard/mainDashboard/dashboardCentral_component.jsx';
@@ -9,6 +13,7 @@ import DashboardAssignment from './dashboard/assignmentDashboard/dashboardAssign
 import Header from './headers/authorized_header.jsx';
 import UnauthHeader from './headers/unauthorized_header.jsx';
 import Welcome from './auth/welcome/welcome_component.jsx';
+import Forms from './forms/form_component.jsx';
 
 class App extends React.Component {
     
@@ -22,4 +27,10 @@ class App extends React.Component {
     
 };
 
-export default App;
+function mapStateToProps(state) {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps)(App);

@@ -7,32 +7,35 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = {
 
-  signin: function (req, res, next) {
-    console.log('signin for ' + req.body.email);
-    User.findOne({
-      where: {
-        email: req.body.email
-      }
-    })
-    .then(function (user) {
-      if (user) {
-        return user.comparePassword(req.body.password)
-        .then(function (match) {
-          if (match) {
-            res.json({
-              token: jwt.encode(user, config.secret)
-            });
-          } else {
-            next(new Error('could not match password'));
-          }
-        });
-      } else {
-        next(new Error('no matching record found for ' + req.body.emal));
-      }
-    })
-    .catch(function (err) {
-      next(err);
-    });
+  authenticate: function (req, res) {
+
+  },
+
+  signin: function (req, res) {
+    res.send({token: tokenForUser(req.user) });
+
+    // var email = req.body.email;
+    // var password = req.body.password;
+
+    // User.findOne({
+    //   where: {
+    //     email: email
+    //   }
+    // }).then(function (found) {
+    //   if (found) {
+    //     found.comparePassword(password, function (match) {
+    //       if (match) {
+    //         // signin user
+    //         // redirect to home
+    //       } else {
+    //         // wrong password!
+    //         // display error message
+    //       }
+    //     });
+    //   } else {
+    //     res.redirect('/signup');
+    //   }
+    // });
   },
 
   signup: function (req, res, next) {
