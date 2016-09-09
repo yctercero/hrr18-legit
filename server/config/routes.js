@@ -1,17 +1,11 @@
 var path = require('path');
 var Controller = require('../database/controller.js');
 var Auth = require('./authentication.js');
+var passportService = require('./passport.js');
 var passport = require('passport');
 
-require('./passport.js')(passport);
-
-const requireAuth = passport.authenticate('jwt', {
-  session: false
-});
-
-// const requireSignin = passport.authenticate('local', {
-//   session: false
-// });
+const requireAuth = passport.authenticate('jwt', { session: false});
+const requireSignin = passport.authenticate('local', {session: false});
 
 module.exports = function (app, express) {
 
@@ -26,9 +20,8 @@ module.exports = function (app, express) {
   });
 
   //testing passport signin - working!
-  app.post('/signin', Auth.signin);
+  app.post('/signin', requireSignin, Auth.signin);
   app.post('/signup', Auth.signup);
-
 
 // ============================================================================
 //
