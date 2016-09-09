@@ -18,6 +18,33 @@ var tokenForUser = function(user) {
 module.exports = {
 
   authenticate: function (req, res) {
+  },
+
+  signin: function (req, res) {
+    res.send({token: tokenForUser(req.user) });
+
+    // var email = req.body.email;
+    // var password = req.body.password;
+
+    // User.findOne({
+    //   where: {
+    //     email: email
+    //   }
+    // }).then(function (found) {
+    //   if (found) {
+    //     found.comparePassword(password, function (match) {
+    //       if (match) {
+    //         // signin user
+    //         // redirect to home
+    //       } else {
+    //         // wrong password!
+    //         // display error message
+    //       }
+    //     });
+    //   } else {
+    //     res.redirect('/signup');
+    //   }
+    // });
 
   },
 
