@@ -1,31 +1,30 @@
-import { ADD_STUDENT, EDIT_STUDENT, DELETE_STUDENT } from '../constants/ActionTypes';
+import {
+  ADDSTUDENT_SUCCESS, ADDSTUDENT_REQUEST, ADDSTUDENT_FAILURE
+} from '../constants/ActionTypes.js'
 
-const initialState = [];
 
-export default function students(state = initialState, action) {
-    switch (action.type) {
-        case ADD_STUDENT:
-            return [
-                {
-
-                },
-                ...state
-            ]
-
-        case EDIT_STUDENT:
-            return [
-                {
-
-                },
-                ...state
-            ]
-
-        case DELETE_STUDENT:
-            return [
-                {
-
-                },
-                ...state
-            ]
-    }
+export default function studentsReducer(state = {
+    
+  }, action) {
+  switch (action.type) {
+    case ADDSTUDENT_REQUEST:
+        console.log("ADDSTUDENT_REQUEST")
+        return Object.assign({}, state, {
+            isFetching: true,
+        })
+    case ADDSTUDENT_SUCCESS:
+      console.log("ADDSTUDENT_SUCCESS");
+      return Object.assign({}, state, {
+        isFetching: false,
+        newStudent: action.newStudent,
+      })
+    case ADDSTUDENT_FAILURE:
+      console.log("ADDSTUDENT_FAILURE");
+      return Object.assign({}, state, {
+        isFetching: false,
+        newStudent: null,
+      })
+    default:
+      return state
+  }
 };
