@@ -20,26 +20,26 @@ class DashboardLeftCol extends React.Component {
 
     componentWillMount() {
         console.log("Go get the classes")
-        this.getClasses();
+        // this.getClasses();
     }
 
-    getClasses(){
-        let that = this;
-        console.log("FETCHFETCHFETCH")
-        $.ajax({
-            method: "GET",
-            url: '/api/report/classes',
-            contentType: 'application/json',
-            data: {},
-            success: function(data){
-                console.log(data);
-                // that.fetchClasses(data);
-                that.setState({ classes: data })
-            }
-        })
+    // getClasses(){
+    //     let that = this;
+    //     console.log("FETCHFETCHFETCH")
+    //     $.ajax({
+    //         method: "GET",
+    //         url: '/api/report/classes',
+    //         contentType: 'application/json',
+    //         data: {},
+    //         success: function(data){
+    //             console.log(data);
+    //             // that.fetchClasses(data);
+    //             that.setState({ classes: data })
+    //         }
+    //     })
 
-        
-    }
+
+    // }
 
     fetchClasses(classes){
         this.props.fetchClasses(classes);
@@ -58,7 +58,7 @@ class DashboardLeftCol extends React.Component {
                     )}
                 </ul>
             </div>
-            
+
         )
     }
 };
