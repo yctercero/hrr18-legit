@@ -1,5 +1,5 @@
 import {
-  CLASSES_FETCH_SUCCESS, CLASSES_FETCH_REQUEST, CLASSES_FETCH_FAILURE
+  ADDCLASS_SUCCESS, ADDCLASS_REQUEST, ADDCLASS_FAILURE
 } from '../constants/ActionTypes.js'
 
 
@@ -7,22 +7,22 @@ export default function classesReducer(state = {
     
   }, action) {
   switch (action.type) {
-    case CLASSES_FETCH_REQUEST:
-        console.log("CLASSES_FETCH_REQUEST")
+    case ADDCLASS_REQUEST:
+        console.log("ADDCLASS_REQUEST")
         return Object.assign({}, state, {
             isFetching: true,
         })
-    case CLASSES_FETCH_SUCCESS:
-      console.log("CLASSES_FETCH_SUCCESS");
+    case ADDCLASS_SUCCESS:
+      console.log("ADDCLASS_SUCCESS");
       return Object.assign({}, state, {
         isFetching: false,
-        classes: action.classes,
+        newClass: action.newClass,
       })
-    case CLASSES_FETCH_FAILURE:
-      console.log("CLASSES_FETCH_FAILURE");
+    case ADDCLASS_FAILURE:
+      console.log("ADDCLASS_FAILURE");
       return Object.assign({}, state, {
         isFetching: false,
-        classes: null,
+        newClass: null,
       })
     default:
       return state
