@@ -48,7 +48,7 @@ export function loginUser(creds) {
       return axios.post('/signin', { "email": creds.email, "password": creds.password})
         .then(function(response){
             localStorage.setItem('token', response.data);
-             localStorage.setItem('userid', response.data.userid);
+            localStorage.setItem('userid', response.data.userid);
             dispatch(receiveLogin(response.data));
             browserHistory.push('/home')
         })
