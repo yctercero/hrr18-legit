@@ -71,13 +71,19 @@ function requestSignup(info) {
   }
 };
 
-function receiveSignup(user) {
+function receiveSignup(token) {
   return {
     type: types.SIGNUP_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    id_token: user.id_token
-  }
+    payload: token,
+    meta: {
+        done: true,
+        transition: (prevState, nextState, action) => ({
+          pathname: '/home'
+        })
+    }
+  };
 }
 
 function signupError(message) {
@@ -90,18 +96,39 @@ function signupError(message) {
 };
 
 export function signupUser(info) {
-  console.log("HERE");
-  axios.post('/signup', {
-      email: 'Fred@fred.com',
-      password: 'Flintstone'
-    })
+
+  return function(dispatch) {
+    dispatch(requestLogin(info));
+    console.log("HERE");
+    return axios.post('/signup', {
+      email: info.email,
+      password: info.password
+  })
     .then(function (response) {
-      console.log(response);
+
+      localStorage.setItem('token', response.data);
+      dispatch(receiveSignup(response.data));
+      browserHistory.push('/home');
+      console.log("line 104", response);
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch(function (response) {
+      console.log(response);
+      dispatch(signupError(response));
     });
 }
+}
+// return function(dispatch) {
+//       dispatch(requestLogin(creds));
+//       return axios.post('/signin', { "email": creds.email, "password": creds.password})
+//         .then(function(response){
+//             localStorage.setItem('token', response.data);
+//             dispatch(receiveLogin(response.data));
+//             browserHistory.push('/home')
+//         })
+//         .catch(function(response){
+//             dispatch(loginError(response));
+//         });
+//   }
 
 
 // FETCH CLASSES
@@ -137,6 +164,6 @@ export function fetchClasses(classes) {
     isFetching: true,
     classes: classes
   }
-  
-  
+
+
 }
