@@ -14,7 +14,7 @@ module.exports = function (app, express) {
     res.send({hello: 'this is working'});
   });
   //testing passport signin - working!
-  app.post('/api/signin', requireSignin, Auth.signin);
+  app.post('/signin', requireSignin, Auth.signin);
 
   // post requests to signin / singup
   // app.post('/signin', Auth.signin);
