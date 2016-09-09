@@ -47,6 +47,7 @@ export function loginUser(creds) {
       dispatch(requestLogin(creds));
       return axios.post('/signin', { "email": creds.email, "password": creds.password})
         .then(function(response){
+            localStorage.setItem('token', response.data);
             dispatch(receiveLogin(response.data));
             browserHistory.push('/home')
         })
@@ -102,19 +103,39 @@ export function signupUser(info) {
 }
 
 
+// FETCH CLASSES
+function requestClasses() {
+  return {
+    type: types.CLASSES_FETCH_REQUEST,
+    isFetching: true,
+    classes: null
+  }
+};
 
-// addStudent
-// addClass
-// addAssignment
-// addUser
-// signIn
-// editStudent
-// editClass
-// editAssignment
-// getUserInfo
-// getClassList
-// getClassInfo
-// getStudentList
-// getStudentInfo
-// getAssignmentList
-// getAssignmentInfo
+function receiveClasses(classes) {
+  return {
+    type: types.CLASSES_FETCH_SUCCESS,
+    isFetching: false,
+    payload: classes
+  }
+}
+
+function classFetchError(message) {
+  return {
+    type: types.CLASSES_FETCH_FAILURE,
+    isFetching: false,
+    payload: null,
+    message
+  }
+};
+
+export function fetchClasses(classes) {
+  console.log("FETCHCLASSES")
+  return {
+    type: types.CLASSES_FETCH_REQUEST,
+    isFetching: true,
+    classes: classes
+  }
+  
+  
+}
