@@ -43,7 +43,7 @@ class AssignmentForm extends React.Component {
                 <form  onSubmit={this.onFormSubmit.bind(this)}>
                     <label htmlFor="">Assignment Name</label>
                     <input
-                        name="class"
+                        name="Assignment"
                         type="text"
                         placeholder="Assignment Name..."
                         value={this.state.name}
@@ -52,10 +52,10 @@ class AssignmentForm extends React.Component {
 
                     <label htmlFor="grade">max Score</label>
                     <input
-                        name="grade"
-                        type="text"
+                        name="maxScore"
+                        type="number"
                         placeholder="0-12..."
-                        value={this.state.grade}
+                        value={this.state.maxScore}
                         onChange={this.onMaxScoreChange.bind(this)}
                     />
 
