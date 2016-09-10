@@ -17,6 +17,7 @@ import DashboardAssignment from './components/dashboard/assignmentDashboard/dash
 import Forms from './components/forms/form_component.jsx';
 import ClassForm from './components/forms/classForm_component.jsx';
 import StudentForm from './components/forms/studentForm_component.jsx';
+import assignmentForm from './components/forms/assignmentForm_component.js'
 
 export default (
     <Router path="/" component={App} >
@@ -30,7 +31,9 @@ export default (
         <Route path="assignment" component={DashboardAssignment} />
         <Route component={Forms} >
             <Route path="classform" component={ClassForm} />
-            <Route path="studentform" component={StudentForm} />
+            <Route path="studentform" component={StudentForm}/>
+            <Route path="assignmentForm" component={assignmentForm}
+            />
         </Route>
     </Router>
 );
