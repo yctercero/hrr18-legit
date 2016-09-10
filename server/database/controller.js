@@ -58,7 +58,7 @@ User.hasMany(Section);
 //    - Section.getStudents() -> returns an array of associated Students
 //
 //    - Student.getSections() -> returns an array of associated Sections
-//    - Student.addSections() -> associates this student with array of Sections
+//    - Student.addSections() -> associates a student with an array of Sections
 //
 
 Section.belongsToMany(Student, {
@@ -116,13 +116,13 @@ module.exports = {
 //
 
   enrol: function (req, res) {
-
     while (id = req.body.students.pop()) {
       Student.findOne({
         where: {
           id: id
         }
-      }).then(function (student) {
+      })
+      .then(function (student) {
         if (student) {
           return student.addSections(req.body.classes);
         } else {
@@ -135,7 +135,6 @@ module.exports = {
       });
     }
     res.sendStatus(204);
-
   },
 
 // ============================================================================
@@ -153,34 +152,40 @@ module.exports = {
     })
     .then(function (student) {
       if (student) {
-        Assignment.findOne({
-          where: {
-            id: req.body.AssignmentId
-          }
-        })
-        .then(function (assignment) {
-          if (assignment) {
-            student.addAssignment(assignment, {
-              score: req.body.score
-            })
-            .then(function (conf) {
-              res.json(conf);
-            })
-            .catch(function (err) {
-              throw err;
-            })
-          } else {
-            console.log('no matching assignment records found');
-            res.sendStatus(404);
-          }
-        })
-        .catch(function (err) {
-          throw err;
-        });
+        return student;
       } else {
         console.log('no matching student records found');
         res.sendStatus(404);
       }
+    })
+    .then(function (student) {
+      Assignment.findOne({
+        where: {
+          id: req.body.AssignmentId
+        }
+      })
+      .then(function (assignment) {
+        if (assignment) {
+          return assignment;
+        } else {
+          console.log('no matching assignment records found');
+          res.sendStatus(404);
+        }
+      })
+      .then(function (assignment) {
+        student.addAssignment(assignment, {
+          score: req.body.score
+        })
+        .then(function (conf) {
+          res.json(conf);
+        })
+        .catch(function (err) {
+          throw err;
+        });
+      })
+      .catch(function (err) {
+        throw err;
+      });
     })
     .catch(function (err) {
       throw err;
@@ -270,7 +275,27 @@ module.exports = {
             })
             .then(function (sections) {
               aggregate.classes = sections;
-              res.json(aggregate);
+              aggregate.students = [];
+              sections.forEach(function (section, count) {
+                section.getStudents({
+                  attributes: ['id', 'first', 'last'],
+                  joinTableAttributes: []
+                })
+                .then(function (students) {
+                  students = students.filter(function (student) {
+                    return !aggregate.students.map(function (record) {
+                      return record.id;
+                    }).includes(student.id);
+                  });
+                  aggregate.students = aggregate.students.concat(students);
+                  if (count === sections.length - 1) {
+                    res.json(aggregate);
+                  }
+                })
+                .catch(function (err) {
+                  throw err;
+                });
+              });
             })
             .catch(function (err) {
               throw err;
