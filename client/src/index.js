@@ -1,3 +1,4 @@
+//React
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { render } from 'react-dom';
@@ -13,23 +14,20 @@ import routes from './routes'
 // Redux
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import ReduxPromise from 'redux-promise';
-
-import thunkMiddleware from 'redux-thunk';
-
 import handleTransitions from 'redux-history-transitions';
 
+//Middleware
+import thunkMiddleware from 'redux-thunk';
+import ReduxPromise from 'redux-promise';
 
+// Reducers
 import rootReducer from './reducers/index.js';
-
-
 
 // where our app will be rendered within index.html
 let rootElement = document.getElementById('app');
 
 // there exists only one store in redux and it is what contains our apps state
 let enhancer = handleTransitions(history);
-// let reducer = combineReducers(reducers);
 let store = createStore(rootReducer, applyMiddleware(thunkMiddleware), enhancer);
 
 

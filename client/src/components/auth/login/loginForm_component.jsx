@@ -6,6 +6,8 @@ import React from 'react';
 //Redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+//Action
 import { loginUser } from '../../../actions/index.js';
 
 class LoginForm extends React.Component {
@@ -19,18 +21,25 @@ class LoginForm extends React.Component {
     }
 
     onEmailChange(event){
+        //As user types in email input, update the state
+        //Once state updates the input value is updated to match the state
         this.setState({ email: event.target.value })
     }
 
     onPasswordChange(event){
+        //As user types in password input, update the state
+        //Once state updates the input value is updated to match the state
         this.setState({ password: event.target.value })
     }
 
     onFormSubmit(event){
+        //Need to preventDefault, because without it, once the user hits
+        //enter or submit it would send an http request. This being a single
+        //page app, that's not needed and handled in the front-end
         event.preventDefault();
-        // need to send request to API
-        console.log(this.state);
+        // Call our action, loginUser, which will send a POST request to the api
         this.props.loginUser(this.state);
+        //Reset our form fields to empty
         this.setState({
             email: '',
             password: ''
@@ -61,7 +70,7 @@ class LoginForm extends React.Component {
     
 };
 
-// gives us access to this.props.loginUser within component
+//Gives us access to our action, loginUser, as this.props.loginUser within container
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ loginUser }, dispatch);
 }

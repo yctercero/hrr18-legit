@@ -15,7 +15,7 @@ import DashboardRightCol from './M_dashboardRightCol.jsx';
 class Dashboard extends React.Component {
     constructor(props){
         super(props);
-        console.log(props);
+
         this.state = {
             isAuthenticated: this.props.isAuthenticated,
             classes: [],
@@ -24,22 +24,16 @@ class Dashboard extends React.Component {
         }
     }
 
-     componentWillMount() {
-        this.getInfo();
-    }
-
-    getInfo(){
+     componentDidMount() {
         let that = this;
         var id = localStorage.getItem('userid');
-        console.log("FETCHFETCHFETCH")
         $.ajax({
             method: "GET",
             url: `/api/report/users/${id}`,
             contentType: 'application/json',
             data: {},
             success: function(data){
-                console.log(data);
-                // that.fetchClasses(data);
+                // console.log(data);
                 that.setState({ 
                     classes: data.classes,
                     email: data.details.email ,
@@ -47,12 +41,9 @@ class Dashboard extends React.Component {
                 })
             }
         })
-
-
     }
 
     render() {
-            console.log(this.props.isAuthenticated)
             if(this.state.isAuthenticated){
                 return (
                     <div>
@@ -89,7 +80,7 @@ class Dashboard extends React.Component {
 
 
 function mapStateToProps(state) {
-    console.log("STATE", state);
+    // console.log("STATE", state);
     return {
         isAuthenticated: state.signin.isAuthenticated,
         token: state.signin.token

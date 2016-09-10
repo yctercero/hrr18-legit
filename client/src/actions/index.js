@@ -1,13 +1,16 @@
-//AJAX
+// ACTIONS FOR LOGIN, SIGNUP AND LOGOUT
+
+//Axios is essentially JQuery's AJAX simplified
+//https://www.npmjs.com/package/axios
 import axios from 'axios';
-
+// Allows you to re-route the user
 import { browserHistory } from 'react-router'
-
+// Action types are held separately for modularity purposes
 import * as types from '../constants/ActionTypes';
 
-//////////////////////////////////////
 /////////////// LOGIN ////////////////
-
+// Called before api request, info sent to reducers. 
+// Reducer waiting for this action type is in reducers/signin_reducer.js
 function requestLogin(creds) {
   return {
     type: types.LOGIN_REQUEST,
@@ -17,21 +20,19 @@ function requestLogin(creds) {
   }
 }
 
+// Called upon successfull api request, info sent to reducers.
+// Reducer waiting for this action type is in reducers/signin_reducer.js
 function receiveLogin(token) {
   return {
     type: types.LOGIN_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    payload: token,
-    meta: {
-        done: true,
-        transition: (prevState, nextState, action) => ({
-          pathname: '/home'
-        })
-      }
+    payload: token
   }
 }
 
+// Called if error signing in, info sent to reducers.
+// Reducer waiting for this action type is in reducers/signin_reducer.js
 function loginError(message) {
   return {
     type: types.LOGIN_FAILURE,
@@ -42,14 +43,17 @@ function loginError(message) {
 }
 
 export function loginUser(creds) {
-
   return function(dispatch) {
       dispatch(requestLogin(creds));
       return axios.post('/signin', { "email": creds.email, "password": creds.password})
         .then(function(response){
+            // storing userid and token in local storage
+            // to then use for authentication purposes
             localStorage.setItem('token', response.data);
             localStorage.setItem('userid', response.data.userid);
+            // call receiveLogin so user data gets sent to reducers to create new state
             dispatch(receiveLogin(response.data));
+            // redircet user to the main dashboard
             browserHistory.push('/home')
         })
         .catch(function(response){
@@ -59,9 +63,8 @@ export function loginUser(creds) {
 }
 
 
-//////////////////////////////////////
-/////////////// SIGNUP ////////////////
 
+/////////////// SIGNUP ////////////////
 function requestSignup(info) {
   return {
     type: types.SIGNUP_REQUEST,
@@ -118,39 +121,36 @@ export function signupUser(info) {
   }
 }
 
-// FETCH CLASSES
-function requestClasses() {
-  return {
-    type: types.CLASSES_FETCH_REQUEST,
-    isFetching: true,
-    classes: null
-  }
-};
 
-function receiveClasses(classes) {
+/////////////// LOGOUT ////////////////
+// Called before logout request, info sent to reducers. 
+// Reducer waiting for this action type is in reducers/logout_reducer.js
+function requestLogout() {
   return {
-    type: types.CLASSES_FETCH_SUCCESS,
-    isFetching: false,
-    payload: classes
+    type: types.LOGOUT_REQUEST,
+    isFetching: true,
+    isAuthenticated: false,
   }
 }
 
-function classFetchError(message) {
+// Called upon successfull logout request, info sent to reducers.
+// Reducer waiting for this action type is in reducers/logout_reducer.js
+function receiveLogout() {
   return {
-    type: types.CLASSES_FETCH_FAILURE,
+    type: types.LOGOUT_SUCCESS,
     isFetching: false,
-    payload: null,
-    message
+    isAuthenticated: false,
   }
-};
+}
 
-export function fetchClasses(classes) {
-  console.log("FETCHCLASSES")
-  return {
-    // type: types.CLASSES_FETCH_REQUEST,
-    // isFetching: true,
-    // classes: classes
+export function logoutUser() {
+  return dispatch => {
+    dispatch(requestLogout())
+    // clear out local storage 
+    localStorage.removeItem('token')
+    localStorage.removeItem('userid')
+    // redircet user to login
+    browserHistory.push('/signin');
+    dispatch(receiveLogout())
   }
-
-
 }

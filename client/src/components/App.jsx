@@ -3,7 +3,6 @@ import React, { Component, PropTypes } from 'react';
 
 // Redux
 import { connect } from 'react-redux';
-import { signupUser } from '../actions/index.js'
 
 // Components
 import Dashboard from './dashboard/mainDashboard/dashboardCentral_component.jsx';
@@ -27,14 +26,5 @@ export default class App extends React.Component {
     
 };
 
-// App.propTypes = {
-//   isAuthenticated: PropTypes.bool.isRequired
-// }
-
-// function mapStateToProps(state) {
-//     return {
-//         isAuthenticated: state.isAuthenticated
-//     }
-// }
-
-// export default connect(mapStateToProps)(App);
+// See not in routes.js to understand this.props.children
+// Using that because the way we are nesting our routes
