@@ -27,7 +27,9 @@ module.exports = {
   signup: function(req, res, next) {
 
     User.findOrCreate({
-      where: req.body
+      where: {
+        email: req.body.email
+      }
     }).then(function (user) {
       if (user) {
         res.redirect('/signin');
