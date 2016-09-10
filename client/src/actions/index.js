@@ -99,7 +99,7 @@ function signupError(message) {
 };
 
 export function signupUser(info) {
-
+console.log(info)
   return function(dispatch) {
     dispatch(requestLogin(info));
     console.log("HERE");
@@ -112,7 +112,7 @@ export function signupUser(info) {
       schoolEndDate: info.schoolEnd
   })
     .then(function (response) {
-
+        localStorage.setItem('userid', response.data.userid);
         localStorage.setItem('token', response.data);
         dispatch(receiveSignup(response.data));
         browserHistory.push('/home');

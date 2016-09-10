@@ -12,11 +12,9 @@ import getClass from '../../../actions/getClass.js';
 class DashboardLeftColItem extends React.Component {
     constructor(props){
         super(props)
-        console.log("PROPS", props)
     }
 
     getClass(id){
-        console.log("get class", id);
         localStorage.setItem('classId', id);
         browserHistory.push('/class');
     }

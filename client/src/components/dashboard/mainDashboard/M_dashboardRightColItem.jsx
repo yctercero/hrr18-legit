@@ -1,14 +1,26 @@
 // This component renders the summary info of whatever class was clicked on from the left column
 import React from 'react';
 
-class DashboardRightColDetail extends React.Component {
+//Router
+import { browserHistory } from 'react-router';
+
+class DashboardRightColItem extends React.Component {
+    constructor(props){
+        super(props)
+    }
+
+    getStudent(id){
+        localStorage.setItem('studentId', id);
+        browserHistory.push('/student');
+    }
+    
     render(){
         return (
-            <a onClick={this.getClass.bind(this, this.props.classDetails.id)}>
+            <a  onClick={this.getStudent.bind(this, this.props.student.id)}>
                 <div className="dashboardRightColItem clearfix">
                     <div>
                         <h6>Name</h6>
-                        <p>{this.props.studentDetails.name}</p>
+                        <p>{this.props.student.first}</p>
                     </div>
                     <div>
                         <h6></h6>
@@ -23,4 +35,4 @@ class DashboardRightColDetail extends React.Component {
     }
 };
 
-export default DashboardRightColDetail;
+export default DashboardRightColItem;
