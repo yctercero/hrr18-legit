@@ -19,17 +19,8 @@ class Dashboard extends React.Component {
         this.state = {
             isAuthenticated: this.props.isAuthenticated,
             classes: [],
-<<<<<<< HEAD
             email: '',
             numberClasses: ''
-=======
-<<<<<<< HEAD
-            email: '',
-            numberClasses: ''
-=======
-            email: ''
->>>>>>> cd3ca655317bc19bc1a5da5e8aae0b8ef5311b08
->>>>>>> d8e43a6a2c726121c6f6954ea4417960ac2e70c7
         }
     }
 
@@ -51,17 +42,8 @@ class Dashboard extends React.Component {
                 // that.fetchClasses(data);
                 that.setState({ 
                     classes: data.classes,
-<<<<<<< HEAD
                     email: data.details.email ,
                     numberClasses: data.classes.length
-=======
-<<<<<<< HEAD
-                    email: data.details.email ,
-                    numberClasses: data.classes.length
-=======
-                    email: data.details.email 
->>>>>>> cd3ca655317bc19bc1a5da5e8aae0b8ef5311b08
->>>>>>> d8e43a6a2c726121c6f6954ea4417960ac2e70c7
                 })
             }
         })
@@ -77,15 +59,7 @@ class Dashboard extends React.Component {
                         <Header />
                         <main>
                             <div className="dashboardWrapper">
-<<<<<<< HEAD
                                 <DashboardSummary email={this.state.email} numberClasses={this.state.numberClasses}/>
-=======
-<<<<<<< HEAD
-                                <DashboardSummary email={this.state.email} numberClasses={this.state.numberClasses}/>
-=======
-                                <DashboardSummary email={this.state.email}/>
->>>>>>> cd3ca655317bc19bc1a5da5e8aae0b8ef5311b08
->>>>>>> d8e43a6a2c726121c6f6954ea4417960ac2e70c7
                                 <div className="dashboardCols">
                                     <div>
                                         <h3>Classes <a href="/classform"><i className="fa fa-plus" aria-hidden="true"></i></a></h3>
@@ -113,8 +87,6 @@ class Dashboard extends React.Component {
     }
 };
 
-Dashboard.propTypes = {
-}
 
 function mapStateToProps(state) {
     console.log("STATE", state);
