@@ -1,12 +1,12 @@
 // Dashboard summary is the component above the two columns in the dashboard
 import React from 'react';
 
-const DashboardSummary = () => {
+const DashboardSummary = ({ email }) => {
     return (
         <div className="clearfix dashboardSummary">
             <div className="dashboardSummaryProf">
                 <img src="http://www.globaldetroit.com/wp-content/uploads/2014/10/Gracie-Headshot-square.png" alt=""/>
-                <h3>@yctercero</h3>
+                <h3>{email}</h3>
             </div>
             <div className="dashboardSummaryStats clearfix">
                 <div>

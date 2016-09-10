@@ -16,21 +16,52 @@ class Dashboard extends React.Component {
     constructor(props){
         super(props);
         console.log(props);
+        this.state = {
+            isAuthenticated: this.props.isAuthenticated,
+            classes: [],
+            email: ''
+        }
+    }
+
+     componentWillMount() {
+        this.getInfo();
+    }
+
+    getInfo(){
+        let that = this;
+        var id = localStorage.getItem('userid');
+        console.log("FETCHFETCHFETCH")
+        $.ajax({
+            method: "GET",
+            url: `/api/report/users/${id}`,
+            contentType: 'application/json',
+            data: {},
+            success: function(data){
+                console.log(data);
+                // that.fetchClasses(data);
+                that.setState({ 
+                    classes: data.classes,
+                    email: data.details.email 
+                })
+            }
+        })
+
+
     }
 
     render() {
             console.log(this.props.isAuthenticated)
-            if(this.props.isAuthenticated){
+            if(this.state.isAuthenticated){
                 return (
                     <div>
                         <Header />
                         <main>
                             <div className="dashboardWrapper">
-                                <DashboardSummary />
+                                <DashboardSummary email={this.state.email}/>
                                 <div className="dashboardCols">
                                     <div>
                                         <h3>Classes <a href="/classform"><i className="fa fa-plus" aria-hidden="true"></i></a></h3>
-                                        <DashboardLeftCol />
+                                        <DashboardLeftCol classes={this.state.classes}/>
                                     </div>
                                     <div>
                                         <DashboardRightCol />
