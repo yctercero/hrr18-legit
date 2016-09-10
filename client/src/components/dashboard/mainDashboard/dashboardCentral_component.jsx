@@ -1,7 +1,6 @@
 import React, { Component, PropTypes, ContextTypes } from 'react';
 import { browserHistory } from 'react-router'
 
-
 // Redux
 import { connect } from 'react-redux';
 
@@ -19,15 +18,17 @@ class Dashboard extends React.Component {
         this.state = {
             isAuthenticated: this.props.isAuthenticated,
             classes: [],
+            students: [],
             email: '',
-            numberClasses: ''
+            numberClasses: 0,
+            numberStudents: 0
         }
     }
 
-     componentDidMount() {
+     componentWillMount() {
         let that = this;
         var id = localStorage.getItem('userid');
-        $.ajax({
+        this.serverRequest = $.ajax({
             method: "GET",
             url: `/api/report/users/${id}`,
             contentType: 'application/json',
@@ -36,11 +37,17 @@ class Dashboard extends React.Component {
                 // console.log(data);
                 that.setState({ 
                     classes: data.classes,
+                    students: data.students,
                     email: data.details.email ,
-                    numberClasses: data.classes.length
+                    numberClasses: data.classes.length,
+                    numberStudents: data.students.length
                 })
             }
         })
+    }
+
+    componentWillUnmount () {
+        this.serverRequest.abort();
     }
 
     render() {
@@ -50,15 +57,15 @@ class Dashboard extends React.Component {
                         <Header />
                         <main>
                             <div className="dashboardWrapper">
-                                <DashboardSummary email={this.state.email} numberClasses={this.state.numberClasses}/>
-                                <div className="dashboardCols">
+                                <DashboardSummary email={this.state.email} numberClasses={this.state.numberClasses} numberStudents={this.state.numberStudents}/>
+                                <div className="dashboardCols clearfix">
                                     <div>
-                                        <h3>Classes <a href="/classform"><i className="fa fa-plus" aria-hidden="true"></i></a></h3>
-                                        <DashboardLeftCol classes={this.state.classes}/>
+                                        <h3><a href="/classform"><i className="fa fa-plus" aria-hidden="true"></i></a> Classes </h3>
+                                        <DashboardLeftCol classes={this.state.classes} />
                                     </div>
                                     <div>
                                         <h3>Students</h3>
-                                        <DashboardRightCol />
+                                        <DashboardRightCol students={this.state.students} />
                                     </div>
                                 </div>
                             </div>
