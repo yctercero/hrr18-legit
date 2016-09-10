@@ -1,7 +1,6 @@
 import React, { Component, PropTypes, ContextTypes } from 'react';
 import { browserHistory } from 'react-router'
 
-
 // Redux
 import { connect } from 'react-redux';
 
@@ -19,28 +18,36 @@ class Dashboard extends React.Component {
         this.state = {
             isAuthenticated: this.props.isAuthenticated,
             classes: [],
-            email: '',
-            numberClasses: ''
+            students: [],
+            first: '',
+            numberClasses: 0,
+            numberStudents: 0
         }
     }
 
      componentDidMount() {
         let that = this;
         var id = localStorage.getItem('userid');
-        $.ajax({
+        this.serverRequest = $.ajax({
             method: "GET",
             url: `/api/report/users/${id}`,
             contentType: 'application/json',
             data: {},
             success: function(data){
-                // console.log(data);
+                console.log(data);
                 that.setState({ 
                     classes: data.classes,
-                    email: data.details.email ,
-                    numberClasses: data.classes.length
+                    students: data.students,
+                    first: data.details.first,
+                    numberClasses: data.classes.length,
+                    numberStudents: data.students.length
                 })
             }
         })
+    }
+
+    componentWillUnmount () {
+        this.serverRequest.abort();
     }
 
     render() {
@@ -50,15 +57,15 @@ class Dashboard extends React.Component {
                         <Header />
                         <main>
                             <div className="dashboardWrapper">
-                                <DashboardSummary email={this.state.email} numberClasses={this.state.numberClasses}/>
-                                <div className="dashboardCols">
+                                <DashboardSummary first={this.state.first} numberClasses={this.state.numberClasses} numberStudents={this.state.numberStudents}/>
+                                <div className="dashboardCols clearfix">
                                     <div>
-                                        <h3>Classes <a href="/classform"><i className="fa fa-plus" aria-hidden="true"></i></a></h3>
-                                        <DashboardLeftCol classes={this.state.classes}/>
+                                        <h3><a href="/classform"><i className="fa fa-plus" aria-hidden="true"></i></a> Classes </h3>
+                                        <DashboardLeftCol classes={this.state.classes} />
                                     </div>
                                     <div>
                                         <h3>Students</h3>
-                                        <DashboardRightCol />
+                                        <DashboardRightCol students={this.state.students} />
                                     </div>
                                 </div>
                             </div>
@@ -82,8 +89,8 @@ class Dashboard extends React.Component {
 function mapStateToProps(state) {
     // console.log("STATE", state);
     return {
-        isAuthenticated: state.signin.isAuthenticated,
-        token: state.signin.token
+        isAuthenticated: state.auth.isAuthenticated,
+        token: state.auth.token
     }
 }
 

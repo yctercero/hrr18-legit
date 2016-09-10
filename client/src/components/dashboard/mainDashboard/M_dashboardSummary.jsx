@@ -2,13 +2,13 @@
 import React from 'react';
 
 
-const DashboardSummary = ({ email, numberClasses }) => {
+const DashboardSummary = ({ first, numberClasses, numberStudents }) => {
 
     return (
         <div className="clearfix dashboardSummary">
             <div className="dashboardSummaryProf">
                 <img src="http://www.globaldetroit.com/wp-content/uploads/2014/10/Gracie-Headshot-square.png" alt=""/>
-                <h3>{email}</h3>
+                <h3>{first}</h3>
             </div>
             <div className="dashboardSummaryStats clearfix">
                 <div>
@@ -16,8 +16,8 @@ const DashboardSummary = ({ email, numberClasses }) => {
                     <h5>Number of Classes</h5>
                 </div>
                 <div>
-                    <p>24</p>
-                    <h5>Average Class Size</h5>
+                    <p>{numberStudents}</p>
+                    <h5>Number of Students</h5>
                 </div>
                 <div>
                     <p>134</p>

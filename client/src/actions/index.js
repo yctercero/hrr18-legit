@@ -10,7 +10,7 @@ import * as types from '../constants/ActionTypes';
 
 /////////////// LOGIN ////////////////
 // Called before api request, info sent to reducers. 
-// Reducer waiting for this action type is in reducers/signin_reducer.js
+// Reducer waiting for this action type is in reducers/auth_reducer.js
 function requestLogin(creds) {
   return {
     type: types.LOGIN_REQUEST,
@@ -21,7 +21,7 @@ function requestLogin(creds) {
 }
 
 // Called upon successfull api request, info sent to reducers.
-// Reducer waiting for this action type is in reducers/signin_reducer.js
+// Reducer waiting for this action type is in reducers/auth_reducer.js
 function receiveLogin(token) {
   return {
     type: types.LOGIN_SUCCESS,
@@ -32,7 +32,7 @@ function receiveLogin(token) {
 }
 
 // Called if error signing in, info sent to reducers.
-// Reducer waiting for this action type is in reducers/signin_reducer.js
+// Reducer waiting for this action type is in reducers/auth_reducer.js
 function loginError(message) {
   return {
     type: types.LOGIN_FAILURE,
@@ -65,6 +65,8 @@ export function loginUser(creds) {
 
 
 /////////////// SIGNUP ////////////////
+// Called before api request, info sent to reducers. 
+// Reducer waiting for this action type is in reducers/auth_reducer.js
 function requestSignup(info) {
   return {
     type: types.SIGNUP_REQUEST,
@@ -74,21 +76,19 @@ function requestSignup(info) {
   }
 };
 
-function receiveSignup(token) {
+// Called upon successfull api request, info sent to reducers.
+// Reducer waiting for this action type is in reducers/auth_reducer.js
+function receiveSignup(userData) {
   return {
     type: types.SIGNUP_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    payload: token,
-    meta: {
-        done: true,
-        transition: (prevState, nextState, action) => ({
-          pathname: '/home'
-        })
-    }
+    payload: userData
   };
 }
 
+// Called if error signing up, info sent to reducers.
+// Reducer waiting for this action type is in reducers/auth_reducer.js
 function signupError(message) {
   return {
     type: types.SIGNUP_FAILURE,
@@ -99,10 +99,9 @@ function signupError(message) {
 };
 
 export function signupUser(info) {
-
+// console.log(info)
   return function(dispatch) {
     dispatch(requestLogin(info));
-    console.log("HERE");
     return axios.post('/signup', {
       email: info.email,
       password: info.password,
@@ -112,14 +111,16 @@ export function signupUser(info) {
       schoolEndDate: info.schoolEnd
   })
     .then(function (response) {
-
+        // storing userid and token in local storage
+        // to then use for authentication purposes
+        localStorage.setItem('userid', response.data.userid);
         localStorage.setItem('token', response.data);
+        // call receiveSignup so user data gets sent to reducers to create new state
         dispatch(receiveSignup(response.data));
+        // redircet user to the main dashboard
         browserHistory.push('/home');
-        console.log("line 104", response);
       })
       .catch(function (response) {
-        console.log(response);
         dispatch(signupError(response));
       });
   }
@@ -128,7 +129,7 @@ export function signupUser(info) {
 
 /////////////// LOGOUT ////////////////
 // Called before logout request, info sent to reducers. 
-// Reducer waiting for this action type is in reducers/logout_reducer.js
+// Reducer waiting for this action type is in reducers/auth_reducer.js
 function requestLogout() {
   return {
     type: types.LOGOUT_REQUEST,
@@ -138,7 +139,7 @@ function requestLogout() {
 }
 
 // Called upon successfull logout request, info sent to reducers.
-// Reducer waiting for this action type is in reducers/logout_reducer.js
+// Reducer waiting for this action type is in reducers/auth_reducer.js
 function receiveLogout() {
   return {
     type: types.LOGOUT_SUCCESS,
