@@ -15,7 +15,7 @@ export default function signupReducer(state = {
         return Object.assign({}, state, {
             isFetching: true,
             isAuthenticated: false,
-            userInfo: action.creds
+            userInfo: action.payload.info
         })
     case SIGNUP_SUCCESS:
       console.log("SIGNUP SUCCEEDED");
