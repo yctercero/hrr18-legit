@@ -19,13 +19,13 @@ class Dashboard extends React.Component {
             isAuthenticated: this.props.isAuthenticated,
             classes: [],
             students: [],
-            email: '',
+            first: '',
             numberClasses: 0,
             numberStudents: 0
         }
     }
 
-     componentWillMount() {
+     componentDidMount() {
         let that = this;
         var id = localStorage.getItem('userid');
         this.serverRequest = $.ajax({
@@ -34,11 +34,11 @@ class Dashboard extends React.Component {
             contentType: 'application/json',
             data: {},
             success: function(data){
-                // console.log(data);
+                console.log(data);
                 that.setState({ 
                     classes: data.classes,
                     students: data.students,
-                    email: data.details.email ,
+                    first: data.details.first,
                     numberClasses: data.classes.length,
                     numberStudents: data.students.length
                 })
@@ -57,7 +57,7 @@ class Dashboard extends React.Component {
                         <Header />
                         <main>
                             <div className="dashboardWrapper">
-                                <DashboardSummary email={this.state.email} numberClasses={this.state.numberClasses} numberStudents={this.state.numberStudents}/>
+                                <DashboardSummary first={this.state.first} numberClasses={this.state.numberClasses} numberStudents={this.state.numberStudents}/>
                                 <div className="dashboardCols clearfix">
                                     <div>
                                         <h3><a href="/classform"><i className="fa fa-plus" aria-hidden="true"></i></a> Classes </h3>
@@ -89,8 +89,8 @@ class Dashboard extends React.Component {
 function mapStateToProps(state) {
     // console.log("STATE", state);
     return {
-        isAuthenticated: state.signin.isAuthenticated,
-        token: state.signin.token
+        isAuthenticated: state.auth.isAuthenticated,
+        token: state.auth.token
     }
 }
 
