@@ -48,7 +48,7 @@ export function loginUser(creds) {
       return axios.post('/signin', { "email": creds.email, "password": creds.password})
         .then(function(response){
             localStorage.setItem('token', response.data);
-             localStorage.setItem('userid', response.data.userid);
+            localStorage.setItem('userid', response.data.userid);
             dispatch(receiveLogin(response.data));
             browserHistory.push('/home')
         })
@@ -67,7 +67,7 @@ function requestSignup(info) {
     type: types.SIGNUP_REQUEST,
     isFetching: true,
     isAuthenticated: false,
-    info
+    payload: info
   }
 };
 
@@ -106,30 +106,17 @@ export function signupUser(info) {
   })
     .then(function (response) {
 
-      localStorage.setItem('token', response.data);
-      dispatch(receiveSignup(response.data));
-      browserHistory.push('/home');
-      console.log("line 104", response);
-    })
-    .catch(function (response) {
-      console.log(response);
-      dispatch(signupError(response));
-    });
+        localStorage.setItem('token', response.data);
+        dispatch(receiveSignup(response.data));
+        browserHistory.push('/home');
+        console.log("line 104", response);
+      })
+      .catch(function (response) {
+        console.log(response);
+        dispatch(signupError(response));
+      });
+  }
 }
-}
-// return function(dispatch) {
-//       dispatch(requestLogin(creds));
-//       return axios.post('/signin', { "email": creds.email, "password": creds.password})
-//         .then(function(response){
-//             localStorage.setItem('token', response.data);
-//             dispatch(receiveLogin(response.data));
-//             browserHistory.push('/home')
-//         })
-//         .catch(function(response){
-//             dispatch(loginError(response));
-//         });
-//   }
-
 
 // FETCH CLASSES
 function requestClasses() {
@@ -160,9 +147,9 @@ function classFetchError(message) {
 export function fetchClasses(classes) {
   console.log("FETCHCLASSES")
   return {
-    type: types.CLASSES_FETCH_REQUEST,
-    isFetching: true,
-    classes: classes
+    // type: types.CLASSES_FETCH_REQUEST,
+    // isFetching: true,
+    // classes: classes
   }
 
 

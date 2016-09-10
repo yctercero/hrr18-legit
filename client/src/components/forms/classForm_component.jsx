@@ -9,12 +9,12 @@ import { addClass } from '../../actions/addClass.js';
 class ClassForm extends React.Component {
     constructor(props) {
         super(props);
-
+        var id = localStorage.getItem('userid');
         this.state = {
             name: '',
             grade: '',
             subject: '',
-            UserId: '1'
+            UserId: localStorage.getItem('userid')
         };
     }
 

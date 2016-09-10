@@ -4,6 +4,8 @@ import React from 'react';
 // Redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router'
+
 
 import getClass from '../../../actions/getClass.js';
 
@@ -15,7 +17,8 @@ class DashboardLeftColItem extends React.Component {
 
     getClass(id){
         console.log("get class", id);
-        this.props.getClass(id);
+        localStorage.setItem('classId', id);
+        browserHistory.push('/class');
     }
 
     render(){
