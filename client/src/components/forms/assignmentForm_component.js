@@ -18,11 +18,11 @@ class AssignmentForm extends React.Component {
     }
 
     onNameChange(event){
-        this.setState({ name: event.target.value })
+        this.setState({ name: event.target.value });
     }
 
     onMaxScoreChange(event){
-        this.setState({ grade: event.target.value })
+        this.setState({ maxScore: event.target.value });
     }
 
     onFormSubmit(event){
@@ -53,7 +53,7 @@ class AssignmentForm extends React.Component {
                     <label htmlFor="grade">max Score</label>
                     <input
                         name="maxScore"
-                        type="number"
+                        type="text"
                         placeholder="0-12..."
                         value={this.state.maxScore}
                         onChange={this.onMaxScoreChange.bind(this)}

@@ -38,11 +38,11 @@ function assignmentAddError(message) {
 };
 
 export function addAssignment(assignInfo) {
-  console.log("ADDASSIGN", assignInfo)
-  var info = {
+  console.log("ADDASSIGN", assignInfo);
+  var Info = {
     name: assignInfo.name,
     maxScore: assignInfo.maxScore,
-    sectionId: assignInfo.sectionid
+    sectionId: assignInfo.sectionId
   }
   return function(dispatch) {
     dispatch(requestAddAssignment(Info));
