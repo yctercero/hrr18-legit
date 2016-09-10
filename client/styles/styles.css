@@ -166,14 +166,7 @@ main {
 
 .dashboardRightCol{
     background: #f8f8f8;
-    color: white;
-    font-size: 32px;
-    text-align: center;
-}
-
-.dashboardRightCol p{
-    padding: 60px;
-    color: #ddd;
+    padding: 30px;
 }
 
 .dashboardCols h3{
@@ -187,7 +180,7 @@ main {
 }
 
 .dashboardCols h3 > a {
-    float: right;
+    float: left;
     color: white;
 }
 
@@ -246,7 +239,7 @@ main {
     text-transform: uppercase
 }
 
-.dashboardLeftColItem{
+.dashboardLeftColItem, .dashboardRightColItem{
     border-radius: 5px;
     padding: 10px;
     height: 75px;
@@ -255,36 +248,40 @@ main {
     box-shadow: 1px 1px 1px 1px #ccc;
 }
 
-.dashboardLeftColItem:hover, .dashboardLeftColItem:hover h6{
+.dashboardRightColItem{
+    background-color: #fff;
+}
+
+.dashboardLeftColItem:hover, .dashboardLeftColItem:hover h6, .dashboardRightColItem:hover, .dashboardRightColItem:hover h6{
     background-color: #9BC73C;
     color: white;
 }
 
-.dashboardLeftColItem > div{
+.dashboardLeftColItem > div, .dashboardRightColItem > div{
     float: left;
 }
 
-.dashboardLeftColItem > div:first-of-type{
+.dashboardLeftColItem > div:first-of-type, .dashboardRightColItem > div:first-of-type{
     width: 75%;
 }
 
-.dashboardLeftColItem > div:nth-of-type(2){
+.dashboardLeftColItem > div:nth-of-type(2), .dashboardRightColItem > div:nth-of-type(2){
     width: 15%;
 }
 
-.dashboardLeftColItem > div:last-of-type{
+.dashboardLeftColItem > div:last-of-type, .dashboardRightColItem > div:last-of-type{
     width: 10%;
     text-align: right;
     vertical-align: middle;
     padding-top: 10px;
 }
 
-.dashboardLeftColItem h6{
+.dashboardLeftColItem h6, .dashboardRightColItem h6{
     text-transform: uppercase;
     color: #999;
 }
 
-.dashboardLeftColItem p{
+.dashboardLeftColItem p, .dashboardRightColItem p{
     font-size: 20px;
     margin: 10px 0;
 }

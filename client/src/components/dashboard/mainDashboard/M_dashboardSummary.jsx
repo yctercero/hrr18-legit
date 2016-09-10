@@ -2,7 +2,7 @@
 import React from 'react';
 
 
-const DashboardSummary = ({ email, numberClasses }) => {
+const DashboardSummary = ({ email, numberClasses, numberStudents }) => {
 
     return (
         <div className="clearfix dashboardSummary">
@@ -16,8 +16,8 @@ const DashboardSummary = ({ email, numberClasses }) => {
                     <h5>Number of Classes</h5>
                 </div>
                 <div>
-                    <p>24</p>
-                    <h5>Average Class Size</h5>
+                    <p>{numberStudents}</p>
+                    <h5>Number of Students</h5>
                 </div>
                 <div>
                     <p>134</p>
