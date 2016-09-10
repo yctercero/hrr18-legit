@@ -15,9 +15,37 @@ class SignUpForm extends React.Component {
         super(props);
 
         this.state = {
+            first: '',
+            last: '',
+            schoolStart: '',
+            schoolEnd: '',
             email: '',
             password: ''
         };
+    }
+
+    onFirstNameChange(event){
+        //As user types in first name input, update the state
+        //Once state updates the input value is updated to match the state
+        this.setState({ first: event.target.value })
+    }
+
+    onLastNameChange(event){
+        //As user types in last name input, update the state
+        //Once state updates the input value is updated to match the state
+        this.setState({ last: event.target.value })
+    }
+
+    onSchoolStartChange(event){
+        //As user types in school start input, update the state
+        //Once state updates the input value is updated to match the state
+        this.setState({ schoolStart: event.target.value })
+    }
+
+    onSchoolEndChange(event){
+        //As user types in school end input, update the state
+        //Once state updates the input value is updated to match the state
+        this.setState({ schoolEnd: event.target.value })
     }
 
     onEmailChange(event){
@@ -48,12 +76,42 @@ class SignUpForm extends React.Component {
     render() {
         return (
             <form onSubmit={this.onFormSubmit.bind(this)}>
+                <label >First Name</label>
+                <input
+                    type="text"
+                    placeholder="First Name..."
+                    value={this.state.first}
+                    onChange={this.onFirstNameChange.bind(this)}
+                />
+                <label >Last Name</label>
+                <input
+                    type="text"
+                    placeholder="Last Name..."
+                    value={this.state.last}
+                    onChange={this.onLastNameChange.bind(this)}
+                />
+                <label >School Start Date</label>
+                <input
+                    type="date"
+                    placeholder="School start date..."
+                    value={this.state.schoolStart}
+                    onChange={this.onSchoolStartChange.bind(this)}
+                />
+                <label >School End Date</label>
+                <input
+                    type="date"
+                    placeholder="School end date..."
+                    value={this.state.shoolEnd}
+                    onChange={this.onSchoolEndChange.bind(this)}
+                />
+                <label >Email</label>
                 <input
                     type="text"
                     placeholder="Username..."
                     value={this.state.email}
                     onChange={this.onEmailChange.bind(this)}
                 />
+                <label >Password</label>
                 <input
                     type="password"
                     placeholder="Password..."

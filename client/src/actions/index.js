@@ -105,7 +105,11 @@ export function signupUser(info) {
     console.log("HERE");
     return axios.post('/signup', {
       email: info.email,
-      password: info.password
+      password: info.password,
+      first: info.first,
+      last: info.last,
+      schoolStartDate: info.schoolStart,
+      schoolEndDate: info.schoolEnd
   })
     .then(function (response) {
 
