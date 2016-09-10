@@ -35,13 +35,14 @@ module.exports = {
       first: req.body.first,
       last: req.body.last,
       schoolStartDate: req.body.schoolStartDate,
-      schoolEndDate : req.body.schoolEndDate
+      schoolEndDate: req.body.schoolEndDate
+
       // }
     }).then(function (user) {
 
       //signin user?
       // sending back jwt to user
-      res.json({token: tokenForUser(user), userid:req.user.id });
+      res.json({token: tokenForUser(user), userid:user.id });
       // redirect to home?
     }).catch(function (err) {
       console.log(err);
