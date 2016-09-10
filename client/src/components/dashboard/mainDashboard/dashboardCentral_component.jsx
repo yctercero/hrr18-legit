@@ -19,7 +19,8 @@ class Dashboard extends React.Component {
         this.state = {
             isAuthenticated: this.props.isAuthenticated,
             classes: [],
-            email: ''
+            email: '',
+            numberClasses: ''
         }
     }
 
@@ -41,7 +42,8 @@ class Dashboard extends React.Component {
                 // that.fetchClasses(data);
                 that.setState({ 
                     classes: data.classes,
-                    email: data.details.email 
+                    email: data.details.email ,
+                    numberClasses: data.classes.length
                 })
             }
         })
@@ -57,13 +59,14 @@ class Dashboard extends React.Component {
                         <Header />
                         <main>
                             <div className="dashboardWrapper">
-                                <DashboardSummary email={this.state.email}/>
+                                <DashboardSummary email={this.state.email} numberClasses={this.state.numberClasses}/>
                                 <div className="dashboardCols">
                                     <div>
                                         <h3>Classes <a href="/classform"><i className="fa fa-plus" aria-hidden="true"></i></a></h3>
                                         <DashboardLeftCol classes={this.state.classes}/>
                                     </div>
                                     <div>
+                                        <h3>Students</h3>
                                         <DashboardRightCol />
                                     </div>
                                 </div>

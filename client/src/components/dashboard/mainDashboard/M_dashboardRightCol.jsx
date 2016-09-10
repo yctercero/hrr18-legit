@@ -6,9 +6,19 @@ import DashboardRightColDetail from './M_dashboardRightColDetail.jsx';
 const DashboardRightCol = () => {
     return (
         <div className="dashboardRightCol">
-            <DashboardRightColDetail />
+            <ul>
+                
+            </ul>
         </div>
     );
 };
 
 export default DashboardRightCol;
+
+
+// {classes.map((classDetails) =>
+//                     <DashboardLeftColItem
+//                         key={classDetails.id}
+//                         classDetails={classDetails}
+//                     />
+//                 )}
