@@ -348,6 +348,11 @@ main {
     background-color: rgba(248, 248, 248, 0.95);
 }
 
+.about p{
+    font-size:  22px;
+    line-height: 150%;
+}
+
 .intro h1, .authWrapper h1{
     font-size: 92px;
     color: #F26248;

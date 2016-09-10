@@ -1,8 +1,13 @@
+// made form a controlled field --> value of input set by state, not other way around
+
+//React
 import React from 'react';
 
 //Redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+//Action
 import { signupUser } from '../../../actions/index.js';
 
 class SignUpForm extends React.Component {
@@ -16,17 +21,23 @@ class SignUpForm extends React.Component {
     }
 
     onEmailChange(event){
+        //As user types in email input, update the state
+        //Once state updates the input value is updated to match the state
         this.setState({ email: event.target.value })
     }
 
     onPasswordChange(event){
+        //As user types in password input, update the state
+        //Once state updates the input value is updated to match the state
         this.setState({ password: event.target.value })
     }
 
     onFormSubmit(event){
+        //Need to preventDefault, because without it, once the user hits
+        //enter or submit it would send an http request. This being a single
+        //page app, that's not needed and handled in the front-end
         event.preventDefault();
-        // need to send request to API
-        console.log(this.state);
+        // Call our action, signupUser, which will send a POST request to the api
         this.props.signupUser(this.state);
         this.setState({
             email: '',
@@ -58,7 +69,7 @@ class SignUpForm extends React.Component {
 
 };
 
-// gives us access to this.props.loginUser within component
+//Gives us access to our action, signupUser, as this.props.signupUser within container
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ signupUser }, dispatch);
 }

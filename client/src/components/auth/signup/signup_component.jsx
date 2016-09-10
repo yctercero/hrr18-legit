@@ -1,6 +1,8 @@
+//React
 import React from 'react';
 
 //Components
+// UnauthHeader is shown in the welcome, signin and signup pages
 import UnauthHeader from '../../headers/unauthorized_header.jsx';
 import SignUpForm from './signupForm_component.jsx';
 

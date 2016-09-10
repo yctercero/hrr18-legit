@@ -1,3 +1,6 @@
+//Should probably be broken down into further compnents, but working for now
+
+//React
 import React from 'react';
 
 // Components
@@ -16,6 +19,9 @@ const Welcome = () => {
                     </div>
                     <div id="about" className="about">
                         <h3><i className="fa fa-info" aria-hidden="true"></i> About </h3>
+                        <div>
+                            <p>Our product simplifies the process of student outcomes tracking, providing the user with an intuitive, intelligent and customizable interface that takes away the pain associated with using spreadsheet software.</p>
+                        </div>
                     </div>
                     <div id="team" className="team">
                         <h3><i className="fa fa-users" aria-hidden="true"></i> Meet the Team</h3>
