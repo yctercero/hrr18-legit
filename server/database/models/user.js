@@ -5,7 +5,11 @@ var db = require('../database_config.js');
 
 var User = db.define('User', {
   email: Sequelize.STRING,
-  password: Sequelize.STRING
+  password: Sequelize.STRING,
+  first: Sequelize.STRING,
+  last: Sequelize.STRING,
+  schoolStartDate: {type: Sequelize.DATE, defaultValue: Date.now()},
+  schoolEndDate: {type: Sequelize.DATE, defaultValue: Date.now()}
 },
 {
   instanceMethods: {
