@@ -25,22 +25,25 @@ module.exports = {
   },
 
   signup: function(req, res, next) {
-    var email = req.body.email;
-    var password = req.body.password;
-    console.log(email);
-    User.create({
-      // where: {
-      email: email,
-      password: password
-      // }
-    }).then(function (user) {
 
-      //signin user?
-      // sending back jwt to user
-      res.json({token: tokenForUser(user) });
-      // redirect to home?
+    User.findOrCreate({
+      where: {
+        email: req.body.email
+      }
+    }).then(function (user) {
+      if (user) {
+        res.redirect('/signin');
+      } else {
+        User.create(req.body)
+        .then(function (newUser) {
+          res.json({token: tokenForUser(user) });
+        })
+        .catch(function (err) {
+          throw err;
+        });
+      }
     }).catch(function (err) {
-      console.log(err);
+      throw err;
     });
   }
 
