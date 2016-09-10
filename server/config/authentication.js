@@ -24,26 +24,27 @@ module.exports = {
     res.send({token: tokenForUser(req.user), userid:req.user.id });
   },
 
-  signup: function(req, res, next) {
+   signup: function(req, res, next) {
+    var email = req.body.email;
+    var password = req.body.password;
 
-    User.findOrCreate({
-      where: {
-        email: req.body.email
-      }
+    User.create({
+      // where: {
+      email: email,
+      password: password,
+      first: req.body.first,
+      last: req.body.last,
+      schoolStartDate: req.body.schoolStartDate,
+      schoolEndDate : req.body.schoolEndDate
+      // }
     }).then(function (user) {
-      if (user) {
-        res.redirect('/signin');
-      } else {
-        User.create(req.body)
-        .then(function (newUser) {
-          res.json({token: tokenForUser(user) });
-        })
-        .catch(function (err) {
-          throw err;
-        });
-      }
+
+      //signin user?
+      // sending back jwt to user
+      res.json({token: tokenForUser(user), userid:req.user.id });
+      // redirect to home?
     }).catch(function (err) {
-      throw err;
+      console.log(err);
     });
   }
 
