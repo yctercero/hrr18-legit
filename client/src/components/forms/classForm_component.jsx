@@ -1,3 +1,4 @@
+//Form to add a class
 //React
 import React from 'react';
 
@@ -9,7 +10,7 @@ import { addClass } from '../../actions/addClass.js';
 class ClassForm extends React.Component {
     constructor(props) {
         super(props);
-        var id = localStorage.getItem('userid');
+
         this.state = {
             name: '',
             grade: '',
@@ -19,22 +20,32 @@ class ClassForm extends React.Component {
     }
 
     onNameChange(event){
+        //As user types in name input, update the state
+        //Once state updates the input value is updated to match the state
         this.setState({ name: event.target.value })
     }
 
     onGradeChange(event){
+        //As user types in grade input, update the state
+        //Once state updates the input value is updated to match the state
         this.setState({ grade: event.target.value })
     }
 
     onSubjectChange(event){
+        //As user types in subject name input, update the state
+        //Once state updates the input value is updated to match the state
         this.setState({ subject: event.target.value })
     }
 
     onFormSubmit(event){
+        //Need to preventDefault, because without it, once the user hits
+        //enter or submit it would send an http request. This being a single
+        //page app, that's not needed and handled in the front-end
         event.preventDefault();
-        // need to send request to API
-        console.log(this.state);
+        // Call our action, addClass, which will send a POST request to the api
+        // see actions/addClass.js
         this.props.addClass(this.state);
+        //Reset our form fields to empty
         this.setState({
             name: '',
             grade: '',

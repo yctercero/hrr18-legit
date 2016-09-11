@@ -1,4 +1,5 @@
-// Left column is going to hold the list of classes, students, or assignments
+// Holds the list of classes
+//React
 import React from 'react';
 
 // Components

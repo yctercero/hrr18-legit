@@ -1,4 +1,5 @@
 // Header shown at log in and sign up screen
+//React
 import React from 'react';
 
 const UnauthHeader = () => {

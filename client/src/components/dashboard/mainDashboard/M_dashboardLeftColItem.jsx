@@ -1,4 +1,5 @@
-// Will be the indivisual class, student, or assignment
+// Individual class
+//React
 import React from 'react';
 
 // Redux
@@ -6,16 +7,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router'
 
-
-import getClass from '../../../actions/getClass.js';
-
 class DashboardLeftColItem extends React.Component {
     constructor(props){
         super(props)
     }
 
     getClass(id){
+        //store class id in local storage so that it can be used
+        //in the class dashboard to make api call to get class details
         localStorage.setItem('classId', id);
+        //redirect user to that particular classes dashboard
         browserHistory.push('/class');
     }
 
@@ -40,8 +41,4 @@ class DashboardLeftColItem extends React.Component {
     }
 };
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getClass }, dispatch);
-}
-
-export default connect(null, mapDispatchToProps)(DashboardLeftColItem);
+export default DashboardLeftColItem;

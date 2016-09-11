@@ -1,4 +1,5 @@
 // Dashboard summary is the component above the two columns in the dashboard
+//React
 import React from 'react';
 
 

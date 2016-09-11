@@ -3,9 +3,7 @@ import {
 } from '../constants/ActionTypes.js';
 
 
-export default function studentsReducer(state = {
-
-  }, action) {
+export default function studentsReducer(state = {}, action) {
   switch (action.type) {
     case ADDASSIGNMENT_REQUEST:
         console.log("ADDSTUDENT_REQUEST");
