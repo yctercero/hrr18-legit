@@ -13,13 +13,13 @@ class AssignmentForm extends React.Component {
         this.state = {
             name: '',
             maxScore: '',
-            sectionId: localstorage.classid
+            sectionId: ''
         }
     }
 
     onNameChange(event){
      const classid = localStorage.getItem('classId')
-      this.setState({ name: event.target.value, class: classid })
+      this.setState({ name: event.target.value, sectionId: classid })
     }
 
     onMaxScoreChange(event){
