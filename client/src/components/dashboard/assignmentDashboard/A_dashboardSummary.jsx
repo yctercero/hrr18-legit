@@ -5,7 +5,7 @@ const DashboardSummary = () => {
     return (
         <div className="clearfix dashboardSummary">
             <div className="dashboardSummaryProf">
-                <img src="http://yadayadacreative.com/CDA/biology.jpg" alt=""/>
+                <img src="http://yadayadacreative.com/projects/biology.jpg" alt=""/>
                 <h3>Quiz 01</h3>
                 <a className="button">Edit Assignment</a>
             </div>
