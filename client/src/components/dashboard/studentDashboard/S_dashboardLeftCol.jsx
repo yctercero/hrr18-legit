@@ -4,17 +4,19 @@ import React from 'react';
 // Components
 import DashboardLeftColItem from './S_dashboardLeftColItem.jsx';
 
-const DashboardLeftCol = () => {
-    return (
-        <div className="dashboardLeftCol">
-            <ul>
-                <DashboardLeftColItem />
-                <DashboardLeftColItem />
-                <DashboardLeftColItem />
-            </ul>
-        </div>
-        
-    );
+const DashboardLeftCol = ({classes}) => {
+  return (
+    <div className="dashboardLeftCol">
+      <ul>
+          {classes.map((classDetails) =>
+            <DashboardLeftColItem
+              key={classDetails.id}
+              classDetails={classDetails}
+            />
+          )}
+      </ul>
+    </div>
+  );
 };
 
 export default DashboardLeftCol;
