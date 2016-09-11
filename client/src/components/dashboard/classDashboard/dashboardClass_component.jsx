@@ -1,25 +1,52 @@
 import React from 'react';
-
 // Components
 import Header from '../../headers/authorized_header.jsx';
 import DashboardSummary from './C_dashboardSummary.jsx';
 import DashboardLeftCol from './C_dashboardLeftCol.jsx';
 import DashboardRightCol from './C_dashboardRightCol.jsx';
 
-const DashboardClass = () => {
-    return (
+
+class DashboardClass extends React.Component {
+    constructor (props) {
+    super(props)
+    this.state = {
+      isAuthenticated: this.props.isAuthenticated,
+      students: [],
+      details: {},
+      assignments: []
+    }
+    this.componentDidMount = this.componentDidMount.bind(this)
+  }
+  componentDidMount () {
+    const classid = localStorage.getItem('classId')
+    const url = `/api/report/classes/${classid}`
+    this.serverRequest = $.get(url, function (classData) {
+      this.setState({
+        isAuthenticated: this.props.isAuthenticated,
+        students: classData.students,
+        details: classData.details,
+        assignments: classData.assignments
+      })
+    }.bind(this))
+  }
+
+  componentWillUnmount () {
+    this.serverRequest.abort()
+  }
+  render (){
+        return (
         <div>
             <Header />
             <main>
                 <div className="dashboardWrapper">
-                    <DashboardSummary />
+                    <DashboardSummary data={this.state}/>
                     <div className="dashboardCols">
                         <div>
                             <h3>Students <a href="/studentForm"><i className="fa fa-plus" aria-hidden="true"></i></a></h3>
-                            <DashboardLeftCol />
+                            <DashboardLeftCol data={this.state}/>
                         </div>
                         <div>
-                            <DashboardRightCol />
+                            <DashboardRightCol data={this.state} />
                         </div>
                     </div>
                 </div>
@@ -27,6 +54,13 @@ const DashboardClass = () => {
         </div>
         
     );
-};
+  }
+
+}
 
 export default DashboardClass;
+
+
+/*
+
+*/
