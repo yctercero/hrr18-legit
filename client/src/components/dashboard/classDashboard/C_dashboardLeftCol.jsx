@@ -1,9 +1,7 @@
 // Left column is going to hold the list of classes, students, or assignments
-import React from 'react';
-import {Component} from 'react'
-import axios from 'axios'
+import React from 'react'
 // Components
-import DashboardLeftColItem from './C_dashboardLeftColItem.jsx';
+import DashboardLeftColItem from './C_dashboardLeftColItem.jsx'
 
 class DashboardLeftCol extends React.Component {
   constructor (props) {
@@ -36,25 +34,13 @@ class DashboardLeftCol extends React.Component {
     return (
       <div className='dashboardLeftCol'>
         <ul>
-              {this.state.students.map(function (student) {
-                <DashboardLeftColItem first={student.first} last={student.last} />
-              })}
+       {this.state.students.map(function (data) {
+         return <DashboardLeftColItem data={data} />
+       })}
         </ul>
       </div>
     )
   }
 }
 
-
-
-
-
-export default DashboardLeftCol;
-
-
-/*
-
-
-
-
-*/
+export default DashboardLeftCol
