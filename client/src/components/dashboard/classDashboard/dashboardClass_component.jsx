@@ -11,10 +11,20 @@ class DashboardClass extends React.Component {
       isAuthenticated: this.props.isAuthenticated,
       students: [],
       details: {},
+      currentstudent: '',
       assignments: []
     }
     this.componentDidMount = this.componentDidMount.bind(this)
+    this.setCurrentStudent = this.setCurrentStudent.bind(this)
   }
+
+  setCurrentStudent (student) {
+    console.log(student)
+    this.setState({
+      currentstudent: student
+    })
+  }
+
   componentDidMount () {
     const classid = localStorage.getItem('classId')
     const url = `/api/report/classes/${classid}`
@@ -41,7 +51,7 @@ class DashboardClass extends React.Component {
             <div className='dashboardCols'>
               <div>
                 <h3>Students <a href='/studentForm'><i className='fa fa-plus' aria-hidden='true' /></a></h3>
-                <DashboardLeftCol data={this.state} />
+                <DashboardLeftCol data={this.state} func={this.setCurrentStudent} />
               </div>
               <div>
                 <DashboardRightCol data={this.state} />
