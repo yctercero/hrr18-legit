@@ -2,13 +2,11 @@
 import React from 'react'
 // Components
 import DashboardLeftColItem from './C_dashboardLeftColItem.jsx'
-
 class DashboardLeftCol extends React.Component {
   constructor (props) {
     super(props)
   }
   render () {
-    console.log(this.props.data.students)
     return (
       <div className='dashboardLeftCol'>
         <ul>
@@ -20,5 +18,4 @@ class DashboardLeftCol extends React.Component {
     )
   }
 }
-
 export default DashboardLeftCol
