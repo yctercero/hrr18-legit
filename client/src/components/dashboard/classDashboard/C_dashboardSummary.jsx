@@ -10,7 +10,7 @@ class DashboardSummary extends React.Component {
     return (
       <div className='clearfix dashboardSummary'>
         <div className='dashboardSummaryProf'>
-          <img src='http://yadayadacreative.com/CDA/biology.jpg' alt='' />
+          <img src='http://yadayadacreative.com/projects/biology.jpg' alt='' />
           <h6>{this.props.data.details.name} </h6>
           <a href='/assignmentform' className='button'>Add Assignment</a>
         </div>
