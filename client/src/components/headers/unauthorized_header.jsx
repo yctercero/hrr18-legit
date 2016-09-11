@@ -8,7 +8,7 @@ const UnauthHeader = () => {
             <div className="wrapper clearfix">
                 <h1>    
                     <a href="/welcome">
-                        <img src="http://yadayadacreative.com/CDA/legitLogo.png" alt=""/>
+                        <img src="http://yadayadacreative.com/projects/legitLogo.png" alt=""/>
                     </a>
                 </h1>
                 <nav className="clearfix">
