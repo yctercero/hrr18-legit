@@ -5,11 +5,17 @@
 File structure:
 
 client - all things front-end
+
     dist - where compiled files are stored
+    
     src - all things react (components, actions, reducers, assets)
+    
         actions - called on certain actions, mainly login, signin, logout, and all form submissions
+        
         assets - contains logo 
+        
         components - 
+        
             auth - components for login, signup and welcome page (welcome page is what shows when users not logged in)
             dashboard - dashboards are the meat of the front end
                 mainDashboard - what users see upon signup or login, shows all user's classes and students
