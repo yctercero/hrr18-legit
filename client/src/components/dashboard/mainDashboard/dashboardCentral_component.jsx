@@ -1,3 +1,4 @@
+//React
 import React, { Component, PropTypes, ContextTypes } from 'react';
 import { browserHistory } from 'react-router'
 
@@ -16,6 +17,8 @@ class Dashboard extends React.Component {
         super(props);
 
         this.state = {
+            // getting access to isAuthenticated throught the
+            // mapStateToProps method at the bottom of doc
             isAuthenticated: this.props.isAuthenticated,
             classes: [],
             students: [],
@@ -25,20 +28,23 @@ class Dashboard extends React.Component {
         }
     }
 
-     componentDidMount() {
+     componentWillMount() {
         let that = this;
+         // userid being saved in storage upon successfull signup or login
         var id = localStorage.getItem('userid');
+         // api request using userid saved in localStorage
+         // will get back the user's info, their classes, and their students
         this.serverRequest = $.ajax({
             method: "GET",
             url: `/api/report/users/${id}`,
             contentType: 'application/json',
             data: {},
             success: function(data){
-                console.log(data);
+                // update the state
                 that.setState({ 
                     classes: data.classes,
                     students: data.students,
-                    first: data.details.first,
+                    first: data.details.first || 'Welcome!',
                     numberClasses: data.classes.length,
                     numberStudents: data.students.length
                 })
@@ -47,6 +53,8 @@ class Dashboard extends React.Component {
     }
 
     componentWillUnmount () {
+        //kill all server requests if there are 
+        //any still going once component is being unmounted
         this.serverRequest.abort();
     }
 
@@ -85,7 +93,8 @@ class Dashboard extends React.Component {
     }
 };
 
-
+// state argument is coming from reducers/index.js, which is pulling from
+// the auth reducer, reducers/auth_reducer.js
 function mapStateToProps(state) {
     // console.log("STATE", state);
     return {
