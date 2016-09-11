@@ -25,28 +25,34 @@ module.exports = {
   },
 
    signup: function(req, res, next) {
-    var email = req.body.email;
-    var password = req.body.password;
 
-    User.create({
-      // where: {
-      email: email,
-      password: password,
-      first: req.body.first,
-      last: req.body.last,
-      schoolStartDate: req.body.schoolStartDate,
-      schoolEndDate: req.body.schoolEndDate
+    User.findOrCreate({
+      where: {
+      email: req.body.email,
 
-      // }
+   }
     }).then(function (user) {
-
-      //signin user?
-      // sending back jwt to user
-      res.json({token: tokenForUser(user), userid:user.id });
-      // redirect to home?
-    }).catch(function (err) {
-      console.log(err);
-    });
+        if (user) {
+          // res.redirect('/signin')
+        } else {
+          User.create({
+            email: req.body.email,
+            password: req.body.password,
+            first: req.body.first,
+            last: req.body.last,
+            schoolStartDate: req.body.schoolStartDate,
+            schoolEndDate: req.body.schoolEndDate
+          })
+        .then(function(newUser) {
+        res.json({token: tokenForUser(newUser), userid:newUser.id });
+        })
+          .catch(function (err) {
+            console.log(err);
+          });
+        }
+      }).catch(function(err) {
+        console.log(err)
+    })
   }
 
-};
+}
