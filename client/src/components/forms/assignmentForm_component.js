@@ -8,17 +8,18 @@ import { addAssignment } from '../../actions/addAssignment.js';
 
 class AssignmentForm extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
 
         this.state = {
             name: '',
             maxScore: '',
             sectionId: '1'
-        };
+        }
     }
 
     onNameChange(event){
-        this.setState({ name: event.target.value });
+     const classid = localStorage.getItem('classId')
+      this.setState({ name: event.target.value, class: classid })
     }
 
     onMaxScoreChange(event){
