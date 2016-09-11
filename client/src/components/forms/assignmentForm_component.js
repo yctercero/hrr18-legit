@@ -13,7 +13,7 @@ class AssignmentForm extends React.Component {
         this.state = {
             name: '',
             maxScore: '',
-            sectionId: localstorage.classid
+            sectionId: localStorage.classid
         }
     }
 
