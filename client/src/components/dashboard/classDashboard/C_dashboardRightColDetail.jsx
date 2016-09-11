@@ -9,6 +9,11 @@ class DashboardRightColDetail extends React.Component {
       <div className='dashboardRightColDetail'>
         <a href='/student' >Student Details</a>
         <h1> {this.props.currentstudent.data.currentstudent.first} {this.props.currentstudent.data.currentstudent.first} </h1>
+ {this.props.currentstudent.data.assignments.map(function (assignment) {
+   return (
+     <div> {assignment.name}</div>
+    )
+ })}
       </div>
     )
   }

@@ -9,6 +9,7 @@ class DashboardRightCol extends React.Component {
     return (
       <div className='dashboardRightCol'>
         <DashboardRightColDetail currentstudent={this.props} />
+
       </div>
     )
   }

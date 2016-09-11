@@ -5,16 +5,15 @@ import DashboardRightColDetail from './C_dashboardRightColDetail.jsx';
 class DashboardLeftColItem extends React.Component {
   constructor (props) {
     super(props)
-    this.test = this.test.bind(this)
+    this.updateCurrentUser = this.updateCurrentUser.bind(this)
   }
- test (props) {
-   console.log(this.props)
-  this.props.func(this.props.data)
- }
-
+  updateCurrentUser (props) {
+    const classid = localStorage.getItem('classId')
+    this.props.func(this.props.data, classid)
+  }
   render () {
     return (
-      <div className='dashboardLeftColItem clearfix' onClick={this.test}>
+      <div className='dashboardLeftColItem clearfix' onClick={this.updateCurrentUser}>
         <div>
           <h6>Name</h6>
           <p> {this.props.data.first} {this.props.data.last}</p>
