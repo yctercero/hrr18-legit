@@ -8,15 +8,24 @@ class DashboardRightColDetail extends React.Component {
     return (
       <div className='dashboardRightColDetail'>
         <a href='/student' >Student Details</a>
+{
+ this.props.currentstudent.data.scores.length > 0 && console.log(this.props.currentstudent.data.scores[0].maxScore)
+
+ }
         <h1> {this.props.currentstudent.data.currentstudent.first} {this.props.currentstudent.data.currentstudent.first} </h1>
- {this.props.currentstudent.data.assignments.map(function (assignment) {
-   return (
-     <div> {assignment.name}</div>
-    )
- })}
+
+ {this.props.currentstudent.data.scores.length > 0 && this.props.currentstudent.data.scores[0].name}
+ {this.props.currentstudent.data.scores.length > 0 && this.props.currentstudent.data.scores[0].Student_Outcomes.score}
+ {this.props.currentstudent.data.scores.length > 0 && this.props.currentstudent.data.scores[0].maxScore}
       </div>
     )
   }
 };
 
 export default DashboardRightColDetail
+
+ /*
+ {this.props.currentstudent.data.assignments.map(function (assignment) {
+   return (<div> {assignment.name} </div>)
+ })}
+*/
