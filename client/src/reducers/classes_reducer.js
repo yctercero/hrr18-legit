@@ -1,11 +1,11 @@
+// See actions/addClass.js to see where actions are being dispatched
+
+//Action Types
 import {
   ADDCLASS_SUCCESS, ADDCLASS_REQUEST, ADDCLASS_FAILURE
 } from '../constants/ActionTypes.js'
 
-
-export default function classesReducer(state = {
-    
-  }, action) {
+export default function classesReducer(state = {}, action) {
   switch (action.type) {
     case ADDCLASS_REQUEST:
         console.log("ADDCLASS_REQUEST")
@@ -16,7 +16,7 @@ export default function classesReducer(state = {
       console.log("ADDCLASS_SUCCESS");
       return Object.assign({}, state, {
         isFetching: false,
-        newClass: action.newClass,
+        newClass: action.payload,
       })
     case ADDCLASS_FAILURE:
       console.log("ADDCLASS_FAILURE");

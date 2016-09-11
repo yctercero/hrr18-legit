@@ -38,6 +38,7 @@ class LoginForm extends React.Component {
         //page app, that's not needed and handled in the front-end
         event.preventDefault();
         // Call our action, loginUser, which will send a POST request to the api
+        // see actions/index.js
         this.props.loginUser(this.state);
         //Reset our form fields to empty
         this.setState({

@@ -1,3 +1,4 @@
+//Form to add student
 //React
 import React from 'react';
 
@@ -11,6 +12,8 @@ class StudentForm extends React.Component {
     constructor(props) {
         super(props);
 
+        //Passing through classId when calling addStudent so that
+        //student can be associated to that class right after it is created
         let classId = localStorage.getItem('classId')
 
         this.state = {
@@ -21,30 +24,26 @@ class StudentForm extends React.Component {
     }
 
     onFirstNameChange(event){
+        //As user types in name input, update the state
+        //Once state updates the input value is updated to match the state
         this.setState({ first: event.target.value })
     }
 
     onLastNameChange(event){
+        //As user types in last name input, update the state
+        //Once state updates the input value is updated to match the state
         this.setState({ last: event.target.value })
     }
 
     onFormSubmit(event){
+        //Need to preventDefault, because without it, once the user hits
+        //enter or submit it would send an http request. This being a single
+        //page app, that's not needed and handled in the front-end
         event.preventDefault();
-        // need to send request to API
-        console.log(this.state);
-        this.props.addClass(this.state);
-        this.setState({
-            name: '',
-            grade: '',
-            subject: ''
-        })
-    }
-
-    onFormSubmit(event){
-        event.preventDefault();
-        // need to send request to API
-        console.log(this.state);
+        // Call our action, addStudent, which will send a POST request to the api
+        // see actions/addStudent.js
         this.props.addStudent(this.state);
+        //Reset our form fields to empty
         this.setState({
             first: '',
             last: '',

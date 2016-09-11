@@ -1,5 +1,8 @@
-// Right column is going to hold the preview of class, student, or assignment that was clicked on from left column
+// Holds list of students
+//React
 import React from 'react';
+
+//Components
 import DashboardRightColItem from './M_dashboardRightColItem.jsx';
 
 

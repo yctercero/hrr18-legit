@@ -49,7 +49,7 @@ export function addStudent(studentInfo) {
             // enrol student in the class - can only do that once student is added to database and id is assigned to him/her
             axios.put('/api/enrol', { "students": [response.data.id], "classes": [Number(studentInfo.classId)] })
               .then(function(response){
-                  // redircet user to the main dashboard
+                  // redirect user to the main dashboard
                    browserHistory.push('/class')
               })
               .catch(function(response){

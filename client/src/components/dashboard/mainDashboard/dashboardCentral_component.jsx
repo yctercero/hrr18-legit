@@ -111,7 +111,7 @@ class Dashboard extends React.Component {
 // state argument is coming from reducers/index.js, which is pulling from
 // the auth reducer, reducers/auth_reducer.js
 function mapStateToProps(state) {
-    // console.log("STATE", state);
+    console.log("STATE", state);
     return {
         isAuthenticated: state.auth.isAuthenticated,
         token: state.auth.token

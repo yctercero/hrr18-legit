@@ -66,6 +66,7 @@ class SignUpForm extends React.Component {
         //page app, that's not needed and handled in the front-end
         event.preventDefault();
         // Call our action, signupUser, which will send a POST request to the api
+        // see actions/index.js
         this.props.signupUser(this.state);
         this.setState({
             email: '',

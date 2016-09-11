@@ -1,4 +1,5 @@
-// This component renders the summary info of whatever class was clicked on from the left column
+//Individual students
+//React
 import React from 'react';
 
 //Router
@@ -10,7 +11,10 @@ class DashboardRightColItem extends React.Component {
     }
 
     getStudent(id){
+        //store student id in local storage so that it can be used
+        //in the students dashboard to make api call to get student details
         localStorage.setItem('studentId', id);
+        //redirect user to that particular students dashboard
         browserHistory.push('/student');
     }
     

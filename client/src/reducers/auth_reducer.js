@@ -1,5 +1,6 @@
 // See actions/index.js to see where/how/when the action types are being dispatched
 
+//Action Types
 import {
   LOGIN_SUCCESS, LOGIN_REQUEST, LOGIN_FAILURE, LOGOUT_SUCCESS, SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE, LOGOUT_REQUEST
 } from '../constants/ActionTypes.js'
@@ -19,14 +20,14 @@ export default function authReducer(state = {
       return Object.assign({}, state, {
           isFetching: true,
           isAuthenticated: false,
-          userInfo: action.creds
+          userInfo: action.payload
       })
     case LOGIN_SUCCESS:
       console.log("LOGIN SUCCEEDED");
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
-        token: action.payload.token
+        token: action.payload
       })
     case LOGIN_FAILURE:
       console.log("LOGIN FAILED");
@@ -40,14 +41,14 @@ export default function authReducer(state = {
       return Object.assign({}, state, {
           isFetching: true,
           isAuthenticated: false,
-          token: action.payload.info
+          token: action.payload
       })
     case SIGNUP_SUCCESS:
       console.log("SIGNUP SUCCEEDED");
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
-        token: action.payload.token
+        token: action.payload
       })
     case SIGNUP_FAILURE:
       console.log("SIGNUP FAILED");

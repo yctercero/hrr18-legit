@@ -1,3 +1,4 @@
+// Redux
 import { combineReducers } from 'redux';
 
 // Reducers
@@ -8,7 +9,7 @@ import AssignmentReducer from './assignment_reducer.js';
 
 const rootReducer = combineReducers({
     auth: AuthReducer,
-    getClass: ClassesReducer,
+    classes: ClassesReducer,
     students: StudentsReducer,
     assignment: AssignmentReducer,
 });
