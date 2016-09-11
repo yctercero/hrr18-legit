@@ -21,7 +21,7 @@ class Header extends React.Component {
                 <div className="wrapper clearfix">
                     <h1>
                         <a href="/home">
-                            <img src="http://yadayadacreative.com/CDA/legitLogo.png" alt=""/>
+                            <img src="http://yadayadacreative.com/projects/legitLogo.png" alt=""/>
                         </a>
                     </h1>
                     <nav className="clearfix">
