@@ -22,13 +22,15 @@ class DashboardClass extends React.Component {
   }
 
   setCurrentStudent (student) {
-  const url = `/api/report/students/${student.id}`
-  const studentScores = axios.get(url)
-     this.setState({
-      currentstudent: student,
-      scores: studentScores
+    const that = this
+    const url = `/api/report/students/${student.id}`
+    const studentScores = axios.get(url).then(function (response) {
+      //console.log(response.data.assignments)
+      that.setState({
+        currentstudent: student,
+        scores: response.data.assignments
+      })
     })
-
   }
 
   componentDidMount () {
