@@ -12,7 +12,7 @@ class DashboardRightColDetail extends React.Component {
  this.props.currentstudent.data.scores.length > 0 && console.log(this.props.currentstudent.data.scores[0].maxScore)
 
  }
-        <h1> {this.props.currentstudent.data.currentstudent.first} {this.props.currentstudent.data.currentstudent.first} </h1>
+        <h1> {this.props.currentstudent.data.currentstudent.first} {this.props.currentstudent.data.currentstudent.last} </h1>
 
  {this.props.currentstudent.data.scores.length > 0 && this.props.currentstudent.data.scores[0].name}
  {this.props.currentstudent.data.scores.length > 0 && this.props.currentstudent.data.scores[0].Student_Outcomes.score}
