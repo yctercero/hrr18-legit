@@ -11,9 +11,12 @@ class StudentForm extends React.Component {
     constructor(props) {
         super(props);
 
+        let classId = localStorage.getItem('classId')
+
         this.state = {
             first: '',
-            last: ''
+            last: '',
+            classId: classId
         };
     }
 
@@ -69,8 +72,6 @@ class StudentForm extends React.Component {
                         value={this.state.last}
                         onChange={this.onLastNameChange.bind(this)}
                     />
-                    <label htmlFor="name">Add to class:</label>
-                    <input name="name" type="text" placeholder="Goes by..."/>
                     
                     <button>Save Student</button>
                 </form>
