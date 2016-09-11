@@ -90,7 +90,11 @@ header{
 
 header h1, header nav{
     float: left;
-    width: 50%;
+    width: 20%;
+}
+
+header nav{
+    width: 80%;
 }
 
 header h1{
@@ -153,11 +157,11 @@ main {
 .dashboardCols > div {
     float: left;
     width: 50%;
-    min-height: 500px;
+    min-height: 200px;
 }
 
 .dashboardCols > div > div{
-    min-height: 500px;
+    min-height: 200px;
 }
 
 .dashboardLeftCol ul{
@@ -453,4 +457,43 @@ form label{
     width: 90%;
     font-size: 20px;
     color: #193441;
+}
+
+/* ------ MEDIA QUERY ------------- */
+@media screen and (max-width: 1080px) {
+    .dashboardSummaryStats > div h5 {
+        padding: 5px 10px;
+    }
+
+    .dashboardSummaryStats > div {
+        padding: 70px 5px;
+    }
+
+    .dashboardSummaryStats > div p {
+        font-size: 82px;
+    }
+
+    .dashboardSummaryStats > div h5 {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 635px) {
+    .dashboardSummaryProf, .dashboardSummaryStats {
+         float: none; 
+         width: 100%;
+    }
+    .dashboardSummaryStats > div {
+        float: none; 
+        width: 100%; 
+        padding: 30px 5px;
+    }
+
+    .dashboardSummaryProf {
+         width: 100%; 
+    }
+    .dashboardCols > div {
+        float: none;
+        width: 100%;
+    }
 }

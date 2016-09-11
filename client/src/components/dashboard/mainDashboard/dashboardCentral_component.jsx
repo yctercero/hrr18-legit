@@ -1,3 +1,4 @@
+//React
 import React, { Component, PropTypes, ContextTypes } from 'react';
 import { browserHistory } from 'react-router'
 
@@ -16,37 +17,54 @@ class Dashboard extends React.Component {
         super(props);
 
         this.state = {
+            // getting access to isAuthenticated through the
+            // mapStateToProps method at the bottom of doc
             isAuthenticated: this.props.isAuthenticated,
             classes: [],
             students: [],
             first: '',
             numberClasses: 0,
-            numberStudents: 0
+            numberStudents: 0,
+            daysLeft: 0
         }
     }
 
-     componentDidMount() {
+     componentWillMount() {
         let that = this;
+         // userid being saved in storage upon successfull signup or login
         var id = localStorage.getItem('userid');
+         // api request using userid saved in localStorage
+         // will get back the user's info, their classes, and their students
         this.serverRequest = $.ajax({
             method: "GET",
             url: `/api/report/users/${id}`,
             contentType: 'application/json',
             data: {},
             success: function(data){
-                console.log(data);
+                // Calculate number of calendar days left
+                var start = new Date();
+                var end = new Date(data.details.schoolEndDate);
+                var difference = end.getTime() - start.getTime();
+                var milliseconds = new Date(difference)
+                var seconds = milliseconds / 1000;
+                var minutes = seconds / 60;
+                var days = Math.ceil(minutes / 1440);
+                // update the state
                 that.setState({ 
                     classes: data.classes,
                     students: data.students,
-                    first: data.details.first,
+                    first: data.details.first || 'Welcome!',
                     numberClasses: data.classes.length,
-                    numberStudents: data.students.length
+                    numberStudents: data.students.length,
+                    daysLeft: `-${days}`
                 })
             }
         })
     }
 
     componentWillUnmount () {
+        //kill all server requests if there are 
+        //any still going once component is being unmounted
         this.serverRequest.abort();
     }
 
@@ -57,7 +75,12 @@ class Dashboard extends React.Component {
                         <Header />
                         <main>
                             <div className="dashboardWrapper">
-                                <DashboardSummary first={this.state.first} numberClasses={this.state.numberClasses} numberStudents={this.state.numberStudents}/>
+                                <DashboardSummary 
+                                    first={this.state.first} 
+                                    numberClasses={this.state.numberClasses} 
+                                    numberStudents={this.state.numberStudents}
+                                    daysLeft={this.state.daysLeft}
+                                />
                                 <div className="dashboardCols clearfix">
                                     <div>
                                         <h3><a href="/classform"><i className="fa fa-plus" aria-hidden="true"></i></a> Classes </h3>
@@ -85,7 +108,8 @@ class Dashboard extends React.Component {
     }
 };
 
-
+// state argument is coming from reducers/index.js, which is pulling from
+// the auth reducer, reducers/auth_reducer.js
 function mapStateToProps(state) {
     // console.log("STATE", state);
     return {
