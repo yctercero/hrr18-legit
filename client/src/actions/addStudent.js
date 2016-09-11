@@ -46,8 +46,15 @@ export function addStudent(studentInfo) {
         .then(function(response){
             // call addedStudent so user data gets sent to reducers to create new state
             dispatch(addedStudent(response.data));
-            // redircet user to the main dashboard
-            browserHistory.push('/class')
+            // enrol student in the class - can only do that once student is added to database and id is assigned to him/her
+            axios.put('/api/enrol', { "students": [response.data.id], "classes": [Number(studentInfo.classId)] })
+              .then(function(response){
+                  // redircet user to the main dashboard
+                   browserHistory.push('/class')
+              })
+              .catch(function(response){
+                  console.error(response);
+              });
         })
         .catch(function(response){
             dispatch(studentAddError(response));
