@@ -17,14 +17,15 @@ class Dashboard extends React.Component {
         super(props);
 
         this.state = {
-            // getting access to isAuthenticated throught the
+            // getting access to isAuthenticated through the
             // mapStateToProps method at the bottom of doc
             isAuthenticated: this.props.isAuthenticated,
             classes: [],
             students: [],
             first: '',
             numberClasses: 0,
-            numberStudents: 0
+            numberStudents: 0,
+            daysLeft: 0
         }
     }
 
@@ -40,13 +41,22 @@ class Dashboard extends React.Component {
             contentType: 'application/json',
             data: {},
             success: function(data){
+                // Calculate number of calendar days left
+                var start = new Date();
+                var end = new Date(data.details.schoolEndDate);
+                var difference = end.getTime() - start.getTime();
+                var milliseconds = new Date(difference)
+                var seconds = milliseconds / 1000;
+                var minutes = seconds / 60;
+                var days = Math.ceil(minutes / 1440);
                 // update the state
                 that.setState({ 
                     classes: data.classes,
                     students: data.students,
                     first: data.details.first || 'Welcome!',
                     numberClasses: data.classes.length,
-                    numberStudents: data.students.length
+                    numberStudents: data.students.length,
+                    daysLeft: `-${days}`
                 })
             }
         })
@@ -65,7 +75,12 @@ class Dashboard extends React.Component {
                         <Header />
                         <main>
                             <div className="dashboardWrapper">
-                                <DashboardSummary first={this.state.first} numberClasses={this.state.numberClasses} numberStudents={this.state.numberStudents}/>
+                                <DashboardSummary 
+                                    first={this.state.first} 
+                                    numberClasses={this.state.numberClasses} 
+                                    numberStudents={this.state.numberStudents}
+                                    daysLeft={this.state.daysLeft}
+                                />
                                 <div className="dashboardCols clearfix">
                                     <div>
                                         <h3><a href="/classform"><i className="fa fa-plus" aria-hidden="true"></i></a> Classes </h3>
