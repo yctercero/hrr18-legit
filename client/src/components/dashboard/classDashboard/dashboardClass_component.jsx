@@ -4,10 +4,8 @@ import Header from '../../headers/authorized_header.jsx';
 import DashboardSummary from './C_dashboardSummary.jsx';
 import DashboardLeftCol from './C_dashboardLeftCol.jsx';
 import DashboardRightCol from './C_dashboardRightCol.jsx';
-
-
 class DashboardClass extends React.Component {
-    constructor (props) {
+  constructor (props) {
     super(props)
     this.state = {
       isAuthenticated: this.props.isAuthenticated,
@@ -33,34 +31,27 @@ class DashboardClass extends React.Component {
   componentWillUnmount () {
     this.serverRequest.abort()
   }
-  render (){
-        return (
-        <div>
-            <Header />
-            <main>
-                <div className="dashboardWrapper">
-                    <DashboardSummary data={this.state}/>
-                    <div className="dashboardCols">
-                        <div>
-                            <h3>Students <a href="/studentForm"><i className="fa fa-plus" aria-hidden="true"></i></a></h3>
-                            <DashboardLeftCol data={this.state}/>
-                        </div>
-                        <div>
-                            <DashboardRightCol data={this.state} />
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-        
-    );
+  render () {
+    return (
+      <div>
+        <Header />
+        <main>
+          <div className='dashboardWrapper'>
+            <DashboardSummary data={this.state} />
+            <div className='dashboardCols'>
+              <div>
+                <h3>Students <a href='/studentForm'><i className='fa fa-plus' aria-hidden='true' /></a></h3>
+                <DashboardLeftCol data={this.state} />
+              </div>
+              <div>
+                <DashboardRightCol data={this.state} />
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+   )
   }
+};
 
-}
-
-export default DashboardClass;
-
-
-/*
-
-*/
+export default DashboardClass
