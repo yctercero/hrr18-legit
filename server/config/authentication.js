@@ -25,11 +25,6 @@ module.exports = {
   },
 
    signup: function(req, res, next) {
-
-      res.send({token: tokenForUser(req.user), userid:req.user.id });
-  },
-
-   signup: function(req, res, next) {
     var email = req.body.email;
     var password = req.body.password;
 
