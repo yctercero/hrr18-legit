@@ -1,7 +1,6 @@
 // This component renders the summary info of whatever class was clicked on from the left column
 import React from 'react'
-//const Modal = require('react-modal');
-
+// const Modal = require('react-modal');
 class DashboardRightColDetail extends React.Component {
   constructor (props) {
     super(props)
@@ -11,6 +10,8 @@ class DashboardRightColDetail extends React.Component {
     if (this.props.currentstudent.data.currentstudent.first) {
       return (
         <div className='studentDetails'>
+           {console.log(this.props.currentstudent.data.currentstudent.first)}
+          <h1> {this.props.currentstudent.data.currentstudent.first} {this.props.currentstudent.data.currentstudent.last} </h1>
              {this.props.currentstudent.data.scores.map(function (assignment) {
                return <div className='dashboardLeftColItem clearfix'><span>
                Assignment Name: {assignment.name}
