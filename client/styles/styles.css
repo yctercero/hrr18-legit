@@ -256,7 +256,7 @@ main {
     background-color: #fff;
 }
 
-.dashboardLeftColItem:hover, .dashboardLeftColItem:hover h6, .dashboardRightColItem:hover, .dashboardRightColItem:hover h6{
+.dashboardLeftColItem:hover, .dashboardLeftColItem:hover h6{
     background-color: #9BC73C;
     color: white;
 }
