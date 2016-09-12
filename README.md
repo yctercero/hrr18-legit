@@ -59,4 +59,4 @@ Server - all things backend
 
         models - schema for assignment, section, students, and users.
 
-        Controller - the magic happens with database joins! We are using Sequelize as our ORM
+        Controller - the magic happens with database joins! We are using Sequelize as our ORM with PostgreSQL

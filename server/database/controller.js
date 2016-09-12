@@ -278,6 +278,8 @@ module.exports = {
           .then(function (conf) {
 
 // fixme: what to return for a record that exists?
+// does this require an additional find() operation to determine whether a new
+// assignment should be added? Will this overwrite existing assignments?
 
 // created --------------------------------------------------------------------
             res.status(201);
@@ -461,8 +463,10 @@ module.exports = {
               })
               .then(function (assignments) {
                 aggregate.assignments = assignments;
+// OK -------------------------------------------------------------------------
                 res.json(aggregate);
               })
+// database errors ------------------------------------------------------------
               .catch(function (err) {
                 throw err;
               });
@@ -487,17 +491,26 @@ module.exports = {
                 return avg += ind.Student_Outcomes.score;
               }, 0) / students.length) / found.maxScore) * 100;
               aggregate.students = students;
+// OK -------------------------------------------------------------------------
               res.json(aggregate);
             })
+// database errors ------------------------------------------------------------
             .catch(function (err) {
               throw err;
             })
           }
+
+// ============================================================================
+//
+// closeout all models
+//
+// not found  -----------------------------------------------------------------
         } else {
           console.log('no records matching id: ' + id + ' in ' + model);
           res.sendStatus(404);
         }
       })
+// database errors ------------------------------------------------------------
       .catch(function (err) {
         throw err;
       });
@@ -510,8 +523,11 @@ module.exports = {
     } else {
       models[model].create(req.body)
       .then(function (conf) {
+// created --------------------------------------------------------------------
+        res.status(201);
         res.json(conf);
       })
+// database errors ------------------------------------------------------------
       .catch(function (err) {
         throw err;
       });
@@ -525,10 +541,8 @@ module.exports = {
 //
 
   mod: function (req, res) {
-
     var model = req.params.model;
     var id = req.params.id;
-
     models[model].update(req.body, {
       where: {
         id: id
@@ -536,15 +550,17 @@ module.exports = {
     })
     .then(function (found) {
       if (found) {
+// OK -------------------------------------------------------------------------
         res.json(found);
       } else {
+// not found ------------------------------------------------------------------
         console.log('no records matching id: ' + id + ' in ' + model);
         res.sendStatus(404);
       }
     })
+// database errors ------------------------------------------------------------
     .catch(function (err) {
       throw err;
     });
   }
-
 };
