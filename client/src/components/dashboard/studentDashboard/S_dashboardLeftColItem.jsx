@@ -7,21 +7,21 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router'
 
 
-import getClass from '../../../actions/getClass.js';
+// import getClass from '../../../actions/getClass.js';
 
 class DashboardLeftColItem extends React.Component {
   constructor(props){
     super(props);
   }
 
-  getClass(id){
-    localStorage.setItem('classId', id);
-    browserHistory.push('/class');
-  }
+  // getClass(id){
+  //   localStorage.setItem('classId', id);
+  //   browserHistory.push('/class');
+  // }
 
   render(){
     return (
-      <a onClick={this.getClass.bind(this, this.props.classDetails.id)}>
+      // <a onClick={this.getClass.bind(this, this.props.classDetails.id)}>
         <div className="dashboardLeftColItem clearfix">
             <div>
               <h6>Title</h6>
@@ -35,13 +35,13 @@ class DashboardLeftColItem extends React.Component {
               <i className="fa fa-angle-right fa-2x" aria-hidden="true"></i>
             </div>
           </div>
-      </a>
+      // </a>
     );
   }
 };
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getClass }, dispatch);
-}
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({ getClass }, dispatch);
+// }
 
-export default connect(null, mapDispatchToProps)(DashboardLeftColItem);
+// export default connect(null, mapDispatchToProps)(DashboardLeftColItem);
