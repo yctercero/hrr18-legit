@@ -12,7 +12,7 @@ const SignUp = () => {
             <UnauthHeader />
             <main className="logoBg">
                  <div className="authWrapper signUpFormWrapper">
-                    <h1>Title</h1>
+                    <h1>Legit</h1>
                     <SignUpForm />
                     <p>Already a member? <a href="/signin">Log In!</a></p>
                 </div>
