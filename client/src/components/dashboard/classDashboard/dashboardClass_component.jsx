@@ -1,14 +1,15 @@
-import React from 'react';
+import React from 'react'
 // Components
-import Header from '../../headers/authorized_header.jsx';
-import DashboardSummary from './C_dashboardSummary.jsx';
-import DashboardLeftCol from './C_dashboardLeftCol.jsx';
-import DashboardRightCol from './C_dashboardRightCol.jsx';
+import Header from '../../headers/authorized_header.jsx'
+import DashboardSummary from './C_dashboardSummary.jsx'
+import DashboardLeftCol from './C_dashboardLeftCol.jsx'
+import DashboardRightCol from './C_dashboardRightCol.jsx'
 import axios from 'axios'
 
 class DashboardClass extends React.Component {
   constructor (props) {
     super(props)
+    // set initial state to expected data types based on API return and Databases schema
     this.state = {
       isAuthenticated: this.props.isAuthenticated,
       students: [],
@@ -17,22 +18,22 @@ class DashboardClass extends React.Component {
       assignments: [],
       scores: []
     }
+    // set context for methods
     this.componentDidMount = this.componentDidMount.bind(this)
     this.setCurrentStudent = this.setCurrentStudent.bind(this)
   }
-
+  // set the state with data for a specific student, this funcion is called downstream in C_dashbaordRightColDetail
   setCurrentStudent (student) {
     const that = this
     const url = `/api/report/students/${student.id}`
     const studentScores = axios.get(url).then(function (response) {
-      //console.log(response.data.assignments)
       that.setState({
         currentstudent: student,
         scores: response.data.assignments
       })
     })
   }
-
+ // on pagae render fetch all class info, query is based on classid store in the localStorage varible, set state using class data
   componentDidMount () {
     const classid = localStorage.getItem('classId')
     const url = `/api/report/classes/${classid}`

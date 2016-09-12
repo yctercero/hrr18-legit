@@ -1,34 +1,30 @@
 // This component renders the summary info of whatever class was clicked on from the left column
 import React from 'react'
+//const Modal = require('react-modal');
+
 class DashboardRightColDetail extends React.Component {
   constructor (props) {
     super(props)
   }
-
-renderDetails (){
- if(this.props.currentstudent.data.currentstudent.first ){
-   return(
-
-           <div className='dashboardLeftColItem clearfix'><span>
-
- Assignment Name: {this.props.currentstudent.data.scores.length > 0 && this.props.currentstudent.data.scores[0].name}
-<br/>
-Sudent Score: {this.props.currentstudent.data.scores.length > 0 && this.props.currentstudent.data.scores[0].Student_Outcomes.score}
-<br/>
- Max Score: {this.props.currentstudent.data.scores.length > 0 && this.props.currentstudent.data.scores[0].maxScore}
-    </span>  </div>
-   )
-   
-
- }
-
-}
-
-
-
+  renderDetails (props) {
+  // if student has been select render assignment and scores on right hand side.
+    if (this.props.currentstudent.data.currentstudent.first) {
+      return (
+        <div className='studentDetails'>
+             {this.props.currentstudent.data.scores.map(function (assignment) {
+               return <div className='dashboardLeftColItem clearfix'><span>
+               Assignment Name: {assignment.name}
+                 <br />
+               Sudent Score: {assignment.Student_Outcomes.score}
+                 <br />
+                  Max Score: {assignment.maxScore}
+               </span> </div>
+             })}
+        </div>
+   ) } }
   render () {
     return (
-      <div> 
+      <div>
       {this.renderDetails() }
       </div>
     )
@@ -37,8 +33,3 @@ Sudent Score: {this.props.currentstudent.data.scores.length > 0 && this.props.cu
 
 export default DashboardRightColDetail
 
- /*
- {this.props.currentstudent.data.assignments.map(function (assignment) {
-   return (<div> {assignment.name} </div>)
- })}
-*/

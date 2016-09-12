@@ -1,11 +1,10 @@
 // Dashboard summary is the component above the two columns in the dashboard
-import React from 'react';
-
+import React from 'react'
+// all props passed down from dashboardClass_component
 class DashboardSummary extends React.Component {
   constructor (props) {
     super(props)
   }
-
   render () {
     return (
       <div className='clearfix dashboardSummary'>
