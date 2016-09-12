@@ -1,4 +1,7 @@
 //Individual students
+//Had to cut back on functionality due to time - plan was to have the user be able to 
+//click on a student and go to a dashboard with all that students information
+
 //React
 import React from 'react';
 
@@ -20,21 +23,18 @@ class DashboardRightColItem extends React.Component {
     
     render(){
         return (
-            <a  onClick={this.getStudent.bind(this, this.props.student.id)}>
-                <div className="dashboardRightColItem clearfix">
-                    <div>
-                        <h6>Name</h6>
-                        <p>{this.props.student.first}</p>
-                    </div>
-                    <div>
-                        <h6></h6>
-                        <p></p>
-                    </div>
-                    <div>
-                        <i className="fa fa-angle-right fa-2x" aria-hidden="true"></i>
-                    </div>
+            <div className="dashboardRightColItem clearfix">
+                <div>
+                    <h6>Name</h6>
+                    <p>{this.props.student.first} {this.props.student.last}</p>
                 </div>
-            </a>
+                <div>
+                    <h6></h6>
+                    <p></p>
+                </div>
+                <div>
+                </div>
+            </div>
         );
     }
 };

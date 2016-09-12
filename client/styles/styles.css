@@ -145,7 +145,7 @@ main {
 }
 
 .logoBg{
-    background-image: url('http://yadayadacreative.com/CDA/logoLarge.png');
+    background-image: url('http://yadayadacreative.com/projects/logoLarge.png');
     background-repeat: no-repeat;
     background-position: center center fixed; 
     -webkit-background-size: cover;
@@ -252,11 +252,11 @@ main {
     box-shadow: 1px 1px 1px 1px #ccc;
 }
 
-.dashboardRightColItem{
+.dashboardRightColItem, .studentDetails .dashboardLeftColItem {
     background-color: #fff;
 }
 
-.dashboardLeftColItem:hover, .dashboardLeftColItem:hover h6, .dashboardRightColItem:hover, .dashboardRightColItem:hover h6{
+.dashboardLeftColItem:hover, .dashboardLeftColItem:hover h6{
     background-color: #9BC73C;
     color: white;
 }
@@ -288,6 +288,22 @@ main {
 .dashboardLeftColItem p, .dashboardRightColItem p{
     font-size: 20px;
     margin: 10px 0;
+}
+
+.studentDetails h1{
+    font-size: 32px;
+    text-align: center;
+    color: #9BC73C;
+    margin-bottom: 35px;
+}
+
+.studentDetails .dashboardLeftColItem{
+    line-height: 125%;
+}
+
+.studentDetails .dashboardLeftColItem:hover{
+    background-color: white;
+    color: #333;
 }
 
 /* -------- SIGN UP/SIGN IN --------------*/
