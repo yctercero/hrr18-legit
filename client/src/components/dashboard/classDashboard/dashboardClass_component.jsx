@@ -25,7 +25,7 @@ class DashboardClass extends React.Component {
   // set the state with data for a specific student, this funcion is called downstream in C_dashbaordRightColDetail
   setCurrentStudent (student, classid) {
     const that = this
-    const url = `/api/report/students/${student.id}`
+    const url = `/api/outcome/${student.id}/${classid}`
     const studentScores = axios.get(url).then(function (response) {
       that.setState({
         currentstudent: student,
