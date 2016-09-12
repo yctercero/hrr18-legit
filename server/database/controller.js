@@ -112,7 +112,8 @@ module.exports = {
 
 // ============================================================================
 //
-// POST ENROL: associate students with sections
+// POST ENROL:  associate students with sections; creates a new record in the
+//              table 'Student_Roster'
 //
 
   enrol: function (req, res) {
@@ -127,6 +128,7 @@ module.exports = {
           return student.addSections(req.body.classes);
         } else {
           console.log('no matching student record found');
+// not found ------------------------------------------------------------------
           return res.sendStatus(404);
         }
       })
@@ -134,8 +136,96 @@ module.exports = {
         throw err;
       });
     }
-    res.sendStatus(204);
+// created --------------------------------------------------------------------
+    res.sendStatus(201);
   },
+
+// ============================================================================
+//
+// GET OUTCOME: report outcomes for :studentId on assigments associated with
+//              :sectionId
+//
+
+  outcome: function (req, res) {
+    if (req.params.StudentId) {
+      if (!req.params.SectionId) {
+// bad request ----------------------------------------------------------------
+        res.sendStatus(400);
+      }
+      Student.findOne({
+        where: {
+          id: req.params.StudentId
+        }
+      })
+      .then(function (student) {
+        if (student) {
+          return student;
+        } else {
+          console.log('no records found matching student id: '
+                      + req.params.StudentId);
+// not found ------------------------------------------------------------------
+          res.sendStatus(404);
+        }
+      })
+      .then(function (student) {
+        Section.findOne({
+          where: {
+            id: req.params.SectionId
+          }
+        })
+        .then(function (section) {
+          if (section) {
+            return section;
+          } else {
+            console.log('no records found matching section id: '
+                        + req.params.SectionId);
+// not found ------------------------------------------------------------------
+            res.sendStatus(404);
+          }
+        })
+        .then(function (section) {
+          student.getAssignments({
+            where: {
+              id: req.params.SectionId
+            },
+            attributes: ['id', 'name', 'maxScore'],
+            joinTableAttributes: ["score"]
+          })
+          .then(function (assignments) {
+// OK -------------------------------------------------------------------------
+            if (assignments) {
+              res.send(assignments);
+
+              // if you want to calculate the student's percentage scores:
+
+              // res.send(assignments.map(function (a) {
+              //   var percent = (a.Student_Outcomes.score / a.maxScore) * 100;
+              //   return {
+              //     assignment: a,
+              //     percent: percent
+              //   };
+              // }));
+
+            } else {
+              console.log('no assignment records found matching student id: '
+                      + student.id
+                      + ' and section id: '
+                      + section.id);
+// not found ------------------------------------------------------------------
+              res.sendStatus(404);
+            }
+          })
+          .catch(function (err) {
+            throw err;
+          })
+        })
+        .catch(function (err) {
+          throw err;
+        })
+      })
+      .catch(function (err) {
+        throw err;
+      });
 
 // ============================================================================
 //
@@ -144,40 +234,44 @@ module.exports = {
 //               StudentId, AssignmentId, and score
 //
 
-  outcome: function (req, res) {
-    Student.findOne({
-      where: {
-        id: req.body.StudentId
-      }
-    })
-    .then(function (student) {
-      if (student) {
-        return student;
-      } else {
-        console.log('no matching student records found');
-        res.sendStatus(404);
-      }
-    })
-    .then(function (student) {
-      Assignment.findOne({
+    } else {
+      Student.findOne({
         where: {
-          id: req.body.AssignmentId
+          id: req.body.StudentId
         }
       })
-      .then(function (assignment) {
-        if (assignment) {
-          return assignment;
+      .then(function (student) {
+        if (student) {
+          return student;
         } else {
-          console.log('no matching assignment records found');
+          console.log('no matching student records found');
           res.sendStatus(404);
         }
       })
-      .then(function (assignment) {
-        student.addAssignment(assignment, {
-          score: req.body.score
+      .then(function (student) {
+        Assignment.findOne({
+          where: {
+            id: req.body.AssignmentId
+          }
         })
-        .then(function (conf) {
-          res.json(conf);
+        .then(function (assignment) {
+          if (assignment) {
+            return assignment;
+          } else {
+            console.log('no matching assignment records found');
+            res.sendStatus(404);
+          }
+        })
+        .then(function (assignment) {
+          student.addAssignment(assignment, {
+            score: req.body.score
+          })
+          .then(function (conf) {
+            res.json(conf);
+          })
+          .catch(function (err) {
+            throw err;
+          });
         })
         .catch(function (err) {
           throw err;
@@ -186,10 +280,7 @@ module.exports = {
       .catch(function (err) {
         throw err;
       });
-    })
-    .catch(function (err) {
-      throw err;
-    });
+    }
   },
 
 // ============================================================================

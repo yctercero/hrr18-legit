@@ -72,6 +72,13 @@ module.exports = function (app, express) {
 
 // ============================================================================
 //
+// GET student outcome for :StudentId and :SectionId
+//
+
+  app.get('/api/outcome/:StudentId/:SectionId', Controller.outcome);
+
+// ============================================================================
+//
 // Redirect all other requests to React-Router
 //
 
