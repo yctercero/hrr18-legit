@@ -4,19 +4,32 @@ class DashboardRightColDetail extends React.Component {
   constructor (props) {
     super(props)
   }
-  render () {
-    return (
-      <div className='dashboardRightColDetail'>
-        <a href='/student' >Student Details</a>
-{
- this.props.currentstudent.data.scores.length > 0 && console.log(this.props.currentstudent.data.scores[0].maxScore)
+
+renderDetails (){
+ if(this.props.currentstudent.data.currentstudent.first ){
+   return(
+
+           <div className='dashboardLeftColItem clearfix'><span>
+
+ Assignment Name: {this.props.currentstudent.data.scores.length > 0 && this.props.currentstudent.data.scores[0].name}
+<br/>
+Sudent Score: {this.props.currentstudent.data.scores.length > 0 && this.props.currentstudent.data.scores[0].Student_Outcomes.score}
+<br/>
+ Max Score: {this.props.currentstudent.data.scores.length > 0 && this.props.currentstudent.data.scores[0].maxScore}
+    </span>  </div>
+   )
+   
 
  }
-        <h1> {this.props.currentstudent.data.currentstudent.first} {this.props.currentstudent.data.currentstudent.last} </h1>
 
- {this.props.currentstudent.data.scores.length > 0 && this.props.currentstudent.data.scores[0].name}
- {this.props.currentstudent.data.scores.length > 0 && this.props.currentstudent.data.scores[0].Student_Outcomes.score}
- {this.props.currentstudent.data.scores.length > 0 && this.props.currentstudent.data.scores[0].maxScore}
+}
+
+
+
+  render () {
+    return (
+      <div> 
+      {this.renderDetails() }
       </div>
     )
   }
