@@ -10,8 +10,8 @@ if (process.env.NODE_ENV !== 'production') {
   // config.js is ignored by Git
   var config = require('../../config.js');
 }
-
-// Create Local Strategy
+// Passport JS - two middle strategies for Auth.
+// Create Local Strategy - finds a user with same email and compare password
 
 const localOptions = {usernameField: 'email'};
 const localLogin = new LocalStrategy(localOptions, function(email, password, done) {
@@ -39,7 +39,7 @@ const jwtOptions = {
   secretOrKey: secret
 };
 
-// create jwt strategy
+// create jwt strategy - in this strategy, we accept a token, and see if is it real or fake.
 const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
   // See if email in the payload exists in our database
   User.findOne({ where: {email: payload.sub} }).then(function(user) {
@@ -53,16 +53,8 @@ const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
   });
 
 });
-  // User.findOne(payload.sub, function(err, user) {
-  //   if (err) { return done(err, false); }
 
-  //   if (user) {
-  //     done(null, user);
-  //   } else {
-  //     done(null, false);
-  //   }
-  // });
 
-// tell passport to use strategy
+// tell passport to use the following strategies
 passport.use(jwtLogin);
 passport.use(localLogin);

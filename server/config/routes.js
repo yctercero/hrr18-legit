@@ -14,12 +14,12 @@ module.exports = function (app, express) {
 // POST to signin / singup
 //
 
-  //testing passport - working!
+  //testing passport - working! How can use this api method more often on front end? (Hint)
   app.get('/test', requireAuth, function(req, res) {
     res.send({hello: 'this is working'});
   });
-
-  //testing passport signin - working!
+  // Signup does not need to pass through Authentication
+  //testing passport signin - working! This uses the jwt strategy - see passport.js
   app.post('/signin', requireSignin, Auth.signin);
   app.post('/signup', Auth.signup);
 

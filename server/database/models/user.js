@@ -31,3 +31,8 @@ User.beforeCreate(function (user) {
 });
 
 module.exports = User;
+
+// In this file we are comparing the attempted password with the stored hash password.
+// It will salt+ hash, and then compare the two.
+
+// Also have a pre save hook to cipher any password
