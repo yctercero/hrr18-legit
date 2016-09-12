@@ -23,7 +23,7 @@ class DashboardClass extends React.Component {
     this.setCurrentStudent = this.setCurrentStudent.bind(this)
   }
   // set the state with data for a specific student, this funcion is called downstream in C_dashbaordRightColDetail
-  setCurrentStudent (student) {
+  setCurrentStudent (student, classid) {
     const that = this
     const url = `/api/report/students/${student.id}`
     const studentScores = axios.get(url).then(function (response) {
@@ -33,7 +33,7 @@ class DashboardClass extends React.Component {
       })
     })
   }
- // on pagae render fetch all class info, query is based on classid store in the localStorage varible, set state using class data
+ // on page render fetch all class info, query is based on classid store in the localStorage varible, set state using class data
   componentDidMount () {
     const classid = localStorage.getItem('classId')
     const url = `/api/report/classes/${classid}`

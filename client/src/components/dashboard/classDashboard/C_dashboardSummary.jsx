@@ -10,7 +10,7 @@ class DashboardSummary extends React.Component {
       <div className='clearfix dashboardSummary'>
         <div className='dashboardSummaryProf'>
           <img src='http://yadayadacreative.com/projects/biology.jpg' alt='' />
-          <h6>{this.props.data.details.name} </h6>
+          <h3>{this.props.data.details.name} </h3>
           <a href='/assignmentform' className='button'>Add Assignment</a>
         </div>
         <div className='dashboardSummaryStats clearfix'>
@@ -23,8 +23,8 @@ class DashboardSummary extends React.Component {
             <h5>Number of Students</h5>
           </div>
           <div>
-            <p>134</p>
-            <h5># of School Something</h5>
+            <p>{this.props.data.assignments.length}</p>
+            <h5># of Assignments</h5>
           </div>
         </div>
       </div>
