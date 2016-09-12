@@ -58,7 +58,7 @@ class Dashboard extends React.Component {
                     last: data.details.last,
                     numberClasses: data.classes.length,
                     numberStudents: data.students.length,
-                    daysLeft: `-${days}`
+                    daysLeft: `${days}`
                 })
             }
         })
@@ -71,6 +71,7 @@ class Dashboard extends React.Component {
     }
 
     render() {
+        console.log("STATE", this.state)
             if(this.state.isAuthenticated){
                 return (
                     <div>
@@ -114,7 +115,7 @@ class Dashboard extends React.Component {
 // state argument is coming from reducers/index.js, which is pulling from
 // the auth reducer, reducers/auth_reducer.js
 function mapStateToProps(state) {
-    console.log("STATE", state);
+    console.log("REDUX STATE", state);
     return {
         isAuthenticated: state.auth.isAuthenticated,
         token: state.auth.token

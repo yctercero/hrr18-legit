@@ -13,7 +13,7 @@ const Welcome = () => {
             <main className="logoBg">
                 <div className="welcomeWrapper">
                     <div className="intro">
-                        <h1>Title</h1>
+                        <h1>Legit</h1>
                         <h2>Excel no more.</h2>
                         <h2>Track your classes, attendance, and student outcomes.</h2>
                     </div>
