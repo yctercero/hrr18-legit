@@ -3,13 +3,13 @@
 import React from 'react';
 
 
-const DashboardSummary = ({ first, numberClasses, numberStudents, daysLeft }) => {
+const DashboardSummary = ({ first, last, numberClasses, numberStudents, daysLeft }) => {
 
     return (
         <div className="clearfix dashboardSummary">
             <div className="dashboardSummaryProf">
                 <img src="http://www.globaldetroit.com/wp-content/uploads/2014/10/Gracie-Headshot-square.png" alt=""/>
-                <h3>{first}</h3>
+                <h3>{first} {last}</h3>
             </div>
             <div className="dashboardSummaryStats clearfix">
                 <div>

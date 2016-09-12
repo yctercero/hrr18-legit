@@ -23,6 +23,7 @@ class Dashboard extends React.Component {
             classes: [],
             students: [],
             first: '',
+            last: ' ',
             numberClasses: 0,
             numberStudents: 0,
             daysLeft: 0
@@ -54,6 +55,7 @@ class Dashboard extends React.Component {
                     classes: data.classes,
                     students: data.students,
                     first: data.details.first || 'Welcome!',
+                    last: data.details.last,
                     numberClasses: data.classes.length,
                     numberStudents: data.students.length,
                     daysLeft: `-${days}`
@@ -77,6 +79,7 @@ class Dashboard extends React.Component {
                             <div className="dashboardWrapper">
                                 <DashboardSummary 
                                     first={this.state.first} 
+                                    last={this.state.last}
                                     numberClasses={this.state.numberClasses} 
                                     numberStudents={this.state.numberStudents}
                                     daysLeft={this.state.daysLeft}
