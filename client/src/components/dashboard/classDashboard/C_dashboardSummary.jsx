@@ -23,8 +23,8 @@ class DashboardSummary extends React.Component {
             <h5>Number of Students</h5>
           </div>
           <div>
-            <p>134</p>
-            <h5># of School Something</h5>
+            <p>{this.props.data.assignments.length}</p>
+            <h5># of Assignments</h5>
           </div>
         </div>
       </div>
