@@ -127,8 +127,8 @@ module.exports = {
         if (student) {
           return student.addSections(req.body.classes);
         } else {
-          console.log('no matching student record found');
 // not found ------------------------------------------------------------------
+          console.log('no matching student record found');
           return res.sendStatus(404);
         }
       })
@@ -187,9 +187,9 @@ module.exports = {
         .then(function (section) {
           student.getAssignments({
             where: {
-              id: req.params.SectionId
+              SectionId: req.params.SectionId
             },
-            attributes: ['id', 'name', 'maxScore'],
+            attributes: ['id', 'name', 'maxScore', 'SectionId'],
             joinTableAttributes: ["score"]
           })
           .then(function (assignments) {
@@ -197,8 +197,8 @@ module.exports = {
             if (assignments) {
               res.send({
                 student_details: student,
-                assignments: assignments}
-              );
+                assignments: assignments
+              });
 
               // if you want to calculate the student's percentage scores:
 
@@ -276,8 +276,14 @@ module.exports = {
             score: req.body.score
           })
           .then(function (conf) {
+
+// fixme: what to return for a record that exists?
+
+// created --------------------------------------------------------------------
+            res.status(201);
             res.json(conf);
           })
+// database errors ------------------------------------------------------------
           .catch(function (err) {
             throw err;
           });
@@ -304,12 +310,17 @@ module.exports = {
     models[model].findAll()
     .then(function (found) {
       if (found) {
+// found ----------------------------------------------------------------------
+        res.status(302);
         res.json(found);
       } else {
-        console.log('no matching records found in ' + model);
+// not found ------------------------------------------------------------------
+        console.log('no records found matching '
+                    + model);
         res.sendStatus(404);
       }
     })
+// database errors ------------------------------------------------------------
     .catch(function (err) {
       throw err;
     });
@@ -357,7 +368,6 @@ module.exports = {
       })
       .then(function (found) {
         if (found) {
-
           var aggregate = {
             details: found
           };
@@ -368,7 +378,6 @@ module.exports = {
 //
 
           if (model === 'users') {
-
             found.getSections({
               attributes: ['id', 'name', 'grade', 'subject'],
               joinTableAttributes: []
@@ -389,9 +398,11 @@ module.exports = {
                   });
                   aggregate.students = aggregate.students.concat(students);
                   if (count === sections.length - 1) {
+// OK -------------------------------------------------------------------------
                     res.json(aggregate);
                   }
                 })
+// database errors ------------------------------------------------------------
                 .catch(function (err) {
                   throw err;
                 });
@@ -419,8 +430,10 @@ module.exports = {
               })
               .then(function (students) {
                 aggregate.students = students;
+// OK -------------------------------------------------------------------------
                 res.json(aggregate);
               })
+// database errors ------------------------------------------------------------
               .catch(function (err) {
                 throw err;
               });
