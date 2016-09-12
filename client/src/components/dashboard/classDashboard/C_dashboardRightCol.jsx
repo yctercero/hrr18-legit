@@ -14,4 +14,4 @@ class DashboardRightCol extends React.Component {
     )
   }
 };
-export default DashboardRightCol;
+export default DashboardRightCol

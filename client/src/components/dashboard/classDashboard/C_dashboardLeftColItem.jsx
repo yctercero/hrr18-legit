@@ -1,7 +1,5 @@
 // Will be the indivisual class, student, or assignment
 import React from 'react'
-import DashboardRightColDetail from './C_dashboardRightColDetail.jsx';
-
 class DashboardLeftColItem extends React.Component {
   constructor (props) {
     super(props)

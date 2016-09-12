@@ -6,7 +6,6 @@ class DashboardLeftCol extends React.Component {
   constructor (props) {
     super(props)
   }
-
   render () {
     const that = this
     return (
