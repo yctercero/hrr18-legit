@@ -155,15 +155,16 @@ module.exports = {
       Student.findOne({
         where: {
           id: req.params.StudentId
-        }
+        },
+        attributes: ['id', 'first', 'last']
       })
       .then(function (student) {
         if (student) {
           return student;
         } else {
+// not found ------------------------------------------------------------------
           console.log('no records found matching student id: '
                       + req.params.StudentId);
-// not found ------------------------------------------------------------------
           res.sendStatus(404);
         }
       })
@@ -177,9 +178,9 @@ module.exports = {
           if (section) {
             return section;
           } else {
+// not found ------------------------------------------------------------------
             console.log('no records found matching section id: '
                         + req.params.SectionId);
-// not found ------------------------------------------------------------------
             res.sendStatus(404);
           }
         })
@@ -194,7 +195,10 @@ module.exports = {
           .then(function (assignments) {
 // OK -------------------------------------------------------------------------
             if (assignments) {
-              res.send(assignments);
+              res.send({
+                student_details: student,
+                assignments: assignments}
+              );
 
               // if you want to calculate the student's percentage scores:
 
@@ -207,14 +211,15 @@ module.exports = {
               // }));
 
             } else {
+// not found ------------------------------------------------------------------
               console.log('no assignment records found matching student id: '
                       + student.id
                       + ' and section id: '
                       + section.id);
-// not found ------------------------------------------------------------------
               res.sendStatus(404);
             }
           })
+// database errors ------------------------------------------------------------
           .catch(function (err) {
             throw err;
           })
@@ -244,7 +249,9 @@ module.exports = {
         if (student) {
           return student;
         } else {
-          console.log('no matching student records found');
+// not found ------------------------------------------------------------------
+          console.log('no records found matching student id: '
+                      + req.params.StudentId);
           res.sendStatus(404);
         }
       })
@@ -258,7 +265,9 @@ module.exports = {
           if (assignment) {
             return assignment;
           } else {
-            console.log('no matching assignment records found');
+// not found ------------------------------------------------------------------
+            console.log('no records found matching assignment id: '
+                        + req.params.AssignmentId);
             res.sendStatus(404);
           }
         })
